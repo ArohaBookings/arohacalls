@@ -26,10 +26,10 @@ export function PlanCard({ plan, currency = "NZD" }: { plan: Plan; currency?: "N
 
       {/* Software box mockup at the top */}
       <div
-        className="relative flex items-end justify-center overflow-hidden border-b border-border/60 px-6 pb-2 pt-10"
+        className="relative flex items-end justify-center overflow-hidden border-b border-border/60 px-4 pb-3 pt-9 sm:px-6"
         style={{
           background: `radial-gradient(ellipse at center, ${plan.theme.gradient[0]}24 0%, transparent 70%), hsl(var(--card))`,
-          minHeight: "240px",
+          minHeight: "236px",
         }}
       >
         <SoftwareBox plan={plan} size="sm" />

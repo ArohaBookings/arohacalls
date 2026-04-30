@@ -10,13 +10,13 @@ import {
   Clock,
   Mail,
   Phone,
+  PhoneCall,
   ShieldCheck,
   Sparkles,
   Users,
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { AuroraBG } from "@/components/visuals/aurora-bg";
 import { cn } from "@/lib/utils";
 
@@ -129,14 +129,14 @@ function HeroControlRoom() {
           </div>
 
           <div className="border-t border-white/10 bg-black/18 p-5 sm:p-6 lg:border-l lg:border-t-0">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <p className="text-2xl font-semibold tracking-tight text-foreground">{clip.stat}</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.16em] text-muted-foreground">{clip.statLabel}</p>
+                <p className="mt-1 text-xs leading-4 text-muted-foreground">{clip.statLabel}</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <p className="text-2xl font-semibold tracking-tight text-foreground">7</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.16em] text-muted-foreground">recoverable leads</p>
+                <p className="mt-1 text-xs leading-4 text-muted-foreground">Recoverable leads</p>
               </div>
             </div>
 
@@ -178,7 +178,7 @@ function HeroControlRoom() {
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-24">
+    <section className="relative isolate overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-20">
       <AuroraBG intensity="strong" />
       <div className="container-tight relative grid items-center gap-12 lg:grid-cols-12">
         <motion.div
@@ -187,62 +187,41 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-7"
         >
-          <Badge variant="glow" className="px-3 py-1">
-            <span className="mr-1 h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            Done-for-you AI receptionist powered by Aroha AI
-          </Badge>
-          <h1 className="mt-6 max-w-5xl text-balance text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-            You already get the calls.{" "}
-            <span className="aurora-text">Aroha makes sure you don&apos;t lose them.</span>
+          <h1 className="max-w-5xl text-balance text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl lg:text-8xl">
+            Never miss another call.
           </h1>
-          <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-muted-foreground sm:text-xl">
-            Every referral, ad click, Google ranking, and repeat customer can die at the phone. Aroha
-            answers instantly, books the job, drafts the follow-up, remembers the customer, and keeps Leo
-            in the loop so you do not have to build the system yourself.
+          <p className="mt-6 max-w-2xl text-pretty text-xl leading-8 text-muted-foreground sm:text-2xl sm:leading-9">
+            Aroha answers, books, follows up, and remembers every customer &mdash; 24/7.
           </p>
 
           <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
             <Button asChild size="xl" variant="default" className="group">
-              <Link href="/demo">
-                Book your free custom demo
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
+              <a href="tel:+6436672033">
+                <PhoneCall className="h-4 w-4" />
+                Call the AI now
+              </a>
             </Button>
             <Button asChild size="xl" variant="outline">
-              <Link href="/pricing">View plans &amp; pricing</Link>
+              <Link href="/demo">
+                Get it set up for me
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </Button>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-primary" />
-              7-day money-back guarantee
+              <Sparkles className="h-4 w-4 text-primary" />
+              Live demo available 24/7
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-secondary" />
-              Built and tuned for you
+              Built in Christchurch
             </div>
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-accent" />
-              Same engine as Aroha AI
+              <ShieldCheck className="h-4 w-4 text-accent" />
+              7-day money-back guarantee
             </div>
-          </div>
-
-          <div className="mt-8 grid max-w-md grid-cols-2 gap-3 text-sm">
-            <a
-              href="tel:+6436672039"
-              className="group rounded-2xl border border-border bg-card/50 p-4 transition-colors hover:border-primary/40 hover:bg-card"
-            >
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">🇳🇿 NZ live demo</p>
-              <p className="mt-1 font-medium text-foreground transition-colors group-hover:text-primary">+64 3 667 2039</p>
-            </a>
-            <a
-              href="tel:+13234030472"
-              className="group rounded-2xl border border-border bg-card/50 p-4 transition-colors hover:border-primary/40 hover:bg-card"
-            >
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">🇺🇸 US live demo</p>
-              <p className="mt-1 font-medium text-foreground transition-colors group-hover:text-primary">+1 (323) 403-0472</p>
-            </a>
           </div>
         </motion.div>
 

@@ -100,8 +100,8 @@ export default async function PlanPage({ params }: { params: Promise<{ plan: str
 
       {/* Hero block: software box + price + CTAs */}
       <section className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-        <div className="relative flex justify-center lg:justify-end">
-          <SoftwareBox plan={plan} size="lg" />
+        <div className="relative flex min-h-[330px] justify-center overflow-hidden sm:min-h-[380px] lg:min-h-[420px] lg:justify-end lg:overflow-visible">
+          <SoftwareBox plan={plan} size="lg" className="origin-center scale-[0.82] sm:scale-95 lg:scale-100" />
         </div>
         <GlassPanel>
           {plan.popular && (

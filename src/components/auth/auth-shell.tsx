@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { Logo } from "@/components/marketing/logo";
 
 export function AuthShell({
@@ -14,6 +16,13 @@ export function AuthShell({
     <main className="relative isolate min-h-screen overflow-hidden bg-background">
       <div className="absolute inset-0 -z-10 bg-grid opacity-25" />
       <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
+      <Link
+        href="/"
+        className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-4 py-2 text-sm text-muted-foreground backdrop-blur-xl transition hover:border-primary/40 hover:text-foreground sm:left-6 sm:top-6"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to website
+      </Link>
       <div className="container-tight flex min-h-screen items-center justify-center py-12">
         <div className="w-full max-w-md">
           <div className="mb-8 flex justify-center">

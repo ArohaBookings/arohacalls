@@ -17,6 +17,7 @@ export default function DemoPage() {
       <PageHero
         title={<>Turn missed calls into booked, paying clients.</>}
         description="Call the live demo lines or tell us about your business and Leo will personally build a custom AI receptionist demo around your rules."
+        back={{ href: "/", label: "Back to home" }}
         cta={{ href: `tel:${siteConfig.phones.nz.e164}`, label: "Call NZ demo line" }}
         secondary={{ href: `tel:${siteConfig.phones.us.e164}`, label: "Call US demo line" }}
       />
@@ -41,7 +42,7 @@ export default function DemoPage() {
               </div>
             </GlassPanel>
             <div className="grid grid-cols-2 gap-3">
-              <MiniStat label="Calls answered" value="24/7" />
+              <MiniStat label="Live demo" value="24/7" />
               <MiniStat label="Setup target" value="< 24h" />
               <MiniStat label="Starting from" value="$99" />
               <MiniStat label="Guarantee" value="7 days" />

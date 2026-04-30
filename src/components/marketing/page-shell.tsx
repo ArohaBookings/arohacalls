@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -9,12 +9,14 @@ export function PageHero({
   description,
   cta,
   secondary,
+  back,
   className,
 }: {
   title: ReactNode;
   description: string;
   cta?: { href: string; label: string };
   secondary?: { href: string; label: string };
+  back?: { href: string; label: string };
   className?: string;
 }) {
   return (
@@ -23,6 +25,15 @@ export function PageHero({
       <div className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-primary/12 via-secondary/8 to-transparent blur-2xl" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
       <div className="container-tight">
+        {back && (
+          <Link
+            href={back.href}
+            className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/55 px-4 py-2 text-sm text-muted-foreground backdrop-blur-xl transition hover:border-primary/40 hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            {back.label}
+          </Link>
+        )}
         <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-[1.04] tracking-tight sm:text-6xl">
           {title}
         </h1>

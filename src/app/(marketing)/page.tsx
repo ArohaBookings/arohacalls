@@ -1,4 +1,6 @@
 import { Hero } from "@/components/home/hero";
+import { BrandSplit } from "@/components/home/brand-split";
+import { TradieSpotlight } from "@/components/home/tradie-spotlight";
 import { RevenueLeak } from "@/components/home/revenue-leak";
 import { ClosingEngine } from "@/components/home/closing-engine";
 import { ProductClips } from "@/components/home/product-clips";
@@ -19,6 +21,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <BrandSplit />
+      <TradieSpotlight />
       <RevenueLeak />
       <ClosingEngine />
       <ProductClips />

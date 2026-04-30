@@ -19,12 +19,12 @@ export function SoftwareBox({
 }) {
   const dims =
     size === "sm"
-      ? { w: 180, h: 240, d: 60 }
+      ? { w: 164, h: 226, d: 46 }
       : size === "md"
-        ? { w: 240, h: 320, d: 80 }
+        ? { w: 220, h: 300, d: 62 }
         : size === "lg"
-          ? { w: 300, h: 400, d: 100 }
-          : { w: 360, h: 480, d: 120 };
+          ? { w: 270, h: 370, d: 78 }
+          : { w: 330, h: 450, d: 96 };
   const front = `linear-gradient(155deg, ${plan.theme.gradient[0]} 0%, ${plan.theme.gradient[1]} 100%)`;
   const side = `linear-gradient(180deg, ${plan.theme.gradient[0]} 0%, hsl(0 0% 8%) 100%)`;
   const top = `linear-gradient(180deg, hsl(0 0% 100% / 0.96) 0%, hsl(0 0% 90% / 0.92) 100%)`;
@@ -124,16 +124,16 @@ function BoxFront({ plan }: { plan: Plan }) {
         className="absolute inset-x-0 px-5 py-4 text-white"
         style={{ top: "28%", height: "44%" }}
       >
-        <div className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-80">{plan.theme.subtitle}</div>
-        <div className="mt-1 text-3xl font-bold leading-none tracking-tight">{plan.name}</div>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] opacity-80">{plan.theme.subtitle}</div>
+        <div className="mt-1 break-words text-3xl font-bold leading-none tracking-tight">{plan.name}</div>
         <div className="mt-3 text-xs leading-snug opacity-90">{plan.tagline}</div>
 
         {/* Stat chips */}
         <div className="mt-4 grid grid-cols-2 gap-1.5">
           {plan.highlights.slice(0, 4).map((h) => (
-            <div key={h.label} className="rounded-md bg-white/15 px-2 py-1 backdrop-blur-sm">
-              <div className="text-[8px] font-semibold uppercase tracking-wider opacity-75">{h.label}</div>
-              <div className="text-[11px] font-bold leading-tight">{h.value}</div>
+            <div key={h.label} className="min-w-0 rounded-md bg-white/15 px-2 py-1 backdrop-blur-sm">
+              <div className="truncate text-[8px] font-semibold uppercase tracking-wide opacity-75">{h.label}</div>
+              <div className="truncate text-[11px] font-bold leading-tight">{h.value}</div>
             </div>
           ))}
         </div>
