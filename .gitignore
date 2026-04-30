@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+.playwright-mcp/
+aroha-home-*.png
 
 # next.js
 /.next/
