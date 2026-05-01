@@ -216,7 +216,7 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-secondary" />
-              Built in Christchurch
+              Managed setup included
             </div>
             <div className="flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-accent" />

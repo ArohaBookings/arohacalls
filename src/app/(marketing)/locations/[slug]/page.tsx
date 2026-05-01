@@ -117,7 +117,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
 
       <section className="mt-20">
         <Badge variant="glow"><Star className="mr-1 h-3 w-3" /> Local industries</Badge>
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight">Built for {loc.industries.length} core industries in {loc.name}.</h2>
+        <h2 className="mt-4 text-3xl font-semibold tracking-tight">Configured for {loc.industries.length} core industries in {loc.name}.</h2>
         <div className="mt-6 flex flex-wrap gap-2">
           {loc.industries.map((i) => (
             <span key={i} className="rounded-full border border-border bg-card/40 px-4 py-2 text-sm text-foreground/85">

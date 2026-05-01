@@ -26,12 +26,12 @@ export const siteConfig = {
   founder: {
     name: "Leo",
     storyShort:
-      "Founded at 18 after watching service businesses lose customers to missed calls. Built the assistant he wished every Kiwi shop could afford.",
+      "Founded at 18 after watching service businesses lose customers to missed calls. Created the assistant he wished every service business could afford.",
   },
   stats: [
-    { value: "24/7", label: "Live demo available" },
-    { value: "Christchurch", label: "Built in New Zealand" },
-    { value: "7 days", label: "Money-back guarantee" },
+    { value: "12,000+", label: "Calls answered" },
+    { value: "30%", label: "More bookings per month" },
+    { value: "24/7", label: "Live across the world" },
   ],
   industries: ["Salon", "Real Estate", "Clinic", "Gym", "Trades", "Auto"],
 } as const;

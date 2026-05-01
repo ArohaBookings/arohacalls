@@ -17,12 +17,16 @@ export function AnimatedCounter({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
+  const animated = useRef(false);
   const motionValue = useMotionValue(0);
   const spring = useSpring(motionValue, { duration: duration * 1000, bounce: 0 });
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (inView) motionValue.set(value);
+    if (!inView || animated.current) return;
+    animated.current = true;
+    motionValue.set(0);
+    window.requestAnimationFrame(() => motionValue.set(value));
   }, [inView, motionValue, value]);
 
   useEffect(() => {
@@ -35,7 +39,9 @@ export function AnimatedCounter({
 
   return (
     <span ref={ref} className={className}>
-      {prefix}0{suffix}
+      {prefix}
+      {value.toLocaleString()}
+      {suffix}
     </span>
   );
 }

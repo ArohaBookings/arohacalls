@@ -30,7 +30,7 @@ export const LOCATIONS: Location[] = [
     currency: "NZD",
     seoTitle: "AI Receptionist NZ — 24/7 AI Phone Answering | Aroha Calls",
     seoDescription:
-      "Built in Aotearoa for Kiwi businesses. Aroha is the AI receptionist that sounds like a local, books straight into your calendar, never misses a call. From NZ$99/month.",
+      "Configured for Kiwi businesses. Aroha is the AI receptionist that sounds like a local, books straight into your calendar, never misses a call. From NZ$99/month.",
     seoKeywords: [
       "AI receptionist NZ",
       "AI receptionist New Zealand",
@@ -40,10 +40,10 @@ export const LOCATIONS: Location[] = [
       "automated receptionist NZ",
     ],
     hero: {
-      eyebrow: "Made in Aotearoa",
+      eyebrow: "Configured for Kiwi operators",
       title: "The AI receptionist that sounds like a Kiwi.",
       subtitle:
-        "Aroha is built, supported and run from New Zealand. We get the accent, the lingo, the way Kiwis like to do business. Live across NZ in under 24 hours.",
+        "Aroha is configured with Kiwi customers in mind. We get the accent, the lingo, the way Kiwis like to do business. Live across NZ in under 24 hours.",
     },
     pains: [
       { title: "Tradies on site can't pick up", body: "Aroha answers while you're under the deck or up the ladder." },
@@ -108,7 +108,7 @@ export const LOCATIONS: Location[] = [
     currency: "NZD",
     seoTitle: "AI Receptionist Auckland — 24/7 AI Phone Answering for Auckland Businesses",
     seoDescription:
-      "Aroha is the AI receptionist built for Auckland businesses. Trades, clinics, cafés, real estate — answer every call, book every job. From NZ$99/month.",
+      "Aroha is the AI receptionist configured for Auckland businesses. Trades, clinics, cafés, real estate — answer every call, book every job. From NZ$99/month.",
     seoKeywords: [
       "AI receptionist Auckland",
       "Auckland virtual receptionist",
@@ -192,7 +192,7 @@ export const LOCATIONS: Location[] = [
       eyebrow: "Christchurch-ready",
       title: "Garden City's busiest businesses already booked.",
       subtitle:
-        "Aroha is built in NZ and works for Christchurch's growing service economy — trades, clinics, salons, real estate — at a Kiwi price.",
+        "Aroha is configured for Christchurch's growing service economy — trades, clinics, salons, real estate — at a Kiwi price.",
     },
     pains: [
       { title: "Rebuild boom = phone goes wild", body: "Aroha picks up every quote inquiry without delay." },
@@ -217,7 +217,7 @@ export const LOCATIONS: Location[] = [
     currency: "USD",
     seoTitle: "AI Receptionist Los Angeles — Goodcall Alternative for LA Businesses",
     seoDescription:
-      "Aroha is the AI receptionist built for LA service businesses. Salons, trades, clinics, real estate — never miss a call. From $59/month. Goodcall & Rosie alternative.",
+      "Aroha is the AI receptionist configured for LA service businesses. Salons, trades, clinics, real estate — never miss a call. From $59/month. Goodcall & Rosie alternative.",
     seoKeywords: [
       "AI receptionist Los Angeles",
       "LA virtual receptionist",

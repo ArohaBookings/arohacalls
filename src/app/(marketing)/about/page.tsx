@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Aroha Calls is a New Zealand-built managed AI receptionist service for businesses worldwide.",
+  description: "Aroha Calls is a managed AI receptionist service for businesses worldwide.",
   alternates: { canonical: "/about" },
 };
 
@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        title={<>Built in New Zealand for businesses that cannot afford to miss calls.</>}
+        title={<>Managed for businesses that cannot afford to miss calls.</>}
         description={siteConfig.founder.storyShort}
         cta={{ href: "/demo", label: "Book a demo" }}
         secondary={{ href: "/features", label: "See features" }}

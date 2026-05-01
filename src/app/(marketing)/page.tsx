@@ -1,6 +1,7 @@
 import { Hero } from "@/components/home/hero";
 import { BrandSplit } from "@/components/home/brand-split";
 import { TradieSpotlight } from "@/components/home/tradie-spotlight";
+import { LiveCallWalkthrough } from "@/components/home/live-call-walkthrough";
 import { RevenueLeak } from "@/components/home/revenue-leak";
 import { ClosingEngine } from "@/components/home/closing-engine";
 import { ProductClips } from "@/components/home/product-clips";
@@ -23,6 +24,7 @@ export default function HomePage() {
       <Hero />
       <BrandSplit />
       <TradieSpotlight />
+      <LiveCallWalkthrough />
       <RevenueLeak />
       <ClosingEngine />
       <ProductClips />
