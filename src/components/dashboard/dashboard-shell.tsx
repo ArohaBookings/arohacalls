@@ -32,9 +32,7 @@ export function DashboardShell({
       <div className="fixed inset-0 -z-10 bg-grid opacity-20" />
       <div className="border-b border-border/70 bg-background/85 backdrop-blur-xl">
         <div className="container-tight flex min-h-16 items-center justify-between gap-4">
-          <Link href="/dashboard">
-            <Logo />
-          </Link>
+          <Logo href="/dashboard" />
           <div className="flex items-center gap-2">
             {session.user.role === "admin" ? (
               <Button asChild variant="outline" size="sm">

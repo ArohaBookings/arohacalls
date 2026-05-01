@@ -34,9 +34,7 @@ export function AdminShell({
       <div className="fixed inset-0 -z-10 bg-grid opacity-20" />
       <div className="border-b border-border/70 bg-background/85 backdrop-blur-xl">
         <div className="container-tight flex min-h-16 items-center justify-between gap-4">
-          <Link href="/admin/overview">
-            <Logo />
-          </Link>
+          <Logo href="/admin/overview" />
           <div className="flex items-center gap-2">
             <Button asChild variant="outline" size="sm">
               <Link href="/dashboard">Customer view</Link>
