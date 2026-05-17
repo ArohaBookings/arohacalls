@@ -41,7 +41,7 @@ export default function PricingPage() {
         title={<>Four packages. Every feature in the box.</>}
         description="Same pricing as the Shopify store, now with Stripe billing, customer accounts, self-serve plan management, and a managed setup path. Pick a package — see exactly what ships."
         cta={{ href: "/demo", label: "Book a free demo" }}
-        secondary={{ href: "tel:+6436672033", label: "Hear Grace from Aroha" }}
+        secondary={{ href: "/live-demo", label: "Talk to Grace live" }}
       />
 
       {/* Quick stats / sales line callout */}
@@ -53,14 +53,14 @@ export default function PricingPage() {
             </span>
             <div>
               <p className="text-sm font-semibold text-foreground">Want to hear from Grace from Aroha?</p>
-              <p className="text-xs text-muted-foreground">+64 3 667 2033 — Grace answers, understands the pain, and explains the right setup live.</p>
+              <p className="text-xs text-muted-foreground">Talk in your browser, or call +64 3 667 2033 if you prefer the phone line.</p>
             </div>
           </div>
           <Button asChild size="lg" variant="outline">
-            <a href="tel:+6436672033">
-              Call +64 3 667 2033
+            <Link href="/live-demo">
+              Talk to Grace live
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </GlassPanel>
       </section>
@@ -131,10 +131,10 @@ export default function PricingPage() {
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="xl" className="group">
-                <a href="tel:+6436672033">
+                <Link href="/live-demo">
                   <PhoneCall className="h-4 w-4" />
-                  Call +64 3 667 2033
-                </a>
+                  Talk to Grace live
+                </Link>
               </Button>
               <Button asChild size="xl" variant="outline">
                 <Link href="/demo">

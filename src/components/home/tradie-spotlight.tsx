@@ -35,10 +35,10 @@ export function TradieSpotlight() {
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <a href="tel:+6436672033">
+                  <Link href="/live-demo">
                     <PhoneCall className="h-4 w-4" />
                     Call the AI now
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>

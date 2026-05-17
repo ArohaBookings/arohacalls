@@ -80,7 +80,7 @@ export function ClosingEngine() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <a href="tel:+6436672033">Hear Grace from Aroha</a>
+                <Link href="/live-demo">Hear Grace from Aroha</Link>
               </Button>
             </div>
           </div>

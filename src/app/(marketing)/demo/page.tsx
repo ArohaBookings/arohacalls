@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PhoneCall, Sparkles } from "lucide-react";
 import { SmartForm } from "@/components/marketing/forms";
 import { PageHero, SectionBand, GlassPanel, MiniStat } from "@/components/marketing/page-shell";
@@ -31,6 +32,10 @@ export default function DemoPage() {
                 These lines are set up for a sample business so you can hear pacing, booking questions, summaries, and policy handling.
               </p>
               <div className="mt-5 grid gap-3">
+                <Link href="/live-demo" className="rounded-2xl border border-primary/35 bg-primary/10 p-4 hover:border-primary/60">
+                  <p className="text-xs text-primary">Browser live demo</p>
+                  <p className="mt-1 text-lg font-semibold">Talk to Grace live</p>
+                </Link>
                 <a href={`tel:${siteConfig.phones.nz.e164}`} className="rounded-2xl border border-border bg-card/60 p-4 hover:border-primary/50">
                   <p className="text-xs text-muted-foreground">NZ live demo</p>
                   <p className="mt-1 text-lg font-semibold">{siteConfig.phones.nz.display}</p>

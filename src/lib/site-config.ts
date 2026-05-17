@@ -37,6 +37,7 @@ export const siteConfig = {
 } as const;
 
 export const navMain = [
+  { label: "Live Demo", href: "/live-demo" },
   { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
   { label: "Industries", href: "/for" },
@@ -47,6 +48,7 @@ export const navMain = [
 
 export const navFooter = {
   product: [
+    { label: "Live AI demo", href: "/live-demo" },
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
     { label: "Aroha AI (self-serve)", href: "/aroha-ai" },

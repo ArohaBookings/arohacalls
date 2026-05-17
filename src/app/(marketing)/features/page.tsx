@@ -17,7 +17,7 @@ export default function FeaturesPage() {
         title={<>Everything your front desk should do, managed for you.</>}
         description="Aroha Calls is not just a voice bot. It is call answering, bookings, customer memory, follow-up, messaging, email, Aurora, and analytics packaged as a managed service."
         cta={{ href: "/demo", label: "Book a free demo" }}
-        secondary={{ href: "/pricing", label: "View pricing" }}
+        secondary={{ href: "/live-demo", label: "Talk to Grace live" }}
       />
       <SectionBand>
         <div className="container-tight grid gap-5 md:grid-cols-2">

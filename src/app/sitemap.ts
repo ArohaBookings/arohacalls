@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/features",
     "/pricing",
     "/demo",
+    "/live-demo",
     "/about",
     "/contact",
     "/aroha-ai",

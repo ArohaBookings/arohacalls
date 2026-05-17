@@ -196,10 +196,10 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
             <Button asChild size="xl" variant="default" className="group">
-              <a href="tel:+6436672033">
+              <Link href="/live-demo">
                 <PhoneCall className="h-4 w-4" />
                 Call the AI now
-              </a>
+              </Link>
             </Button>
             <Button asChild size="xl" variant="outline">
               <Link href="/demo">

@@ -24,10 +24,10 @@ export function FooterCTA() {
               </Link>
             </Button>
             <Button asChild size="xl" variant="outline">
-              <a href="tel:+6436672039">
+              <Link href="/live-demo">
                 <PhoneCall className="h-4 w-4" />
-                Call our live demo line
-              </a>
+                Try the live AI demo
+              </Link>
             </Button>
           </div>
           <p className="relative mt-6 text-xs text-muted-foreground">

@@ -44,6 +44,11 @@ export const blogStatusEnum = pgEnum("blog_status", ["draft", "published", "arch
 export const supportStatusEnum = pgEnum("support_status", ["open", "in_progress", "resolved", "closed"]);
 export const demoStatusEnum = pgEnum("demo_status", ["new", "contacted", "completed", "no_show", "rejected"]);
 export const affiliateStatusEnum = pgEnum("affiliate_status", ["pending", "approved", "rejected"]);
+export const webhookProcessingStatusEnum = pgEnum("webhook_processing_status", [
+  "processing",
+  "processed",
+  "failed",
+]);
 
 // Auth.js v5 tables -----------------------------------------------------------
 
@@ -315,9 +320,60 @@ export const conversionEvents = pgTable(
 export const stripeWebhookEvents = pgTable("stripe_webhook_event", {
   id: text("id").primaryKey(),
   type: text("type").notNull(),
+  processingStatus: webhookProcessingStatusEnum("processing_status").notNull().default("processing"),
+  processingError: text("processing_error"),
   processedAt: timestamp("processed_at").notNull().defaultNow(),
   payload: jsonb("payload").$type<Record<string, unknown>>(),
 });
+
+// Retell live demo ------------------------------------------------------------
+
+export const retellDemoCalls = pgTable(
+  "retell_demo_call",
+  {
+    callId: text("call_id").primaryKey(),
+    sessionId: text("session_id"),
+    agentId: text("agent_id").notNull(),
+    agentName: text("agent_name"),
+    status: text("status").notNull().default("registered"),
+    selectedAccent: text("selected_accent"),
+    selectedVoiceId: text("selected_voice_id"),
+    transcriptSnippet: text("transcript_snippet"),
+    summary: text("summary"),
+    sentiment: text("sentiment"),
+    detectedIntent: text("detected_intent"),
+    bookingMade: boolean("booking_made").notNull().default(false),
+    quoteRequested: boolean("quote_requested").notNull().default(false),
+    nextAction: text("next_action"),
+    durationMs: integer("duration_ms"),
+    disconnectionReason: text("disconnection_reason"),
+    startedAt: timestamp("started_at"),
+    endedAt: timestamp("ended_at"),
+    analyzedAt: timestamp("analyzed_at"),
+    metadata: jsonb("metadata").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    sessionIdx: index("retell_demo_session_idx").on(t.sessionId),
+    statusIdx: index("retell_demo_status_idx").on(t.status),
+    createdIdx: index("retell_demo_created_idx").on(t.createdAt),
+  }),
+);
+
+export const retellWebhookEvents = pgTable(
+  "retell_webhook_event",
+  {
+    id: text("id").primaryKey(),
+    event: text("event").notNull(),
+    callId: text("call_id"),
+    processedAt: timestamp("processed_at").notNull().defaultNow(),
+    payload: jsonb("payload").$type<Record<string, unknown>>(),
+  },
+  (t) => ({
+    callIdx: index("retell_webhook_call_idx").on(t.callId),
+  }),
+);
 
 export const invoices = pgTable(
   "invoice",
@@ -387,3 +443,4 @@ export type Invoice = typeof invoices.$inferSelect;
 export type PageView = typeof pageViews.$inferSelect;
 export type ConversionEvent = typeof conversionEvents.$inferSelect;
 export type SubscriptionEvent = typeof subscriptionEvents.$inferSelect;
+export type RetellDemoCall = typeof retellDemoCalls.$inferSelect;
