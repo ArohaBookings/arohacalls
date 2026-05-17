@@ -43,14 +43,14 @@ export function Header() {
           </nav>
         </div>
         <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="ghost" size="sm" className="!hidden 2xl:!inline-flex">
             <a href="tel:+6436672033" className="inline-flex items-center gap-1.5">
               <PhoneCall className="h-3.5 w-3.5 text-primary" />
               <span className="text-foreground/70">Hear Grace</span>
               <span className="text-foreground">+64 3 667 2033</span>
             </a>
           </Button>
-          <span className="h-5 w-px bg-border" />
+          <span className="hidden h-5 w-px bg-border 2xl:block" />
           <Button asChild variant="ghost" size="sm">
             <Link href="/login">Sign in</Link>
           </Button>
