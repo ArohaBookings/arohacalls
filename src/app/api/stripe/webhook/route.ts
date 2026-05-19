@@ -36,6 +36,10 @@ function subscriptionItem(sub: Stripe.Subscription) {
 }
 
 function invoiceSubscriptionId(invoice: Stripe.Invoice) {
+  const legacySubscription = (invoice as Stripe.Invoice & { subscription?: string | Stripe.Subscription | null }).subscription;
+  if (typeof legacySubscription === "string") return legacySubscription;
+  if (legacySubscription?.id) return legacySubscription.id;
+
   const subscription = invoice.parent?.subscription_details?.subscription;
   return typeof subscription === "string" ? subscription : subscription?.id ?? null;
 }
@@ -146,6 +150,20 @@ async function cacheInvoice(stripe: Stripe, invoice: Stripe.Invoice) {
   }
 
   const userId = user?.id ?? localSubscription?.userId ?? null;
+  if (!invoice.id) {
+    await db.insert(subscriptionEvents).values({
+      userId: userId ?? undefined,
+      stripeSubscriptionId: stripeSubscriptionId ?? undefined,
+      type: "invoice.upcoming",
+      metadata: {
+        reason: "Stripe sent upcoming invoice without a persisted invoice id",
+        amountDue: invoice.amount_due,
+        periodStart: invoice.period_start,
+        periodEnd: invoice.period_end,
+      },
+    });
+    return { userId, stripeSubscriptionId, localSubscription };
+  }
 
   await db
     .insert(invoices)
@@ -344,7 +362,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ received: true, duplicate: true });
   }
   if (existing?.processingStatus === "processing") {
-    return NextResponse.json({ received: true, processing: true }, { status: 409 });
+    return NextResponse.json({ received: true, processing: true });
   }
 
   if (existing?.processingStatus === "failed") {

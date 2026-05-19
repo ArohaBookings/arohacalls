@@ -148,6 +148,7 @@ export function LiveDemoExperience() {
   const [selectedAccent, setSelectedAccent] = useState("nz");
   const [seconds, setSeconds] = useState(0);
   const clientRef = useRef<RetellWebClient | null>(null);
+  const callAttemptRef = useRef(0);
 
   const activeVoice = useMemo(
     () => voices.find((voice) => voice.accentId === selectedAccent)?.voice ?? null,
@@ -188,6 +189,8 @@ export function LiveDemoExperience() {
   }
 
   async function startCall() {
+    const attemptId = callAttemptRef.current + 1;
+    callAttemptRef.current = attemptId;
     setError(null);
     setSummary(null);
     setSeconds(0);
@@ -208,6 +211,7 @@ export function LiveDemoExperience() {
       }
       const accessToken = json.accessToken;
       const nextCallId = json.callId;
+      if (callAttemptRef.current !== attemptId) return;
 
       const client = new RetellWebClient();
       clientRef.current = client;
@@ -230,6 +234,7 @@ export function LiveDemoExperience() {
 
       await client.startCall({ accessToken, sampleRate: 24000 });
     } catch (err) {
+      if (callAttemptRef.current !== attemptId) return;
       setError(err instanceof Error ? err.message : "The live call could not start.");
       setStatus("error");
       track("live_demo_call_start_failed", { selectedAccent });
@@ -237,17 +242,40 @@ export function LiveDemoExperience() {
   }
 
   function stopCall() {
+    callAttemptRef.current += 1;
     clientRef.current?.stopCall();
     clientRef.current = null;
     setStatus("ended");
+    track("live_demo_call_hangup_clicked", { callId, seconds });
     if (callId) void pollSummary(callId);
   }
 
   const statusInfo = statusCopy[status];
   const isLive = ["ready", "grace-speaking", "caller-speaking"].includes(status);
+  const isStarting = status === "microphone" || status === "connecting";
+  const canHangUp = isStarting || isLive;
 
   return (
     <div className="bg-white text-slate-950">
+      {canHangUp ? (
+        <div className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-4 sm:bottom-6">
+          <div className="flex w-full max-w-xl items-center justify-between gap-3 rounded-full border border-rose-200 bg-white/95 p-2 pl-5 shadow-[0_22px_70px_rgba(15,23,42,0.22)] backdrop-blur">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-slate-950">{statusInfo.label}</p>
+              <p className="text-xs text-slate-500">{isLive ? formatDuration(seconds * 1000) : "Grace is being connected"}</p>
+            </div>
+            <button
+              type="button"
+              onClick={stopCall}
+              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-rose-600 px-5 text-sm font-semibold text-white transition hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2"
+              aria-label="Hang up Grace call"
+            >
+              <CircleStop className="h-4 w-4" />
+              Hang up
+            </button>
+          </div>
+        </div>
+      ) : null}
       <section className="relative overflow-hidden border-b border-slate-200 bg-[radial-gradient(circle_at_70%_10%,rgba(0,210,255,0.22),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)]">
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
         <div className="container-tight grid min-h-[760px] gap-12 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-24">
@@ -265,12 +293,14 @@ export function LiveDemoExperience() {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
-                onClick={startCall}
-                disabled={isLive || status === "connecting" || status === "microphone"}
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 text-base font-semibold text-white shadow-[0_24px_70px_rgba(15,23,42,0.24)] transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+                onClick={canHangUp ? stopCall : startCall}
+                className={cn(
+                  "inline-flex min-h-14 items-center justify-center gap-3 rounded-full px-7 text-base font-semibold text-white shadow-[0_24px_70px_rgba(15,23,42,0.24)] transition hover:-translate-y-0.5",
+                  canHangUp ? "bg-rose-600 hover:bg-rose-700" : "bg-slate-950 hover:bg-slate-800",
+                )}
               >
-                <Mic className="h-5 w-5 text-cyan-300" />
-                Talk to Grace live
+                {canHangUp ? <CircleStop className="h-5 w-5" /> : <Mic className="h-5 w-5 text-cyan-300" />}
+                {canHangUp ? "Hang up call" : "Talk to Grace live"}
               </button>
               <a
                 href="tel:+6436672033"
@@ -341,14 +371,14 @@ export function LiveDemoExperience() {
                     </div>
 
                     <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                      {isLive ? (
+                      {canHangUp ? (
                         <button
                           type="button"
                           onClick={stopCall}
                           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-rose-600 px-5 text-sm font-semibold text-white transition hover:bg-rose-700"
                         >
                           <CircleStop className="h-4 w-4" />
-                          End call
+                          Hang up call
                         </button>
                       ) : (
                         <button
@@ -607,11 +637,14 @@ export function LiveDemoExperience() {
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
                 <button
                   type="button"
-                  onClick={startCall}
-                  className="inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-full bg-cyan-400 px-6 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+                  onClick={canHangUp ? stopCall : startCall}
+                  className={cn(
+                    "inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition",
+                    canHangUp ? "bg-rose-600 text-white hover:bg-rose-700" : "bg-cyan-400 text-slate-950 hover:bg-cyan-300",
+                  )}
                 >
-                  <Mic className="h-4 w-4" />
-                  Talk to Grace live
+                  {canHangUp ? <CircleStop className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+                  {canHangUp ? "Hang up call" : "Talk to Grace live"}
                 </button>
                 <Link
                   href="/demo"
