@@ -178,9 +178,9 @@ function HeroControlRoom() {
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-20">
+    <section className="relative isolate flex min-h-[calc(100svh-4rem)] overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-20">
       <AuroraBG intensity="strong" />
-      <div className="container-tight relative grid items-center gap-12 lg:grid-cols-12">
+      <div className="container-tight relative grid flex-1 items-center gap-12 lg:grid-cols-12">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}

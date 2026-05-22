@@ -79,12 +79,16 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     color-scheme: dark;
+    min-width: 320px;
+    overflow-x: clip;
   }
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-feature-settings: "ss01", "ss02", "cv11";
+    min-width: 320px;
+    overflow-x: clip;
   }
   ::selection {
     background-color: hsl(var(--primary) / 0.25);
@@ -243,24 +247,31 @@
 
   .container-tight {
     width: 100%;
-    max-width: 1360px;
+    max-width: none;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: clamp(1rem, 4vw, 5rem);
+    padding-right: clamp(1rem, 4vw, 5rem);
   }
 
   @media (min-width: 640px) {
     .container-tight {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: clamp(1.5rem, 4vw, 5.5rem);
+      padding-right: clamp(1.5rem, 4vw, 5.5rem);
     }
   }
 
   @media (min-width: 1024px) {
     .container-tight {
-      padding-left: 2rem;
-      padding-right: 2rem;
+      padding-left: clamp(2rem, 4.5vw, 7rem);
+      padding-right: clamp(2rem, 4.5vw, 7rem);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .container-tight {
+      padding-left: clamp(4rem, 5vw, 9rem);
+      padding-right: clamp(4rem, 5vw, 9rem);
     }
   }
 
