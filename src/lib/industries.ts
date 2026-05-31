@@ -54,7 +54,7 @@ export const INDUSTRIES: Industry[] = [
       "Adds the client to your CRM with notes from the call",
     ],
     testimonial: {
-      quote: "Set-up was quick and the AI sounds like a real Kiwi. Clients love that someone always answers.",
+      quote: "Set-up was quick and the AI sounds like a real local receptionist. Clients love that someone always answers.",
       author: "Sophie K.",
       role: "Salon owner",
     },

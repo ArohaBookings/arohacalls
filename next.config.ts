@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
       { source: "/policies/refund-policy", destination: "/legal/refunds", permanent: true },
       { source: "/policies/subscription-policy", destination: "/legal/refunds#cancellation", permanent: true },
       { source: "/policies/contact-information", destination: "/contact", permanent: true },
+      { source: "/products/:path*", destination: "/pricing", permanent: true },
+      { source: "/collections/:path*", destination: "/pricing", permanent: true },
+      { source: "/pages/:path*", destination: "/", permanent: true },
+      { source: "/policies/:path*", destination: "/legal/terms", permanent: true },
     ];
   },
 };

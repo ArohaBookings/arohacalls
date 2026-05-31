@@ -11,7 +11,7 @@ const testimonials = [
   {
     name: "Sophie K.",
     role: "Salon owner",
-    body: "Set-up was quick and the AI sounds like a real Kiwi. Clients love that someone always answers.",
+    body: "Set-up was quick and the AI sounds like a real local receptionist. Clients love that someone always answers.",
   },
   {
     name: "Daniel M.",
@@ -70,7 +70,7 @@ export function Testimonials() {
     <section className="relative py-24">
       <div className="container-tight">
         <SectionHeading
-          eyebrow="Loved by Kiwi & Yankee businesses"
+          eyebrow="Loved by service businesses"
           title={<>Don&apos;t take our word for it.</>}
           description="From sole-trade sparkies to multi-location clinics — Aroha is the receptionist they wish they hired five years ago."
         />

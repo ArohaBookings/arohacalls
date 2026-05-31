@@ -59,13 +59,13 @@ const features = [
   {
     icon: ShieldCheck,
     title: "Privacy-minded by design",
-    description: "GDPR + NZ Privacy Act compliant. Call recording is opt-in. Your data is yours.",
+    description: "Designed around GDPR and NZ Privacy Act principles. Call recording is opt-in. Your data is yours.",
     span: "",
   },
   {
     icon: Languages,
-    title: "Natural Kiwi voice",
-    description: "Sounds like a real local. Handles accents, background noise, interruptions.",
+    title: "Natural local voice",
+    description: "Tuned to your market and brand. Handles accents, background noise, interruptions.",
     span: "",
   },
 ];

@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/visuals/section-heading";
 const integrations = [
   { name: "Google Calendar", glyph: "📅", desc: "Managed availability sync" },
   { name: "Aroha Bookings", glyph: "🗓️", desc: "Rules, buffers, reminders" },
-  { name: "Telnyx", glyph: "📞", desc: "Carrier-grade phone numbers" },
+  { name: "Aroha Numbers", glyph: "📞", desc: "Forward, port or use a new line" },
   { name: "Stripe", glyph: "💳", desc: "Billing & invoices" },
   { name: "HubSpot", glyph: "🔗", desc: "CRM bidirectional sync" },
   { name: "Zapier", glyph: "⚡", desc: "5,000+ tools, no code" },

@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       agent_id: agentId,
       metadata,
       retell_llm_dynamic_variables: {
-        website_source: "arohacalls.com/live-demo",
+        website_source: "www.arohacalls.com/live-demo",
         product_positioning: "Aroha Calls is the done-for-you managed AI receptionist service. Aroha AI is the self-serve platform behind it.",
         current_date: new Date().toISOString().slice(0, 10),
       },

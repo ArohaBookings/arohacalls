@@ -56,6 +56,6 @@ export function slugify(text: string) {
 }
 
 export function absoluteUrl(path: string) {
-  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://arohacalls.com";
+  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.arohacalls.com";
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }

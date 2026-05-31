@@ -45,24 +45,26 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
       { "@type": "ListItem", position: 3, name: industry.name, item: `${siteConfig.url}/for/${industry.slug}` },
     ],
   };
-  const productLd = {
+  const serviceLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "Service",
     name: `Aroha Calls for ${industry.name}`,
     description: industry.seoDescription,
-    brand: { "@type": "Brand", name: "Aroha" },
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.groupName,
+      url: siteConfig.url,
+    },
+    serviceType: "Managed AI receptionist",
+    areaServed: "Worldwide",
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "NZD",
       lowPrice: "99",
       highPrice: "599",
       offerCount: 4,
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "12",
-      bestRating: "5",
+      availability: "https://schema.org/InStock",
+      url: `${siteConfig.url}/pricing`,
     },
   };
   const faqLd = {
@@ -83,7 +85,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
       badge={<span className="text-2xl">{industry.emoji}</span>}
     >
       <JsonLd data={breadcrumbLd} />
-      <JsonLd data={productLd} />
+      <JsonLd data={serviceLd} />
       <JsonLd data={faqLd} />
 
       <div className="mt-2 flex flex-col gap-3 sm:flex-row">

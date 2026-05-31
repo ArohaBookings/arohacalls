@@ -20,14 +20,15 @@ function Cell({ value, highlight }: { value: string | true; highlight?: boolean 
 
 export function FeatureMatrix() {
   return (
-    <div className="overflow-hidden rounded-3xl border border-border bg-card/40">
+    <div className="overflow-x-auto rounded-3xl border border-border bg-card/40">
+      <div className="min-w-[760px]">
       {/* Header row */}
       <div className="sticky top-0 z-10 grid grid-cols-[minmax(220px,1.6fr)_repeat(4,minmax(110px,1fr))] gap-2 border-b border-border bg-card/85 px-4 py-4 backdrop-blur-md sm:gap-4 sm:px-6">
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Compare every feature</div>
         {PLANS.map((plan) => (
           <div key={plan.id} className="text-center">
             <div className={cn("text-sm font-bold tracking-tight", plan.popular ? "text-primary" : "text-foreground")}>{plan.name}</div>
-            <div className="mt-0.5 text-[11px] text-muted-foreground">NZ${plan.priceNZD}/mo</div>
+            <div className="mt-0.5 text-[11px] text-muted-foreground">NZ${plan.priceNZD} / US${plan.priceUSD}/mo</div>
             {plan.popular && <div className="mt-1 inline-block rounded-full bg-primary/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-primary">Most popular</div>}
           </div>
         ))}
@@ -51,6 +52,7 @@ export function FeatureMatrix() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );

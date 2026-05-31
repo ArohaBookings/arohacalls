@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Talk to Our AI Receptionist Live — Aroha Calls",
   description:
     "Talk to Grace from Aroha live in your browser. Test a premium AI receptionist for bookings, quotes, customer memory, CRM, Email AI, and 24/7 call answering.",
-  alternates: { canonical: "/live-demo" },
+  alternates: { canonical: `${siteConfig.url}/live-demo` },
   keywords: [
     "AI receptionist",
     "AI receptionist NZ",
@@ -41,6 +41,7 @@ const jsonLd = [
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     url: `${siteConfig.url}/live-demo`,
+    image: `${siteConfig.url}${siteConfig.ogImage}`,
     description:
       "Managed AI receptionist service for calls, bookings, quotes, follow-up, CRM memory, Email AI, and front-office automation.",
     offers: {
@@ -60,7 +61,7 @@ const jsonLd = [
       name: "Aroha Group",
       url: siteConfig.url,
     },
-    areaServed: ["New Zealand", "United States", "Australia", "United Kingdom"],
+    areaServed: "Worldwide",
     serviceType: "AI receptionist and virtual receptionist",
     description:
       "Done-for-you AI receptionist setup that answers calls, books customers, captures quotes, creates summaries, and keeps a CRM timeline.",

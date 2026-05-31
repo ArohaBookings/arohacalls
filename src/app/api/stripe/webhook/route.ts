@@ -256,7 +256,7 @@ async function handleCheckoutCompleted(stripe: Stripe, session: Stripe.Checkout.
       subject: "Welcome to Aroha Calls — let's get you live",
       html: emailLayout({
         title: "Welcome to Aroha",
-        body: `<p>Kia ora ${user?.name ?? "there"},</p><p>Your <strong>${planNameFromId(planId)}</strong> plan is locked in. Leo will be in touch within 24 hours to begin your white-glove setup.</p><p>In the meantime, finish your onboarding details so we can hit the ground running:</p><p><a href="https://arohacalls.com/dashboard/onboarding" style="display:inline-block;background:#00d2a1;color:#0a0a0a;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;">Complete onboarding</a></p>`,
+        body: `<p>Kia ora ${user?.name ?? "there"},</p><p>Your <strong>${planNameFromId(planId)}</strong> plan is locked in. Leo will be in touch within 24 hours to begin your white-glove setup.</p><p>In the meantime, finish your onboarding details so we can hit the ground running:</p><p><a href="https://www.arohacalls.com/dashboard/onboarding" style="display:inline-block;background:#00d2a1;color:#0a0a0a;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;">Complete onboarding</a></p>`,
       }),
     });
   }

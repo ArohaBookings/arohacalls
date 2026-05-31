@@ -54,7 +54,7 @@ export const LOCATIONS: Location[] = [
     trustedBy: ["Kiwi tradies", "Auckland salons", "Christchurch clinics", "Wellington cafés"],
     faq: [
       { q: "Can Aroha answer in Te Reo?", a: "Aroha can greet bilingually and handle basic Te Reo phrases — full Te Reo support is on the roadmap." },
-      { q: "Will the number be a NZ number?", a: "Yes — local NZ Telnyx number, area code of your choice." },
+      { q: "Will the number be a NZ number?", a: "Yes. You can use a new Aroha number with the right local feel, forward your current number, or ask us about porting." },
       { q: "What about the GST?", a: "Pricing is shown ex-GST. GST is added at checkout for NZ customers." },
     ],
   },
@@ -92,7 +92,7 @@ export const LOCATIONS: Location[] = [
     industries: ["Service businesses", "Salons", "Trades", "Real Estate", "Clinics", "Auto"],
     trustedBy: ["LA boutique studios", "Texas trades", "Florida clinics", "NYC salons"],
     faq: [
-      { q: "What kind of US numbers can I get?", a: "Local Telnyx numbers in any area code, or toll-free 800/888 numbers." },
+      { q: "What kind of US numbers can I get?", a: "Local Aroha numbers in supported area codes, toll-free options where available, or forwarding from your existing number." },
       { q: "How does Aroha compare to Goodcall?", a: "Same core features, our managed service includes onboarding (Goodcall doesn't), and our self-serve Aroha AI is significantly cheaper." },
       { q: "Do you support HIPAA?", a: "We're privacy-first by design. Talk to us about HIPAA-grade BAAs for your clinic." },
     ],
@@ -154,7 +154,7 @@ export const LOCATIONS: Location[] = [
     ],
     hero: {
       eyebrow: "Wellington-ready",
-      title: "Capital-grade AI reception, Kiwi-priced.",
+      title: "Capital-grade AI reception, simple pricing.",
       subtitle:
         "Aroha works for Wellington's eclectic small business scene — from Cuba St cafés to Karori salons. 24/7 answering, real-time booking, no missed calls.",
     },
@@ -192,7 +192,7 @@ export const LOCATIONS: Location[] = [
       eyebrow: "Christchurch-ready",
       title: "Garden City's busiest businesses already booked.",
       subtitle:
-        "Aroha is configured for Christchurch's growing service economy — trades, clinics, salons, real estate — at a Kiwi price.",
+        "Aroha is configured for Christchurch's growing service economy — trades, clinics, salons, real estate — with simple managed-service pricing.",
     },
     pains: [
       { title: "Rebuild boom = phone goes wild", body: "Aroha picks up every quote inquiry without delay." },

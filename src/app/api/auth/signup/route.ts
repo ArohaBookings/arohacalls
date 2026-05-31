@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     subject: "Welcome to Aroha Calls — your AI receptionist awaits",
     html: emailLayout({
       title: "Welcome",
-      body: `<p>Kia ora ${parsed.data.name},</p><p>Your account is ready. Pick a plan and we'll have your AI receptionist live within 24 hours.</p><p><a href="https://arohacalls.com/pricing" style="display:inline-block;background:#00d2a1;color:#0a0a0a;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;">View plans</a></p>`,
+      body: `<p>Kia ora ${parsed.data.name},</p><p>Your account is ready. Pick a plan and we'll have your AI receptionist live within 24 hours.</p><p><a href="https://www.arohacalls.com/pricing" style="display:inline-block;background:#00d2a1;color:#0a0a0a;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;">View plans</a></p>`,
     }),
   });
 

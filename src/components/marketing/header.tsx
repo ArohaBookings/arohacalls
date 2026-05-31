@@ -30,7 +30,7 @@ export function Header() {
       <div className="container-tight flex h-16 items-center justify-between gap-6">
         <div className="flex items-center gap-8">
           <Logo />
-          <nav className="hidden items-center gap-1 lg:flex">
+          <nav className="hidden items-center gap-1 xl:flex">
             {navMain.map((item) => (
               <Link
                 key={item.href}
@@ -42,7 +42,7 @@ export function Header() {
             ))}
           </nav>
         </div>
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden items-center gap-2 xl:flex">
           <Button asChild variant="ghost" size="sm" className="!hidden 2xl:!inline-flex">
             <a href="tel:+6436672033" className="inline-flex items-center gap-1.5">
               <PhoneCall className="h-3.5 w-3.5 text-primary" />
@@ -64,7 +64,7 @@ export function Header() {
             </Link>
           </Button>
         </div>
-        <div className="lg:hidden">
+        <div className="xl:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Open menu">

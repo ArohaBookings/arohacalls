@@ -42,7 +42,7 @@ export function Footer() {
               <a href={`tel:${siteConfig.phones.nz.e164}`} className="hover:text-foreground hover:underline">
                 {siteConfig.phones.nz.flag} {siteConfig.phones.nz.display}
               </a>
-              {" "}— NZ live demo
+              {" "}— Aroha phone line
             </p>
             <p>
               <a href={`tel:${siteConfig.phones.us.e164}`} className="hover:text-foreground hover:underline">

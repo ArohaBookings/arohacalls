@@ -64,8 +64,14 @@ export function PlanCard({ plan, currency = "NZD" }: { plan: Plan; currency?: "N
 
         <div className="mt-7 grid gap-2">
           <Button asChild variant={plan.popular ? "default" : "outline"}>
-            <Link href={`/signup?plan=${plan.id}`}>
-              Choose {plan.name}
+            <Link href={`/signup?plan=${plan.id}&currency=nzd`}>
+              Start in NZD
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href={`/signup?plan=${plan.id}&currency=usd`}>
+              Start in USD
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

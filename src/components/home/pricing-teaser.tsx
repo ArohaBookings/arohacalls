@@ -13,7 +13,7 @@ export function PricingTeaser() {
         <SectionHeading
           eyebrow="Pricing"
           title={<>Pick a plan that grows with your phone line.</>}
-          description="Transparent pricing in NZD. No contracts. No setup fees. Cancel anytime, money-back inside 7 days."
+          description="Transparent pricing in NZD or USD. No contracts. No setup fees. Cancel anytime, money-back inside 7 days."
         />
         <div className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-4">
           {PLANS.map((plan) => (

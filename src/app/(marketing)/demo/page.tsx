@@ -19,7 +19,7 @@ export default function DemoPage() {
         title={<>Turn missed calls into booked, paying clients.</>}
         description="Call the live demo lines or tell us about your business and Leo will personally build a custom AI receptionist demo around your rules."
         back={{ href: "/", label: "Back to home" }}
-        cta={{ href: `tel:${siteConfig.phones.nz.e164}`, label: "Call NZ demo line" }}
+        cta={{ href: `tel:${siteConfig.phones.nz.e164}`, label: "Call Aroha demo line" }}
         secondary={{ href: `tel:${siteConfig.phones.us.e164}`, label: "Call US demo line" }}
       />
       <SectionBand>
@@ -37,7 +37,7 @@ export default function DemoPage() {
                   <p className="mt-1 text-lg font-semibold">Talk to Grace live</p>
                 </Link>
                 <a href={`tel:${siteConfig.phones.nz.e164}`} className="rounded-2xl border border-border bg-card/60 p-4 hover:border-primary/50">
-                  <p className="text-xs text-muted-foreground">NZ live demo</p>
+                  <p className="text-xs text-muted-foreground">Aroha phone line</p>
                   <p className="mt-1 text-lg font-semibold">{siteConfig.phones.nz.display}</p>
                 </a>
                 <a href={`tel:${siteConfig.phones.us.e164}`} className="rounded-2xl border border-border bg-card/60 p-4 hover:border-primary/50">

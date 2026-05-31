@@ -180,14 +180,14 @@ export function Hero() {
   return (
     <section className="relative isolate flex min-h-[calc(100svh-4rem)] overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-20">
       <AuroraBG intensity="strong" />
-      <div className="container-tight relative grid flex-1 items-center gap-12 lg:grid-cols-12">
+      <div className="container-tight relative grid flex-1 items-center gap-12 xl:grid-cols-12">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="lg:col-span-7"
+          className="xl:col-span-7"
         >
-          <h1 className="max-w-5xl text-balance text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl lg:text-8xl">
+          <h1 className="max-w-5xl text-balance text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl xl:text-8xl">
             Never miss another call.
           </h1>
           <p className="mt-6 max-w-2xl text-pretty text-xl leading-8 text-muted-foreground sm:text-2xl sm:leading-9">
@@ -229,7 +229,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="lg:col-span-5"
+          className="xl:col-span-5"
         >
           <HeroControlRoom />
         </motion.div>

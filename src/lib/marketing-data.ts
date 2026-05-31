@@ -33,7 +33,7 @@ export const featureGroups = [
     title: "AI receptionist",
     description:
       "Answers every call instantly, follows your rules, captures caller details, and handles real conversations instead of forcing scripts.",
-    bullets: ["Caller ID memory", "Natural NZ or US voice", "Spam filtering", "Urgent caller routing"],
+    bullets: ["Caller ID memory", "Natural local voice", "Spam filtering", "Urgent caller routing"],
   },
   {
     icon: CalendarCheck,
@@ -314,7 +314,7 @@ export const blogSeedPosts = [
       { type: "heading", text: "Smith.ai" },
       { type: "paragraph", text: "Hybrid AI + human receptionists. Premium pricing. Worth considering if you want a human safety net on every call (Aroha can also escalate to a human)." },
       { type: "heading", text: "How to choose" },
-      { type: "paragraph", text: "If you want done-for-you setup at a Kiwi price, Aroha Calls. If you want self-serve with the same engine, Aroha AI. Compare your shortlist on: calendar depth, CRM, email/SMS follow-ups, multi-language, pricing transparency, and whether real humans handle setup." },
+      { type: "paragraph", text: "If you want done-for-you setup at a transparent service-business price, Aroha Calls. If you want self-serve with the same engine, Aroha AI. Compare your shortlist on: calendar depth, CRM, email/SMS follow-ups, multi-language, pricing transparency, and whether real humans handle setup." },
     ],
   },
   {

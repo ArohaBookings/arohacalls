@@ -57,7 +57,7 @@ export function emailLayout({ title, body }: { title: string; body: string }) {
         </td></tr>
         <tr><td style="padding:32px;color:#ededed;font-size:15px;line-height:1.6;">${body}</td></tr>
         <tr><td style="padding:24px 32px;border-top:1px solid #1a1a1f;color:#7c7c83;font-size:12px;">
-          Sent by Aroha Group · <a href="https://arohacalls.com" style="color:#a5a5ad;">arohacalls.com</a>
+          Sent by Aroha Group · <a href="https://www.arohacalls.com" style="color:#a5a5ad;">arohacalls.com</a>
         </td></tr>
       </table>
     </td></tr>

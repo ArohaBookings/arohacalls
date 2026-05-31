@@ -17,6 +17,7 @@ import { SoftwareBox } from "@/components/visuals/software-box";
 import { FeatureMatrix } from "@/components/marketing/feature-matrix";
 import { PLANS, getPlanBySlug, PLAN_GUARANTEE } from "@/lib/plans";
 import { siteConfig } from "@/lib/site-config";
+import { planProductJsonLd } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   return PLANS.flatMap((p) =>
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ plan: str
   const { plan: slug } = await params;
   const plan = getPlanBySlug(slug);
   if (!plan) return {};
-  const title = `Aroha Calls ${plan.name} — NZ$${plan.priceNZD}/month`;
+  const title = `Aroha Calls ${plan.name} — NZ$${plan.priceNZD} or US$${plan.priceUSD}/month`;
   const description = `${plan.tagline} ${plan.description}`;
   return {
     title,
@@ -43,21 +44,6 @@ export default async function PlanPage({ params }: { params: Promise<{ plan: str
   const plan = getPlanBySlug(slug);
   if (!plan) notFound();
 
-  const productLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: `Aroha Calls ${plan.name}`,
-    description: plan.description,
-    brand: { "@type": "Brand", name: "Aroha" },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "NZD",
-      price: String(plan.priceNZD),
-      url: `${siteConfig.url}/pricing/${plan.slug}`,
-      availability: "https://schema.org/InStock",
-    },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: "5", reviewCount: "12", bestRating: "5" },
-  };
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -94,7 +80,7 @@ export default async function PlanPage({ params }: { params: Promise<{ plan: str
       description={plan.description}
       badge={<span className="text-base">📦</span>}
     >
-      <JsonLd data={productLd} />
+      <JsonLd data={planProductJsonLd(plan)} />
       <JsonLd data={breadcrumbLd} />
       <JsonLd data={faqLd} />
 
@@ -125,8 +111,14 @@ export default async function PlanPage({ params }: { params: Promise<{ plan: str
 
           <div className="mt-6 flex flex-col gap-2">
             <Button asChild size="lg" className="group">
-              <Link href={`/signup?plan=${plan.id}`}>
-                Choose {plan.name}
+              <Link href={`/signup?plan=${plan.id}&currency=nzd`}>
+                Start in NZD
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="group">
+              <Link href={`/signup?plan=${plan.id}&currency=usd`}>
+                Start in USD
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </Button>
@@ -244,8 +236,14 @@ export default async function PlanPage({ params }: { params: Promise<{ plan: str
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="xl">
-              <Link href={`/signup?plan=${plan.id}`}>
-                Choose {plan.name}
+              <Link href={`/signup?plan=${plan.id}&currency=nzd`}>
+                Start in NZD
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="xl" variant="outline">
+              <Link href={`/signup?plan=${plan.id}&currency=usd`}>
+                Start in USD
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

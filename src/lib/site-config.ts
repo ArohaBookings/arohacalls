@@ -5,8 +5,8 @@ export const siteConfig = {
   tagline: "AI receptionist + Aurora business assistant",
   description:
     "The world's most loved AI receptionist. Aroha answers every call 24/7 with perfect memory. Aurora chats with your team and runs your business. Built for salons, clinics, tradies, real estate, gyms and automotive.",
-  url: "https://arohacalls.com",
-  ogImage: "/og.png",
+  url: "https://www.arohacalls.com",
+  ogImage: "/aroha-calls-wordmark.jpeg",
   email: "support@arohacalls.com",
   legalEmail: "arohacalls@gmail.com",
   phones: {
