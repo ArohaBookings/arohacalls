@@ -5,7 +5,7 @@ import { navFooter, siteConfig } from "@/lib/site-config";
 
 export function Footer() {
   return (
-    <footer className="relative mt-32 border-t border-border/60 bg-background">
+    <footer className="relative z-20 mt-32 border-t border-border/60 bg-background">
       <div className="container-tight grid gap-10 py-16 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Logo className="text-base" />
@@ -120,10 +120,13 @@ export function Footer() {
           </div>
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-foreground/60">Legal</p>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-2 text-sm">
               {navFooter.legal.map((item) => (
                 <li key={item.href}>
-                  <Link className="text-muted-foreground transition-colors hover:text-foreground" href={item.href}>
+                  <Link
+                    className="flex min-h-10 items-center rounded-2xl border border-border bg-white px-3 font-medium text-foreground shadow-sm transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                    href={item.href}
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -143,6 +146,17 @@ export function Footer() {
               Aroha Group
             </Link>
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
+            {navFooter.legal.map((item) => (
+              <Link
+                key={`bottom-${item.href}`}
+                href={item.href}
+                className="rounded-full border border-border bg-white px-3 py-1.5 font-medium text-foreground shadow-sm transition hover:border-primary/40 hover:text-primary"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

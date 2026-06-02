@@ -88,9 +88,9 @@ export const navFooter = {
     { label: "vs Rosie AI", href: "/compare/vs-rosie-ai" },
   ],
   legal: [
-    { label: "Privacy", href: "/legal/privacy" },
-    { label: "Terms of service", href: "/legal/terms" },
-    { label: "Refund policy", href: "/legal/refunds" },
-    { label: "Cancellation", href: "/legal/refunds#cancellation" },
+    { label: "Privacy Policy", href: "/legal/privacy" },
+    { label: "Terms of Service", href: "/legal/terms" },
+    { label: "Refund Policy", href: "/legal/refunds" },
+    { label: "Cancellation Policy", href: "/legal/refunds#cancellation" },
   ],
 } as const;
