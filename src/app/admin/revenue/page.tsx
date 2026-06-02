@@ -9,6 +9,7 @@ import { queryOrEmpty } from "@/lib/safe-db";
 import { PLANS } from "@/lib/plans";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { normalizeTimeframe, sinceForTimeframe, TimeframeNav } from "@/components/admin/timeframe-nav";
+import { DonutChart, MetricBarChart, RevenueTrendChart } from "@/components/admin/charts";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { GlassPanel, MiniStat } from "@/components/marketing/page-shell";
@@ -60,6 +61,19 @@ export default async function AdminRevenuePage({ searchParams }: PageProps) {
   const churn = eventsInFrame.filter((event) => /deleted|cancel/i.test(event.type));
   const upgrades = eventsInFrame.filter((event) => /upgrade|plan_changed/i.test(event.type));
   const downgrades = eventsInFrame.filter((event) => /downgrade/i.test(event.type));
+  const revenueChartRows = salesRows.map((row) => ({
+    date: row.date.slice(5),
+    NZD: row.revenue.NZD ?? 0,
+    USD: row.revenue.USD ?? 0,
+    orders: row.orders,
+  }));
+  const activePlanMix = planBreakdown.map((row) => ({ name: row.plan.name, value: row.count }));
+  const movementRows = [
+    { name: "Churn", value: churn.length, fill: "#f43f5e" },
+    { name: "Upgrades", value: upgrades.length, fill: "#00d2a1" },
+    { name: "Downgrades", value: downgrades.length, fill: "#f59e0b" },
+    { name: "Events", value: eventsInFrame.length, fill: "#22d3ee" },
+  ];
 
   return (
     <AdminShell
@@ -77,6 +91,13 @@ export default async function AdminRevenuePage({ searchParams }: PageProps) {
         <MiniStat label="Average order value" value={formatCurrencyBreakdown(aov)} />
         <MiniStat label="Orders" value={String(ordersInFrame.length)} />
         <MiniStat label="Churn events" value={String(churn.length)} />
+      </div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+        <RevenueTrendChart data={revenueChartRows} title="Gross sales over time" subtitle="Daily order revenue by currency for the selected timeframe." />
+        <DonutChart title="Active plan mix" subtitle="Active and trialing subscriptions by plan." data={activePlanMix} />
+      </div>
+      <div className="mt-6">
+        <MetricBarChart title="Subscription movement" subtitle="Churn, upgrades, downgrades, and billing events in this timeframe." data={movementRows} />
       </div>
       <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_1fr]">
         <GlassPanel>

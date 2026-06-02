@@ -3,7 +3,7 @@
  * once they purchase a managed Aroha Calls plan.
  *
  * `arohaPath` deep-links to the corresponding screen on https://arohaai.app.
- * If Leo ever changes the route names on the self-serve app, only this file
+ * If the Aroha AI app route names change, only this file
  * needs to be updated.
  */
 export type ArohaTool = {

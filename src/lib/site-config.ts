@@ -24,9 +24,9 @@ export const siteConfig = {
     sisterApp: "https://arohaai.app",
   },
   founder: {
-    name: "Leo",
+    name: "Leo Bons",
     storyShort:
-      "Founded at 18 after watching service businesses lose customers to missed calls. Created the assistant he wished every service business could afford.",
+      "Founded by Leo Bons in Christchurch, New Zealand after watching service businesses lose customers to missed calls. Aroha Group is building a global front-office SaaS company for teams that need every caller answered, remembered, booked, and followed up.",
   },
   stats: [
     { value: "12,000+", label: "Calls answered" },

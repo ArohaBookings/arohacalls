@@ -20,7 +20,7 @@ export function ArohaAICTA() {
                 One Aroha Group engine. Two ways to run it.
               </h2>
               <p className="mt-4 max-w-xl text-pretty text-muted-foreground">
-                Aroha Calls is the managed service: Leo builds, tunes, and runs it for you. Aroha AI is the
+                Aroha Calls is the managed service: Aroha Group builds, tunes, and runs it for you. Aroha AI is the
                 self-serve platform behind the scenes for owners who want to configure voice, email,
                 CRM, calendars, and workflows themselves.
               </p>
@@ -42,7 +42,7 @@ export function ArohaAICTA() {
                   <p className="text-xs uppercase tracking-wider text-muted-foreground">Aroha Calls</p>
                   <p className="mt-1 text-sm font-medium text-foreground">Fully managed</p>
                   <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-                    <li>Leo personally onboards</li>
+                    <li>Managed onboarding included</li>
                     <li>White-glove setup</li>
                     <li>Priority support</li>
                     <li>From NZ$99/mo</li>

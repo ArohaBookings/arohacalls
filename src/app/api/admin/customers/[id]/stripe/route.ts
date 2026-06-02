@@ -9,6 +9,7 @@ import { hasUsableDatabaseUrl } from "@/lib/safe-db";
 import { getStripe, getStripePriceId } from "@/lib/stripe";
 import { normalizeSubscriptionStatus } from "@/lib/stripe-status";
 import { PLANS, type Plan, type BillingInterval } from "@/lib/plans";
+import { buildManagedCustomerPayload, queueArohaAiWebhookSafe } from "@/lib/aroha-ai-webhooks";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -160,6 +161,19 @@ export async function POST(req: Request, context: { params: Promise<{ id: string
             description: parsed.data.description,
           },
         });
+        await queueArohaAiWebhookSafe({
+          type: "managed.subscription.updated",
+          userId: user.id,
+          subscriptionId: subscription?.id,
+          payload: {
+            ...(await buildManagedCustomerPayload(user.id)),
+            adminAction: "charge_now",
+            invoiceId: paid.id,
+            amountMinor: parsed.data.amountMinor,
+            currency: parsed.data.currency,
+          },
+          idempotencyKey: `admin:${adminSession.user.id}:${user.id}:charge:${paid.id}`,
+        });
         return NextResponse.json({ ok: true, invoiceId: paid.id, status: paid.status });
       }
       case "change_plan": {
@@ -183,6 +197,13 @@ export async function POST(req: Request, context: { params: Promise<{ id: string
           toStatus: updated.status,
           metadata: { priceId, interval: parsed.data.interval, currency: parsed.data.currency },
         });
+        await queueArohaAiWebhookSafe({
+          type: "managed.plan.capabilities.updated",
+          userId: user.id,
+          subscriptionId: subscription.id,
+          payload: await buildManagedCustomerPayload(user.id),
+          idempotencyKey: `admin:${adminSession.user.id}:${user.id}:change_plan:${updated.id}:${Date.now()}`,
+        });
         return NextResponse.json({ ok: true, status: updated.status });
       }
       case "cancel_at_period_end": {
@@ -198,6 +219,13 @@ export async function POST(req: Request, context: { params: Promise<{ id: string
           planId: subscription.planId,
           toStatus: updated.status,
           metadata: { cancelAtPeriodEnd: true },
+        });
+        await queueArohaAiWebhookSafe({
+          type: "managed.subscription.cancelled",
+          userId: user.id,
+          subscriptionId: subscription.id,
+          payload: await buildManagedCustomerPayload(user.id),
+          idempotencyKey: `admin:${adminSession.user.id}:${user.id}:cancel_at_period_end:${updated.id}:${Date.now()}`,
         });
         return NextResponse.json({ ok: true, status: updated.status });
       }
@@ -215,6 +243,13 @@ export async function POST(req: Request, context: { params: Promise<{ id: string
           toStatus: updated.status,
           metadata: { cancelAtPeriodEnd: false },
         });
+        await queueArohaAiWebhookSafe({
+          type: "managed.subscription.updated",
+          userId: user.id,
+          subscriptionId: subscription.id,
+          payload: await buildManagedCustomerPayload(user.id),
+          idempotencyKey: `admin:${adminSession.user.id}:${user.id}:resume:${updated.id}:${Date.now()}`,
+        });
         return NextResponse.json({ ok: true, status: updated.status });
       }
       case "cancel_now": {
@@ -228,6 +263,13 @@ export async function POST(req: Request, context: { params: Promise<{ id: string
           planId: subscription.planId,
           toStatus: cancelled.status,
           metadata: { cancelledImmediately: true },
+        });
+        await queueArohaAiWebhookSafe({
+          type: "managed.subscription.cancelled",
+          userId: user.id,
+          subscriptionId: subscription.id,
+          payload: await buildManagedCustomerPayload(user.id),
+          idempotencyKey: `admin:${adminSession.user.id}:${user.id}:cancel_now:${cancelled.id}:${Date.now()}`,
         });
         return NextResponse.json({ ok: true, status: cancelled.status });
       }

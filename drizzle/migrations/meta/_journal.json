@@ -15,6 +15,13 @@
       "when": 1778996000000,
       "tag": "0001_live_retell_demo",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1780416400000,
+      "tag": "0002_aroha_ai_sync_onboarding",
+      "breakpoints": true
     }
   ]
 }

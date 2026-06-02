@@ -15,6 +15,7 @@ import {
 import { sendEmail, emailLayout, ADMIN_NOTIFY_EMAIL } from "@/lib/email";
 import { PLANS, type Plan } from "@/lib/plans";
 import { normalizeSubscriptionStatus } from "@/lib/stripe-status";
+import { buildManagedCustomerPayload, queueArohaAiWebhookSafe } from "@/lib/aroha-ai-webhooks";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -256,8 +257,11 @@ async function handleCheckoutCompleted(stripe: Stripe, session: Stripe.Checkout.
       subject: "Welcome to Aroha Calls — let's get you live",
       html: emailLayout({
         title: "Welcome to Aroha",
-        body: `<p>Kia ora ${user?.name ?? "there"},</p><p>Your <strong>${planNameFromId(planId)}</strong> plan is locked in. Leo will be in touch within 24 hours to begin your white-glove setup.</p><p>In the meantime, finish your onboarding details so we can hit the ground running:</p><p><a href="https://www.arohacalls.com/dashboard/onboarding" style="display:inline-block;background:#00d2a1;color:#0a0a0a;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;">Complete onboarding</a></p>`,
+        body: `<p>Hi ${user?.name ?? "there"},</p><p>Your <strong>${planNameFromId(planId)}</strong> plan is locked in. Complete onboarding so Aroha Group can configure your managed front-office system around your calls, bookings, email, CRM, and handoff rules.</p><p><a href="https://www.arohacalls.com/dashboard/onboarding" style="display:inline-block;background:#00d2a1;color:#0f172a;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:700;">Complete onboarding</a></p>`,
       }),
+      template: "checkout_complete_customer",
+      userId,
+      metadata: { planId, checkoutSessionId: session.id },
     });
   }
 
@@ -268,7 +272,28 @@ async function handleCheckoutCompleted(stripe: Stripe, session: Stripe.Checkout.
       title: "New signup",
       body: `<p><strong>${user?.name ?? "—"}</strong> just signed up.</p><ul><li>Email: ${customerEmail}</li><li>Plan: ${planNameFromId(planId)}</li><li>Order: ${orderNumber}</li></ul>`,
     }),
+    template: "checkout_complete_admin",
+    userId,
+    metadata: { planId, checkoutSessionId: session.id },
   });
+
+  const payload = await buildManagedCustomerPayload(userId);
+  await queueArohaAiWebhookSafe({
+    type: "managed.customer.created",
+    userId,
+    subscriptionId: localSubscription?.id,
+    payload,
+    idempotencyKey: `stripe:${session.id}:managed.customer.created`,
+  });
+  if (localSubscription) {
+    await queueArohaAiWebhookSafe({
+      type: "managed.subscription.created",
+      userId,
+      subscriptionId: localSubscription.id,
+      payload,
+      idempotencyKey: `stripe:${session.id}:managed.subscription.created`,
+    });
+  }
 }
 
 async function handleStripeEvent(stripe: Stripe, event: Stripe.Event) {
@@ -293,7 +318,16 @@ async function handleStripeEvent(stripe: Stripe, event: Stripe.Event) {
     case "customer.subscription.deleted":
     case "customer.subscription.paused":
     case "customer.subscription.resumed": {
-      await upsertSubscriptionFromStripe(event.data.object as Stripe.Subscription, { eventType: event.type });
+      const row = await upsertSubscriptionFromStripe(event.data.object as Stripe.Subscription, { eventType: event.type });
+      if (row) {
+        await queueArohaAiWebhookSafe({
+          type: event.type === "customer.subscription.deleted" ? "managed.subscription.cancelled" : "managed.subscription.updated",
+          userId: row.userId,
+          subscriptionId: row.id,
+          payload: await buildManagedCustomerPayload(row.userId),
+          idempotencyKey: `stripe:${event.id}:${event.type}`,
+        });
+      }
       break;
     }
     case "invoice.finalized":
@@ -303,13 +337,22 @@ async function handleStripeEvent(stripe: Stripe, event: Stripe.Event) {
     case "invoice.payment_failed":
     case "invoice.upcoming": {
       const invoice = event.data.object as Stripe.Invoice;
-      const { stripeSubscriptionId } = await cacheInvoice(stripe, invoice);
+      const { stripeSubscriptionId, localSubscription } = await cacheInvoice(stripe, invoice);
 
       if (stripeSubscriptionId && event.type === "invoice.payment_failed") {
         await db
           .update(subscriptions)
           .set({ status: "past_due", updatedAt: new Date() })
           .where(eq(subscriptions.stripeSubscriptionId, stripeSubscriptionId));
+        if (localSubscription?.userId) {
+          await queueArohaAiWebhookSafe({
+            type: "managed.subscription.payment_failed",
+            userId: localSubscription.userId,
+            subscriptionId: localSubscription.id,
+            payload: await buildManagedCustomerPayload(localSubscription.userId),
+            idempotencyKey: `stripe:${event.id}:managed.subscription.payment_failed`,
+          });
+        }
       }
       break;
     }

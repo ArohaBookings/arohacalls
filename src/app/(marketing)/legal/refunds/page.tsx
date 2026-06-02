@@ -22,6 +22,16 @@ const sections = [
       "Monthly plans are billed in advance and can be cancelled through the customer dashboard or Stripe Customer Portal. Cancelling stops future renewals. Access and managed support may continue until the end of the paid billing period unless we agree otherwise.",
   },
   {
+    title: "How to cancel",
+    body:
+      "Sign in, open Dashboard, go to Billing, and launch the Stripe Customer Portal. Stripe records the cancellation and sends the subscription update back to Aroha Calls. You can also contact support if you cannot access the dashboard.",
+  },
+  {
+    title: "What cancellation changes",
+    body:
+      "Cancellation stops future renewal. It does not automatically reverse past invoices, remove all historical records, or guarantee immediate shutdown before the end of the already-paid period unless the subscription is cancelled immediately by authorised admin action.",
+  },
+  {
     title: "Annual subscriptions",
     body:
       "Annual plans are discounted prepaid subscriptions. Refunds after the initial guarantee window are not automatic, but we will review billing errors, accidental duplicate charges, or exceptional circumstances fairly.",
@@ -35,6 +45,21 @@ const sections = [
     title: "Billing issues",
     body:
       "If you believe you were charged incorrectly, contact us with the invoice number and account email. We will investigate Stripe records, subscription events, and account history before confirming the result.",
+  },
+  {
+    title: "Failed payments",
+    body:
+      "If a payment fails, Stripe may retry payment and Aroha Calls may mark the subscription as past due. Some managed services may pause if billing remains unresolved. You can update the payment method from the Stripe Customer Portal.",
+  },
+  {
+    title: "Plan changes and prorations",
+    body:
+      "When a plan is upgraded, downgraded, resumed, or cancelled mid-cycle, Stripe may create prorations or invoice adjustments depending on the billing configuration. The dashboard and invoices are the source of truth for billed amounts.",
+  },
+  {
+    title: "No chargeback games",
+    body:
+      "If there is a billing issue, contact Aroha Group first so we can inspect Stripe invoices, subscription events, and account history. Fraudulent disputes, abusive chargebacks, or misuse may lead to suspension.",
   },
   {
     title: "Refund method",

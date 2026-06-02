@@ -131,7 +131,7 @@ export const LOCATIONS: Location[] = [
     trustedBy: ["Ponsonby salons", "North Shore tradies", "Britomart cafés"],
     faq: [
       { q: "Can I get an Auckland 09 number?", a: "Yes. Or any NZ area code, or your existing number forwarded." },
-      { q: "Do you have local support?", a: "Yes — Leo is Auckland-based and available on call." },
+      { q: "Do you have local support?", a: "Yes — Aroha Group is New Zealand-founded and supports managed customers remotely." },
     ],
   },
   {

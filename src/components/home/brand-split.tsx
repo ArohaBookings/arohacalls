@@ -7,7 +7,7 @@ const models = [
     title: "Aroha Calls",
     subtitle: "Done-for-you. We build it, tune it, manage it.",
     description:
-      "Best when you want the phone answered and the whole system handled for you. Leo sets up the voice, booking rules, knowledge, follow-up, and support path.",
+      "Best when you want the phone answered and the whole system handled for you. Aroha Group sets up the voice, booking rules, knowledge, follow-up, and support path.",
     icon: Sparkles,
     href: "/demo",
     cta: "Get it set up",

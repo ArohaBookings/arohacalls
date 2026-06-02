@@ -17,6 +17,7 @@ import {
 import { queryOrEmpty } from "@/lib/safe-db";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { normalizeTimeframe, sinceForTimeframe, TimeframeNav } from "@/components/admin/timeframe-nav";
+import { FunnelPerformanceChart, HorizontalBarChart, MetricBarChart } from "@/components/admin/charts";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { GlassPanel, MiniStat } from "@/components/marketing/page-shell";
@@ -71,6 +72,16 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
   const checkoutStarted = eventCount(conversions, "checkout_started");
   const customerStats = returningCustomerStats(orderRows);
   const funnel = shopifyStyleFunnel({ views, conversions, orders: orderFrame, demos, users: signups });
+  const conversionChartRows = conversionCounts.slice(0, 10).map(([name, value]) => ({ name, value }));
+  const pageChartRows = pageCounts.slice(0, 10).map(([name, value]) => ({ name, value }));
+  const sourceChartRows = sourceCounts.slice(0, 10).map(([name, value]) => ({ name, value }));
+  const outcomeRows = [
+    { name: "Signup", value: signups.length, fill: "#00d2a1" },
+    { name: "Demo", value: demos.length, fill: "#22d3ee" },
+    { name: "Checkout start", value: checkoutStarted, fill: "#8b5cf6" },
+    { name: "Orders", value: orderFrame.length, fill: "#f472b6" },
+    { name: "ROI completions", value: roiCompletions, fill: "#f59e0b" },
+  ];
 
   return (
     <AdminShell
@@ -90,6 +101,15 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
         <MiniStat label="ROI completions" value={String(roiCompletions)} />
         <MiniStat label="Blog traffic" value={String(blogTraffic)} />
         <MiniStat label="Returning customer rate" value={`${customerStats.returningCustomerRate}%`} />
+      </div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-2">
+        <FunnelPerformanceChart data={funnel} />
+        <MetricBarChart title="Conversion outcomes" subtitle="The actions that matter most for paid and organic traffic." data={outcomeRows} />
+      </div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-3">
+        <HorizontalBarChart title="Top pages" subtitle="Pages pulling the most attention." data={pageChartRows} />
+        <HorizontalBarChart title="Traffic sources" subtitle="Referral hosts and direct sessions." data={sourceChartRows} />
+        <HorizontalBarChart title="Conversion events" subtitle="Tracked high-intent actions." data={conversionChartRows} />
       </div>
       <div className="mt-6 grid gap-6 xl:grid-cols-2">
         <GlassPanel>

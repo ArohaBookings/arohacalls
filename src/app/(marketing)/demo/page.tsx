@@ -8,7 +8,7 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Book A Free Custom Demo",
   description:
-    "Book a free custom Aroha Calls demo. Leo builds a demo around your business, hours, callers, booking rules, and tone.",
+    "Book a free custom Aroha Calls demo. Aroha Group builds a demo around your business, hours, callers, booking rules, and tone.",
   alternates: { canonical: "/demo" },
 };
 
@@ -17,7 +17,7 @@ export default function DemoPage() {
     <>
       <PageHero
         title={<>Turn missed calls into booked, paying clients.</>}
-        description="Call the live demo lines or tell us about your business and Leo will personally build a custom AI receptionist demo around your rules."
+        description="Call the live demo lines or tell us about your business and Aroha Group will build a custom AI receptionist demo around your rules."
         back={{ href: "/", label: "Back to home" }}
         cta={{ href: `tel:${siteConfig.phones.nz.e164}`, label: "Call Aroha demo line" }}
         secondary={{ href: `tel:${siteConfig.phones.us.e164}`, label: "Call US demo line" }}
@@ -63,7 +63,7 @@ export default function DemoPage() {
               <SmartForm
                 endpoint="/api/demo"
                 submitLabel="Build my demo"
-                successMessage="Demo request sent. Leo will be in touch within 24 hours."
+                successMessage="Demo request sent. Aroha Group will be in touch within 24 hours."
                 fields={[
                   { name: "businessName", label: "Business name", required: true },
                   { name: "industry", label: "Industry", required: true, placeholder: "Trades, salon, clinic, real estate..." },

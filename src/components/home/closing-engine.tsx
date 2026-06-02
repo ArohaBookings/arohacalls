@@ -151,7 +151,7 @@ export function ClosingEngine() {
                 <div className="mt-5 rounded-2xl border border-accent/25 bg-accent/[0.08] p-4">
                   <Sparkles className="h-4 w-4 text-accent" />
                   <p className="mt-2 text-sm leading-6 text-foreground/88">
-                    Real promise: Aroha answers, qualifies, books or routes, remembers, and follows up under the rules Leo sets for the business.
+                    Real promise: Aroha answers, qualifies, books or routes, remembers, and follows up under the rules configured for the business.
                   </p>
                 </div>
               </div>

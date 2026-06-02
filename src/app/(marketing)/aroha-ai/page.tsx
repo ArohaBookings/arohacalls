@@ -168,7 +168,7 @@ export default function ArohaAIPage() {
         <Badge variant="glow">Managed vs Self-serve</Badge>
         <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Pick the path that matches how you work.</h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Same engine, two delivery models. If you want Leo to build, tune and run it for you — choose Aroha Calls. If you want to configure it yourself — choose Aroha AI.
+          Same engine, two delivery models. If you want Aroha Group to build, tune and run it for you — choose Aroha Calls. If you want to configure it yourself — choose Aroha AI.
         </p>
 
         <div className="mt-10 overflow-hidden rounded-3xl border border-border bg-card/40">
@@ -198,7 +198,7 @@ export default function ArohaAIPage() {
             <Badge variant="glow">Most popular for service businesses</Badge>
             <h3 className="mt-3 text-2xl font-semibold tracking-tight">Aroha Calls — Managed</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Leo personally onboards you, tunes the voice, builds your knowledge base and watches every call for the first week. From NZ$99/month.
+              Aroha Group onboards you, tunes the voice, builds your knowledge base and monitors launch quality. From NZ$99/month.
             </p>
             <ul className="mt-4 space-y-2 text-sm">
               {["White-glove setup in 24h", "Live in your business the same day", "7-day money-back guarantee", "Cancel anytime"].map((item) => (

@@ -21,7 +21,7 @@ You are the Aroha Calls website assistant. You help cold visitors understand the
 
 Brand facts:
 - Aroha Calls is the fully managed AI receptionist service from Aroha Group.
-- Aroha AI is the self-serve platform behind it. Aroha Calls uses Aroha AI internally so Leo/Aroha Group can build, tune, and manage the receptionist for the customer.
+- Aroha AI is the self-serve platform behind it. Aroha Calls uses Aroha AI internally so Aroha Group can build, tune, and manage the receptionist for the customer.
 - The managed service covers calls, bookings, caller memory, CRM timeline, Email AI, messages/SMS follow-up, Google Calendar booking, Aurora business assistant, analytics, and onboarding.
 - The service is available worldwide. It is made in New Zealand, but the offer is not New-Zealand-only.
 - Main live voice demo: Grace from Aroha at ${siteConfig.phones.sales.display}. Browser live demo: ${siteConfig.url}/live-demo.
@@ -30,6 +30,9 @@ Brand facts:
 - Calendar setup: customers connect Google Calendar inside their managed Aroha AI organisation login. Aroha Group helps configure booking rules, buffers, services, staff calendars, and reminders. Outlook is not currently offered.
 - Billing: Stripe subscriptions. Customers can pay in NZD or USD where configured. Customer dashboard handles billing portal, invoices, plan changes, and cancellations.
 - Guarantee: 7-day money-back guarantee from activation, cancel anytime, no long contracts.
+- Cancellation: customers sign in, open Dashboard → Billing, and launch the Stripe Customer Portal to cancel, update payment method, or view invoices.
+- Setup after payment: customer completes onboarding, Aroha Calls sends the setup details to Aroha AI through a signed secure webhook, and Aroha Group manages provisioning.
+- Retell/live demo: Grace is the public demo voice; Aroha AI owns production agent orchestration for customer workspaces.
 - SEO promise: never guarantee a #1 Google ranking. Say Aroha builds the technical/content foundation, answers high-intent calls, and helps convert paid or organic traffic.
 
 Plans:
@@ -59,6 +62,12 @@ export function localAssistantFallback(question: string) {
   }
   if (lower.includes("calendar") || lower.includes("google")) {
     return "Calendar booking is handled through your managed Aroha AI organisation. You connect Google Calendar there, then Aroha Group helps configure services, buffers, staff calendars, and booking rules so Grace books correctly.";
+  }
+  if (lower.includes("cancel") || lower.includes("refund") || lower.includes("billing") || lower.includes("invoice")) {
+    return "Billing runs through Stripe. Sign in, open Dashboard → Billing, and use the Stripe Customer Portal to update payment methods, download invoices, or cancel. New customers also have a 7-day money-back guarantee from activation.";
+  }
+  if (lower.includes("onboard") || lower.includes("setup") || lower.includes("go live")) {
+    return "After payment, complete onboarding with your services, hours, booking rules, escalation rules, and Google Calendar details. Aroha Group then configures your managed front-office system inside Aroha AI and keeps your dashboard updated.";
   }
   if (lower.includes("number") || lower.includes("phone") || lower.includes("port") || lower.includes("forward")) {
     return "You can use a new Aroha business number, forward your current number to Aroha, or port your current number later. The setup is managed, so you do not need to rebuild your phone system yourself.";

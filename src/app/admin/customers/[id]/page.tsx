@@ -5,7 +5,7 @@ import { desc, eq } from "drizzle-orm";
 import { ArrowLeft, ArrowUpRight, CreditCard, Mail, Phone, UserRound } from "lucide-react";
 import { requireAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
-import { customerProfiles, invoices, orders, subscriptionEvents, subscriptions, supportTickets, users } from "@/lib/db/schema";
+import { arohaAiWebhookEvents, customerProfiles, invoices, orders, subscriptionEvents, subscriptions, supportTickets, users } from "@/lib/db/schema";
 import { formatCurrencyBreakdown, money, orderRevenue } from "@/lib/admin-data";
 import { buildArohaAiUrl } from "@/lib/aroha-ai-tools";
 import { queryOrEmpty } from "@/lib/safe-db";
@@ -33,13 +33,14 @@ export default async function AdminCustomerDetailPage({ params }: { params: Prom
   const [user] = await queryOrEmpty(db.select().from(users).where(eq(users.id, id)).limit(1), "admin-customer-user");
   if (!user) notFound();
 
-  const [profileRows, subscriptionRows, orderRows, invoiceRows, ticketRows, eventRows] = await Promise.all([
+  const [profileRows, subscriptionRows, orderRows, invoiceRows, ticketRows, eventRows, webhookRows] = await Promise.all([
     queryOrEmpty(db.select().from(customerProfiles).where(eq(customerProfiles.userId, id)).limit(1), "admin-customer-profile"),
     queryOrEmpty(db.select().from(subscriptions).where(eq(subscriptions.userId, id)).orderBy(desc(subscriptions.updatedAt)).limit(10), "admin-customer-subscriptions"),
     queryOrEmpty(db.select().from(orders).where(eq(orders.userId, id)).orderBy(desc(orders.createdAt)).limit(50), "admin-customer-orders"),
     queryOrEmpty(db.select().from(invoices).where(eq(invoices.userId, id)).orderBy(desc(invoices.createdAt)).limit(50), "admin-customer-invoices"),
     queryOrEmpty(db.select().from(supportTickets).where(eq(supportTickets.userId, id)).orderBy(desc(supportTickets.createdAt)).limit(20), "admin-customer-tickets"),
     queryOrEmpty(db.select().from(subscriptionEvents).where(eq(subscriptionEvents.userId, id)).orderBy(desc(subscriptionEvents.createdAt)).limit(30), "admin-customer-events"),
+    queryOrEmpty(db.select().from(arohaAiWebhookEvents).where(eq(arohaAiWebhookEvents.userId, id)).orderBy(desc(arohaAiWebhookEvents.createdAt)).limit(30), "admin-customer-webhooks"),
   ]);
 
   const profile = profileRows[0];
@@ -108,6 +109,11 @@ export default async function AdminCustomerDetailPage({ params }: { params: Prom
             <div className="rounded-xl border border-border bg-background/35 p-3">
               <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Notes</p>
               <p className="mt-1 leading-6 text-muted-foreground">{profile?.notes ?? "No internal notes yet."}</p>
+            </div>
+            <div className="rounded-xl border border-border bg-background/35 p-3">
+              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Aroha AI org</p>
+              <p className="mt-1 font-medium">{profile?.arohaAiOrgId ?? "-"}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{profile?.setupStatus ?? "No setup status yet."}</p>
             </div>
           </div>
         </GlassPanel>
@@ -258,6 +264,59 @@ export default async function AdminCustomerDetailPage({ params }: { params: Prom
               </div>
             )) : <p className="text-sm text-muted-foreground">No subscription events yet.</p>}
           </div>
+        </GlassPanel>
+      </div>
+
+      <div className="mt-6 grid gap-6 xl:grid-cols-2">
+        <GlassPanel>
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-xl font-semibold tracking-tight">Onboarding answers</h2>
+            <Badge variant="outline">{profile?.onboardingStatus ?? "pending"}</Badge>
+          </div>
+          <div className="mt-4 max-h-[520px] overflow-auto rounded-xl border border-border bg-background/35 p-4">
+            {profile?.onboardingData ? (
+              <dl className="grid gap-3 text-sm">
+                {Object.entries(profile.onboardingData)
+                  .filter(([, value]) => value !== "" && value !== false && value != null)
+                  .map(([key, value]) => (
+                    <div key={key} className="rounded-xl border border-border bg-white/70 p-3">
+                      <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{key}</dt>
+                      <dd className="mt-1 whitespace-pre-wrap leading-6 text-foreground/85">{String(value)}</dd>
+                    </div>
+                  ))}
+              </dl>
+            ) : (
+              <p className="text-sm text-muted-foreground">No detailed onboarding answers saved yet.</p>
+            )}
+          </div>
+        </GlassPanel>
+
+        <GlassPanel>
+          <h2 className="text-xl font-semibold tracking-tight">Aroha AI webhook sync</h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Event</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Attempts</TableHead>
+                <TableHead>Date</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {webhookRows.length ? (
+                webhookRows.map((event) => (
+                  <TableRow key={event.id}>
+                    <TableCell>{event.eventType}</TableCell>
+                    <TableCell><Badge variant={event.status === "processed" ? "success" : event.status === "failed" ? "destructive" : "outline"}>{event.status}</Badge></TableCell>
+                    <TableCell>{event.attempts}</TableCell>
+                    <TableCell>{dateText(event.createdAt)}</TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow><TableCell colSpan={4} className="text-muted-foreground">No Aroha AI sync events yet.</TableCell></TableRow>
+              )}
+            </TableBody>
+          </Table>
         </GlassPanel>
       </div>
     </AdminShell>

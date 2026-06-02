@@ -564,7 +564,7 @@ export function LiveDemoExperience() {
               <h2 className="mt-5 text-3xl font-semibold tracking-tight">Aroha Calls</h2>
               <p className="mt-3 text-lg font-medium text-slate-700">Done-for-you. We build it, tune it, manage it.</p>
               <p className="mt-4 leading-7 text-slate-600">
-                Best when you want Leo and Aroha Group to set up your AI receptionist, booking rules, email AI, CRM, memory, follow-up, and front-office workflow for you.
+                Best when you want Aroha Group to set up your AI receptionist, booking rules, email AI, CRM, memory, follow-up, and front-office workflow for you.
               </p>
               <Link
                 href="/pricing"

@@ -27,21 +27,25 @@ export async function POST(req: Request) {
 
   await sendEmail({
     to: parsed.data.email,
-    subject: "Your Aroha Calls demo is on the way 📞",
+    subject: "Your Aroha Calls demo is on the way",
     html: emailLayout({
       title: "Demo booked",
-      body: `<p>Kia ora ${parsed.data.name},</p><p>Thanks for booking a demo of Aroha Calls. Leo personally builds every demo around your real business — you'll hear back within 24 hours with your custom AI receptionist ready to test.</p><p>If anything is urgent, just reply to this email.</p>`,
+      body: `<p>Hi ${parsed.data.name},</p><p>Thanks for booking a demo of Aroha Calls. Aroha Group builds demos around real business rules, callers, hours, services, and tone. You will hear back within 24 hours with the next step.</p><p>If anything is urgent, just reply to this email.</p>`,
     }),
+    template: "demo_confirmation",
+    metadata: { source: parsed.data.source, industry: parsed.data.industry },
   });
 
   await sendEmail({
     to: ADMIN_NOTIFY_EMAIL,
-    subject: `🎯 New demo request: ${parsed.data.name}${parsed.data.businessName ? ` (${parsed.data.businessName})` : ""}`,
+    subject: `New demo request: ${parsed.data.name}${parsed.data.businessName ? ` (${parsed.data.businessName})` : ""}`,
     html: emailLayout({
       title: "Demo request",
       body: `<ul><li>Name: ${parsed.data.name}</li><li>Email: ${parsed.data.email}</li><li>Phone: ${parsed.data.phone ?? "—"}</li><li>Industry: ${parsed.data.industry ?? "—"}</li><li>Business: ${parsed.data.businessName ?? "—"}</li></ul><p>${(parsed.data.message ?? "").replace(/\n/g, "<br/>")}</p>`,
     }),
     replyTo: parsed.data.email,
+    template: "demo_admin",
+    metadata: { source: parsed.data.source, industry: parsed.data.industry },
   });
 
   return NextResponse.json({ ok: true });

@@ -37,8 +37,13 @@ export const orderStatusEnum = pgEnum("order_status", [
 export const onboardingStatusEnum = pgEnum("onboarding_status", [
   "pending",
   "in_progress",
+  "received",
+  "needs_review",
+  "ready",
   "live",
+  "complete",
   "paused",
+  "failed",
 ]);
 export const blogStatusEnum = pgEnum("blog_status", ["draft", "published", "archived"]);
 export const supportStatusEnum = pgEnum("support_status", ["open", "in_progress", "resolved", "closed"]);
@@ -136,6 +141,11 @@ export const customerProfiles = pgTable(
     calendarConnected: boolean("calendar_connected").notNull().default(false),
     onboardingStatus: onboardingStatusEnum("onboarding_status").notNull().default("pending"),
     onboardingCompletedAt: timestamp("onboarding_completed_at"),
+    onboardingData: jsonb("onboarding_data").$type<Record<string, unknown>>(),
+    setupStatus: text("setup_status"),
+    arohaAiOrgId: text("aroha_ai_org_id"),
+    arohaAiLoginUrl: text("aroha_ai_login_url"),
+    setupUpdatedAt: timestamp("setup_updated_at"),
     notes: text("notes"),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -326,6 +336,76 @@ export const stripeWebhookEvents = pgTable("stripe_webhook_event", {
   payload: jsonb("payload").$type<Record<string, unknown>>(),
 });
 
+export const arohaAiWebhookEvents = pgTable(
+  "aroha_ai_webhook_event",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    direction: text("direction").notNull(),
+    eventType: text("event_type").notNull(),
+    idempotencyKey: text("idempotency_key").notNull().unique(),
+    status: text("status").notNull().default("pending"),
+    userId: text("user_id").references(() => users.id, { onDelete: "set null" }),
+    subscriptionId: uuid("subscription_id").references(() => subscriptions.id, { onDelete: "set null" }),
+    payload: jsonb("payload").$type<Record<string, unknown>>(),
+    encrypted: boolean("encrypted").notNull().default(false),
+    signature: text("signature"),
+    nonce: text("nonce"),
+    attempts: integer("attempts").notNull().default(0),
+    responseStatus: integer("response_status"),
+    responseBody: text("response_body"),
+    processingError: text("processing_error"),
+    nextAttemptAt: timestamp("next_attempt_at"),
+    processedAt: timestamp("processed_at"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    directionIdx: index("aroha_ai_webhook_direction_idx").on(t.direction),
+    statusIdx: index("aroha_ai_webhook_status_idx").on(t.status),
+    eventTypeIdx: index("aroha_ai_webhook_event_type_idx").on(t.eventType),
+    createdIdx: index("aroha_ai_webhook_created_idx").on(t.createdAt),
+    userIdx: index("aroha_ai_webhook_user_idx").on(t.userId),
+  }),
+);
+
+export const adminNotes = pgTable(
+  "admin_note",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    authorId: text("author_id").references(() => users.id, { onDelete: "set null" }),
+    body: text("body").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    userIdx: index("admin_note_user_idx").on(t.userId),
+    createdIdx: index("admin_note_created_idx").on(t.createdAt),
+  }),
+);
+
+export const emailEvents = pgTable(
+  "email_event",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: text("user_id").references(() => users.id, { onDelete: "set null" }),
+    template: text("template").notNull(),
+    recipient: text("recipient").notNull(),
+    subject: text("subject").notNull(),
+    resendId: text("resend_id"),
+    status: text("status").notNull().default("queued"),
+    error: text("error"),
+    metadata: jsonb("metadata").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => ({
+    userIdx: index("email_event_user_idx").on(t.userId),
+    templateIdx: index("email_event_template_idx").on(t.template),
+    createdIdx: index("email_event_created_idx").on(t.createdAt),
+  }),
+);
+
 // Retell live demo ------------------------------------------------------------
 
 export const retellDemoCalls = pgTable(
@@ -444,3 +524,6 @@ export type PageView = typeof pageViews.$inferSelect;
 export type ConversionEvent = typeof conversionEvents.$inferSelect;
 export type SubscriptionEvent = typeof subscriptionEvents.$inferSelect;
 export type RetellDemoCall = typeof retellDemoCalls.$inferSelect;
+export type ArohaAiWebhookEvent = typeof arohaAiWebhookEvents.$inferSelect;
+export type AdminNote = typeof adminNotes.$inferSelect;
+export type EmailEvent = typeof emailEvents.$inferSelect;

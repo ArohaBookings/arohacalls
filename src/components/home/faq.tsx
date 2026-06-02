@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     q: "What happens after I buy?",
-    a: "You create your account, pay through Stripe, complete onboarding, connect Google Calendar if needed, and Leo/Aroha Group contacts you to get the managed setup live.",
+    a: "You create your account, pay through Stripe, complete onboarding, connect Google Calendar if needed, and Aroha Group moves the managed setup into Aroha AI.",
   },
   {
     q: "What's the difference between plans?",
@@ -98,7 +98,7 @@ export function FAQ() {
         <SectionHeading
           eyebrow="FAQ"
           title={<>Questions, answered.</>}
-          description="Can't find it here? Email us — a real human (Leo) replies, fast."
+          description="Can't find it here? Email us — a real human from Aroha Group replies."
         />
         <div className="mx-auto mt-12 max-w-3xl space-y-3">
           {faqs.map((f, i) => (

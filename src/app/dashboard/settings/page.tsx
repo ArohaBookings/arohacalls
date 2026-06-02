@@ -47,7 +47,7 @@ export default async function SettingsPage() {
             <Badge variant="destructive">Account deletion</Badge>
             <h2 className="mt-4 text-xl font-semibold tracking-tight">Delete account option</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Submit a support request with subject &quot;Delete my account&quot;. Leo will confirm identity, cancel active billing where required, and remove account data according to the privacy policy.
+              Submit a support request with subject &quot;Delete my account&quot;. Aroha Group will confirm identity, cancel active billing where required, and remove account data according to the privacy policy.
             </p>
           </GlassPanel>
         </div>

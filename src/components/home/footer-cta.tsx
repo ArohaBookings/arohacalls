@@ -13,7 +13,7 @@ export function FooterCTA() {
             Your next caller should become a booking, not a voicemail.
           </h2>
           <p className="relative mx-auto mt-4 max-w-xl text-pretty text-muted-foreground">
-            Bring your real business details. Leo will show you the exact AI receptionist, inbox, follow-up,
+            Bring your real business details. Aroha Group will show you the exact AI receptionist, inbox, follow-up,
             and booking workflow Aroha Group would run for you.
           </p>
           <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

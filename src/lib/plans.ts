@@ -161,7 +161,7 @@ export const PLANS: readonly Plan[] = [
       { category: "messages", label: "SMS automations", detail: "Missed-call texts, booking confirmations, follow-ups." },
       { category: "knowledge", label: "Knowledge base setup", detail: "Hours, services, pricing, policies, FAQs — fully tunable." },
       { category: "analytics", label: "Call summaries + transcripts", detail: "Every call summarised + full transcript in dashboard." },
-      { category: "support", label: "Done-for-you onboarding", detail: "Leo personally builds your KB, voice, and rules." },
+      { category: "support", label: "Done-for-you onboarding", detail: "Aroha Group builds your knowledge base, voice, and rules." },
     ],
     whatsInTheBox: [
       "1 Aroha business number",
@@ -234,7 +234,7 @@ export const PLANS: readonly Plan[] = [
       { category: "knowledge", label: "Advanced KB + workflows", detail: "Custom FAQs, services, pricing, escalation rules." },
       { category: "analytics", label: "Monthly performance insights", detail: "Call volume, missed opportunities, revenue trends, team performance." },
       { category: "extras", label: "Aurora business chatbot", detail: "Aurora is your team's AI co-pilot — answers any question with full data context." },
-      { category: "support", label: "Done-for-you setup", detail: "Leo personally tunes routing, KB and workflows." },
+      { category: "support", label: "Done-for-you setup", detail: "Aroha Group tunes routing, knowledge, and workflows." },
     ],
     whatsInTheBox: [
       "2 dedicated business numbers",
@@ -312,7 +312,7 @@ export const PLANS: readonly Plan[] = [
       { category: "analytics", label: "Weekly performance analytics", detail: "Call volume, bookings, missed revenue, team performance." },
       { category: "extras", label: "VIP / urgent caller rules", detail: "VIPs go straight to the owner. Emergencies escalate live." },
       { category: "extras", label: "Aurora business chatbot", detail: "Your AI co-pilot — full team data, full automation power." },
-      { category: "support", label: "Priority onboarding + dedicated support", detail: "Leo personally onboards. Slack/email priority response." },
+      { category: "support", label: "Priority onboarding + dedicated support", detail: "Priority managed onboarding and dedicated support response." },
     ],
     whatsInTheBox: [
       "Up to 5 dedicated business numbers",
@@ -328,7 +328,7 @@ export const PLANS: readonly Plan[] = [
     faq: [
       { q: "What does 'Custom AI voice branding' include?", a: "We tune Aroha's tone, accent, slang, pacing and even handling of sensitive topics to match exactly how your brand speaks." },
       { q: "What's Team Handover Mode?", a: "Aroha can hot-transfer a live call to a real human mid-conversation if the call meets your escalation rules — no awkward 'please hold' moments." },
-      { q: "Do I get a real human on support?", a: "Yes. Premium includes priority onboarding and a dedicated success manager. Leo is on Slack/email for you." },
+      { q: "Do I get a real human on support?", a: "Yes. Premium includes priority onboarding and dedicated success support for launch and ongoing optimisation." },
     ],
   },
 ] as const;

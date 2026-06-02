@@ -42,7 +42,7 @@ export default async function SupportPage() {
           <GlassPanel>
             <h2 className="text-xl font-semibold tracking-tight">FAQ</h2>
             <div className="mt-4 space-y-4 text-sm leading-6 text-muted-foreground">
-              <p><strong className="text-foreground">How do I change booking rules?</strong><br />Submit a support request with the exact change. Leo will update and test it.</p>
+              <p><strong className="text-foreground">How do I change booking rules?</strong><br />Submit a support request with the exact change. Aroha Group will update and test it.</p>
               <p><strong className="text-foreground">How do I cancel?</strong><br />Open Billing and launch the Stripe Customer Portal.</p>
               <p><strong className="text-foreground">Where are call stats?</strong><br />Managed-service stats appear on the dashboard once your setup is live.</p>
             </div>

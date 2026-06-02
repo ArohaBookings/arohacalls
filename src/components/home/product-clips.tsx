@@ -82,7 +82,7 @@ export function ProductClips() {
               Not just a phone bot. The full customer side of the business.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-              Aroha Calls is the managed package. Underneath it is the Aroha AI workspace Leo uses:
+              Aroha Calls is the managed package. Underneath it is the Aroha AI workspace Aroha Group configures:
               voice, inbox, email AI, messages, CRM, Aurora, calendars, analytics, and recovery queues.
             </p>
           </div>

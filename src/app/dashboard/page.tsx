@@ -51,8 +51,14 @@ export default async function DashboardPage() {
   ]);
 
   const plan = subscription ? getPlan(subscription.planId as Plan["id"]) : null;
-  const isLive = profile?.onboardingStatus === "live";
-  const arohaAiUrl = `https://arohaai.app?utm_source=arohacalls&utm_medium=dashboard&utm_campaign=managed_handoff&email=${encodeURIComponent(user?.email ?? session.user.email ?? "")}`;
+  const isLive = ["live", "complete"].includes(profile?.onboardingStatus ?? "");
+  const setupMessage = profile?.setupStatus
+    ?? (isLive
+      ? "Aroha Calls is handling your managed front desk workflows."
+      : "Complete onboarding so Aroha Group can configure your managed front-office system.");
+  const arohaAiUrl =
+    profile?.arohaAiLoginUrl
+    ?? `https://arohaai.app?utm_source=arohacalls&utm_medium=dashboard&utm_campaign=managed_handoff&email=${encodeURIComponent(user?.email ?? session.user.email ?? "")}`;
   const activity = [
     ...orderRows.map((order) => ({ label: `${order.planName} order ${order.status}`, at: order.createdAt })),
     ...ticketRows.map((ticket) => ({ label: `Support ticket: ${ticket.subject}`, at: ticket.createdAt })),
@@ -72,14 +78,12 @@ export default async function DashboardPage() {
           <GlassPanel>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <Badge variant={isLive ? "success" : "warning"}>{isLive ? "Live" : "Setup in progress"}</Badge>
+                <Badge variant={isLive ? "success" : "warning"}>{isLive ? "Live" : profile?.onboardingStatus ?? "Setup pending"}</Badge>
                 <h2 className="mt-4 text-2xl font-semibold tracking-tight">
-                  {isLive ? "Your Aroha AI is live and running" : "Your setup is in progress"}
+                  {isLive ? "Your Aroha AI is live and running" : "Your managed setup is being prepared"}
                 </h2>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  {isLive
-                    ? "Aroha Calls is handling your managed front desk workflows."
-                    : "Leo will contact you within 24 hours after onboarding and payment details are complete."}
+                  {setupMessage}
                 </p>
               </div>
               <Button asChild>
@@ -118,7 +122,7 @@ export default async function DashboardPage() {
         <div className="space-y-6">
           <GlassPanel>
             <Badge variant="glow">{plan?.name ?? "No active plan"}</Badge>
-            <h2 className="mt-4 text-xl font-semibold tracking-tight">Managed by Leo, powered by Aroha AI</h2>
+            <h2 className="mt-4 text-xl font-semibold tracking-tight">Managed by Aroha Group, powered by Aroha AI</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
               Aroha Calls is the done-for-you service. Aroha AI is the CRM, email, messages, calendar, and assistant engine behind it.
             </p>
@@ -129,7 +133,7 @@ export default async function DashboardPage() {
               </Link>
             </Button>
             <p className="mt-3 text-xs text-muted-foreground">
-              Your account is pre-identified by your Aroha Calls email — no second login required.
+              Your managed Aroha AI workspace will appear here when provisioning is ready.
             </p>
           </GlassPanel>
           <GlassPanel>

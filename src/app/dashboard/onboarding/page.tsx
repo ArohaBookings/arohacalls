@@ -26,17 +26,9 @@ export default async function OnboardingPage() {
     <DashboardShell
       session={session}
       title="Onboarding"
-      description="Tell Leo what your business needs so the managed AI receptionist can be configured properly."
+      description="Tell Aroha Group what your business needs so the managed front-office system can be configured properly."
     >
-      <GlassPanel>
-        <div className="mb-6 grid gap-4 sm:grid-cols-4">
-          {["Business", "Calendar", "Setup notes", "Confirmation"].map((step, index) => (
-            <div key={step} className="rounded-xl border border-border bg-card/40 p-4">
-              <p className="text-xs text-muted-foreground">Step {index + 1}</p>
-              <p className="mt-1 text-sm font-medium">{step}</p>
-            </div>
-          ))}
-        </div>
+      <GlassPanel className="p-4 sm:p-6">
         <OnboardingForm defaults={profile} />
       </GlassPanel>
     </DashboardShell>

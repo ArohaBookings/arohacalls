@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { requireAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
-import { adminSettings, statusServices, users } from "@/lib/db/schema";
-import { siteConfig } from "@/lib/site-config";
+import { adminSettings, arohaAiWebhookEvents, statusServices, stripeWebhookEvents, users } from "@/lib/db/schema";
 import { hasUsableDatabaseUrl, queryOrEmpty } from "@/lib/safe-db";
+import { arohaWebhookUrls, isArohaAiWebhookConfigured, isWebhookEncryptionConfigured } from "@/lib/aroha-ai-webhooks";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -18,16 +18,23 @@ export const metadata: Metadata = {
 
 export default async function AdminSettingsPage() {
   const session = await requireAdmin();
-  const [settingRows, statusRows, userRows] = await Promise.all([
+  const [settingRows, statusRows, userRows, arohaWebhookRows, stripeWebhookRows] = await Promise.all([
     queryOrEmpty(db.select().from(adminSettings).limit(100), "admin-settings-settings"),
     queryOrEmpty(db.select().from(statusServices).limit(100), "admin-settings-status"),
     queryOrEmpty(db.select().from(users).limit(100), "admin-settings-users"),
+    queryOrEmpty(db.select().from(arohaAiWebhookEvents).limit(25), "admin-settings-aroha-webhooks"),
+    queryOrEmpty(db.select().from(stripeWebhookEvents).limit(25), "admin-settings-stripe-webhooks"),
   ]);
   const admins = userRows.filter((user) => user.role === "admin");
+  const webhookUrls = arohaWebhookUrls();
   const envChecks = [
     ["Database", hasUsableDatabaseUrl()],
     ["Stripe secret key", !!process.env.STRIPE_SECRET_KEY],
     ["Stripe webhook secret", !!process.env.STRIPE_WEBHOOK_SECRET],
+    ["Aroha AI outbound URL", !!process.env.AROHA_AI_WEBHOOK_URL],
+    ["Aroha AI outbound signing secret", !!process.env.AROHA_AI_WEBHOOK_SECRET],
+    ["Aroha Calls inbound signing secret", !!process.env.AROHA_CALLS_WEBHOOK_SECRET],
+    ["Webhook payload encryption", isWebhookEncryptionConfigured()],
     ["Resend API key", !!process.env.RESEND_API_KEY],
     ["Google OAuth", !!process.env.GOOGLE_CLIENT_ID && !!process.env.GOOGLE_CLIENT_SECRET],
   ] as const;
@@ -53,10 +60,19 @@ export default async function AdminSettingsPage() {
         <GlassPanel>
           <h2 className="text-xl font-semibold tracking-tight">Stripe webhook</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
-            Production endpoint: <span className="text-foreground">{siteConfig.url}/api/stripe/webhook</span>
+            Production endpoint: <span className="text-foreground">{webhookUrls.stripe}</span>
           </p>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
             Events handled: checkout completion, subscription created/updated/deleted, invoice paid, invoice failed, action required, upcoming-ready invoice data, refunds, and customer/subscription updates as Stripe sends them.
+          </p>
+        </GlassPanel>
+        <GlassPanel>
+          <h2 className="text-xl font-semibold tracking-tight">Aroha AI webhook bridge</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            Give Aroha AI this inbound URL: <span className="text-foreground">{webhookUrls.arohaAiInbound}</span>
+          </p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            Outbound sync is <span className="text-foreground">{isArohaAiWebhookConfigured() ? "configured" : "not configured"}</span>. Payload encryption is <span className="text-foreground">{isWebhookEncryptionConfigured() ? "enabled" : "waiting for AROHA_WEBHOOK_ENCRYPTION_KEY"}</span>.
           </p>
         </GlassPanel>
         <GlassPanel>
@@ -100,6 +116,59 @@ export default async function AdminSettingsPage() {
             ) : (
               <p className="py-4 text-sm text-muted-foreground">No admin users found in the first 100 users.</p>
             )}
+          </div>
+        </GlassPanel>
+        <GlassPanel className="xl:col-span-2">
+          <h2 className="text-xl font-semibold tracking-tight">Recent webhook logs</h2>
+          <div className="mt-4 grid gap-6 xl:grid-cols-2">
+            <div>
+              <p className="mb-2 text-sm font-medium">Aroha AI sync</p>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Event</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Attempts</TableHead>
+                    <TableHead>Created</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {arohaWebhookRows.length ? arohaWebhookRows.map((row) => (
+                    <TableRow key={row.id}>
+                      <TableCell>{row.eventType}</TableCell>
+                      <TableCell><Badge variant={row.status === "processed" ? "success" : row.status === "failed" ? "destructive" : "outline"}>{row.status}</Badge></TableCell>
+                      <TableCell>{row.attempts}</TableCell>
+                      <TableCell>{row.createdAt.toLocaleDateString()}</TableCell>
+                    </TableRow>
+                  )) : (
+                    <TableRow><TableCell colSpan={4} className="text-muted-foreground">No Aroha AI webhook events yet.</TableCell></TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+            <div>
+              <p className="mb-2 text-sm font-medium">Stripe inbound</p>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Event</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Processed</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {stripeWebhookRows.length ? stripeWebhookRows.map((row) => (
+                    <TableRow key={row.id}>
+                      <TableCell>{row.type}</TableCell>
+                      <TableCell><Badge variant={row.processingStatus === "processed" ? "success" : row.processingStatus === "failed" ? "destructive" : "outline"}>{row.processingStatus}</Badge></TableCell>
+                      <TableCell>{row.processedAt.toLocaleDateString()}</TableCell>
+                    </TableRow>
+                  )) : (
+                    <TableRow><TableCell colSpan={3} className="text-muted-foreground">No Stripe webhook events yet.</TableCell></TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
           </div>
         </GlassPanel>
         <GlassPanel className="xl:col-span-2">

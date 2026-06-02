@@ -24,7 +24,7 @@ export function AssistantWidget() {
   const [messages, setMessages] = React.useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "Ask me anything about Aroha Calls, pricing, setup, number forwarding, Google Calendar, or whether managed vs self-serve is right for you.",
+      content: "Ask Grace anything about Aroha Calls, pricing, setup, number forwarding, Google Calendar, cancellation, or whether managed vs self-serve is right for you.",
     },
   ]);
 
@@ -81,7 +81,7 @@ export function AssistantWidget() {
               <Sparkles className="h-4 w-4" />
             </span>
             <div>
-              <p className="text-sm font-semibold text-foreground">Aroha assistant</p>
+              <p className="text-sm font-semibold text-foreground">Ask Grace</p>
               <p className="text-xs text-muted-foreground">Plans, setup, number options</p>
             </div>
           </div>
@@ -161,7 +161,7 @@ export function AssistantWidget() {
         aria-label="Open Aroha assistant"
       >
         <MessageCircle className="h-5 w-5" />
-        Ask Aroha
+        Ask Grace
       </button>
     </div>
   );

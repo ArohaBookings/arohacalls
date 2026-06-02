@@ -149,7 +149,7 @@ export const comparePages = {
     competitor: "Goodcall",
     title: "Aroha Calls vs Goodcall",
     intro:
-      "Goodcall is a known AI receptionist option. Aroha Calls is built for managed setup, Aroha AI-powered CRM memory, and businesses that want Leo to configure the system for them.",
+      "Goodcall is a known AI receptionist option. Aroha Calls is built for managed setup, Aroha AI-powered CRM memory, and businesses that want Aroha Group to configure the system for them.",
     rows: [
       ["Setup", "Done-for-you onboarding and workflow setup", "Primarily platform-led setup"],
       ["Positioning", "Managed service powered by Aroha AI", "AI voice receptionist platform"],
@@ -164,7 +164,7 @@ export const comparePages = {
     intro:
       "My AI Front Desk is a self-serve AI receptionist. Aroha Calls is for businesses that want the same outcome without doing setup, testing, tuning, and ongoing changes themselves.",
     rows: [
-      ["Service model", "Managed by Leo with white-glove setup", "Self-serve platform"],
+      ["Service model", "Managed by Aroha Group with white-glove setup", "Self-serve platform"],
       ["Aroha AI", "Includes managed access to the Aroha AI operating system", "Separate platform ecosystem"],
       ["Change requests", "Send changes to support and we update your rules", "Customer usually configures changes"],
       ["Dashboard", "Customer billing, support, onboarding, and Aroha AI links", "Platform dashboard"],
@@ -211,7 +211,7 @@ export const blogSeedPosts = [
       },
       {
         type: "paragraph",
-        text: "Aroha Calls is the managed version of Aroha AI. Leo sets up the voice, business knowledge, booking rules, follow-up logic, CRM memory, and approval workflows so you do not need to build the system yourself.",
+        text: "Aroha Calls is the managed version of Aroha AI. Aroha Group sets up the voice, business knowledge, booking rules, follow-up logic, CRM memory, and approval workflows so you do not need to build the system yourself.",
       },
       {
         type: "heading",

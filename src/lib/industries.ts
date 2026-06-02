@@ -154,7 +154,7 @@ export const INDUSTRIES: Industry[] = [
     },
     faq: [
       { q: "Is patient data encrypted?", a: "Yes. End-to-end encryption, audit logs, and recordings off by default." },
-      { q: "Will Aroha integrate with my PMS?", a: "Most major PMS via Zapier or native API. Talk to Leo about your stack on the demo." },
+      { q: "Will Aroha integrate with my PMS?", a: "Most major PMS workflows can be reviewed during managed setup. Tell Aroha Group about your stack on the demo." },
     ],
   },
   {
