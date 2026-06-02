@@ -74,9 +74,9 @@ function HeroControlRoom() {
 
   return (
     <div className="relative">
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b111d]/92 shadow-[0_28px_120px_rgba(0,0,0,0.55)]">
+      <div className="relative overflow-hidden rounded-[2rem] border border-border bg-white/92 shadow-[0_28px_100px_rgba(15,23,42,0.12)] backdrop-blur-xl">
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent" aria-hidden="true" />
-        <div className="border-b border-white/10 bg-white/[0.03] px-4 py-3">
+        <div className="border-b border-border bg-slate-50/85 px-4 py-3">
           <div className="flex flex-wrap items-center gap-2">
             {clips.map((item) => {
               const ItemIcon = item.icon;
@@ -89,7 +89,7 @@ function HeroControlRoom() {
                     "inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium transition",
                     active === item.id
                       ? "border-primary/50 bg-primary/15 text-primary"
-                      : "border-white/10 bg-white/[0.03] text-muted-foreground hover:text-foreground",
+                      : "border-border bg-white text-muted-foreground shadow-sm hover:text-foreground",
                   )}
                 >
                   <ItemIcon className="h-3.5 w-3.5" />
@@ -113,7 +113,7 @@ function HeroControlRoom() {
             </div>
 
             <div className="mt-6 space-y-3">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <div className="rounded-2xl border border-border bg-slate-50 p-4">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Customer</p>
                 <p className="mt-2 text-sm leading-6 text-foreground/90">{clip.caller}</p>
               </div>
@@ -121,26 +121,26 @@ function HeroControlRoom() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">Aroha</p>
                 <p className="mt-2 text-sm leading-6 text-foreground/90">{clip.response}</p>
               </div>
-              <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-sm text-foreground/90">
+              <div className="flex items-center gap-2 rounded-2xl border border-border bg-slate-50 p-4 text-sm text-foreground/90">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
                 {clip.outcome}
               </div>
             </div>
           </div>
 
-          <div className="border-t border-white/10 bg-black/18 p-5 sm:p-6 lg:border-l lg:border-t-0">
+          <div className="border-t border-border bg-slate-50/85 p-5 sm:p-6 lg:border-l lg:border-t-0">
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <div className="rounded-2xl border border-border bg-white p-4 shadow-sm">
                 <p className="text-2xl font-semibold tracking-tight text-foreground">{clip.stat}</p>
                 <p className="mt-1 text-xs leading-4 text-muted-foreground">{clip.statLabel}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <div className="rounded-2xl border border-border bg-white p-4 shadow-sm">
                 <p className="text-2xl font-semibold tracking-tight text-foreground">7</p>
                 <p className="mt-1 text-xs leading-4 text-muted-foreground">Recoverable leads</p>
               </div>
             </div>
 
-            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+            <div className="mt-4 rounded-2xl border border-border bg-white p-4 shadow-sm">
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Revenue leak closed</p>
                 <Zap className="h-4 w-4 text-primary" />
@@ -178,7 +178,7 @@ function HeroControlRoom() {
 
 export function Hero() {
   return (
-    <section className="relative isolate flex min-h-[calc(100svh-4rem)] overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-20">
+    <section className="relative isolate flex min-h-[calc(100svh-4rem)] overflow-hidden bg-white pt-24 pb-14 sm:pt-28 sm:pb-20">
       <AuroraBG intensity="strong" />
       <div className="container-tight relative grid flex-1 items-center gap-12 xl:grid-cols-12">
         <motion.div

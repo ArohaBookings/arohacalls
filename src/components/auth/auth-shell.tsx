@@ -18,7 +18,7 @@ export function AuthShell({
       <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
       <Link
         href="/"
-        className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/60 px-4 py-2 text-sm text-muted-foreground backdrop-blur-xl transition hover:border-primary/40 hover:text-foreground sm:left-6 sm:top-6"
+        className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-border bg-white/85 px-4 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur-xl transition hover:border-primary/40 hover:text-foreground sm:left-6 sm:top-6"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to website
@@ -28,7 +28,7 @@ export function AuthShell({
           <div className="mb-8 flex justify-center">
             <Logo />
           </div>
-          <section className="rounded-[1.5rem] border border-white/10 bg-card/70 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8">
+          <section className="rounded-[1.5rem] border border-border bg-white/92 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.1)] backdrop-blur-xl sm:p-8">
             <div className="mb-6 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>

@@ -64,7 +64,7 @@ const features = [
   },
   {
     icon: Languages,
-    title: "Natural local voice",
+    title: "Natural brand voice",
     description: "Tuned to your market and brand. Handles accents, background noise, interruptions.",
     span: "",
   },

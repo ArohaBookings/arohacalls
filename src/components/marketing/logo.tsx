@@ -13,7 +13,7 @@ export function Logo({
 }) {
   return (
     <Link href={href} className={cn("inline-flex items-center gap-3 font-semibold", className)}>
-      <span className="relative inline-grid h-10 w-10 place-items-center overflow-hidden rounded-xl border border-white/10 bg-white shadow-[0_0_28px_rgba(45,221,213,0.35)]">
+      <span className="relative inline-grid h-10 w-10 place-items-center overflow-hidden rounded-xl border border-cyan-100 bg-white shadow-[0_0_28px_rgba(45,221,213,0.22)]">
         <Image
           src="/aroha-mark.png"
           alt=""

@@ -85,8 +85,8 @@ export function ClosingEngine() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b111d] shadow-[0_26px_110px_rgba(0,0,0,0.48)]">
-            <div className={cn("border-b border-white/10 bg-gradient-to-br p-4", play.accent)}>
+          <div className="overflow-hidden rounded-[2rem] border border-border bg-white shadow-[0_26px_95px_rgba(15,23,42,0.11)]">
+            <div className={cn("border-b border-border bg-gradient-to-br p-4", play.accent)}>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {plays.map((item) => {
                   const ItemIcon = item.icon;
@@ -99,7 +99,7 @@ export function ClosingEngine() {
                         "rounded-2xl border p-3 text-left transition",
                         active === item.id
                           ? "border-primary/50 bg-primary/15 text-primary"
-                          : "border-white/10 bg-white/[0.04] text-muted-foreground hover:text-foreground",
+                          : "border-border bg-white text-muted-foreground shadow-sm hover:text-foreground",
                       )}
                     >
                       <ItemIcon className="h-4 w-4" />
@@ -111,7 +111,7 @@ export function ClosingEngine() {
             </div>
 
             <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
-              <div className="border-b border-white/10 p-6 lg:border-b-0 lg:border-r">
+              <div className="border-b border-border p-6 lg:border-b-0 lg:border-r">
                 <span className="grid h-12 w-12 place-items-center rounded-2xl border border-primary/30 bg-primary/10 text-primary">
                   <Icon className="h-5 w-5" />
                 </span>
@@ -125,7 +125,7 @@ export function ClosingEngine() {
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Live handling path</p>
                 <div className="mt-5 space-y-3">
                   {play.steps.map((step, index) => (
-                    <div key={step} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                    <div key={step} className="flex items-center gap-3 rounded-2xl border border-border bg-slate-50 p-4">
                       <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/15 text-sm font-semibold text-primary">
                         {index + 1}
                       </span>
@@ -141,7 +141,7 @@ export function ClosingEngine() {
                   ].map((item) => {
                     const ItemIcon = item.icon;
                     return (
-                      <div key={item.label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-center">
+                      <div key={item.label} className="rounded-2xl border border-border bg-slate-50 p-3 text-center">
                         <ItemIcon className="mx-auto h-4 w-4 text-primary" />
                         <p className="mt-2 text-[11px] text-muted-foreground">{item.label}</p>
                       </div>

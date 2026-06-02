@@ -13,7 +13,7 @@ export function TradieSpotlight() {
     <section className="relative overflow-hidden bg-background py-16 sm:py-20">
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-primary/10 via-secondary/5 to-transparent" aria-hidden="true" />
       <div className="container-tight relative">
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(135deg,rgba(0,210,161,0.12),rgba(179,136,255,0.08)_48%,rgba(255,141,180,0.08))] p-6 shadow-[0_28px_120px_rgba(0,0,0,0.35)] sm:p-8 lg:p-10">
+        <div className="relative overflow-hidden rounded-[2rem] border border-border bg-[linear-gradient(135deg,rgba(0,210,161,0.12),rgba(99,102,241,0.08)_48%,rgba(244,114,182,0.08))] p-6 shadow-[0_28px_100px_rgba(15,23,42,0.1)] sm:p-8 lg:p-10">
           <div className="absolute inset-0 bg-grid opacity-20" aria-hidden="true" />
           <div className="relative grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
@@ -47,7 +47,7 @@ export function TradieSpotlight() {
               {moments.map((moment, index) => {
                 const Icon = moment.icon;
                 return (
-                  <div key={moment.label} className="flex items-start gap-4 rounded-2xl border border-white/10 bg-black/24 p-4 backdrop-blur">
+                  <div key={moment.label} className="flex items-start gap-4 rounded-2xl border border-border bg-white/78 p-4 shadow-sm backdrop-blur">
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-primary/25 bg-primary/10 text-primary">
                       <Icon className="h-5 w-5" />
                     </span>

@@ -29,7 +29,7 @@ export function SpotlightCard({
       ref={cardRef}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className={cn("group relative overflow-hidden rounded-2xl border border-border bg-card/60", className)}
+      className={cn("group relative overflow-hidden rounded-2xl border border-border bg-white/88 shadow-sm", className)}
     >
       <div
         className="pointer-events-none absolute -inset-px transition-opacity duration-300"

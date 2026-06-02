@@ -31,7 +31,7 @@ function RangeField({
   onChange: (value: number) => void;
 }) {
   return (
-    <label className="block rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+    <label className="block rounded-2xl border border-border bg-white p-4 shadow-sm">
       <span className="flex items-center justify-between gap-4 text-sm font-medium text-foreground">
         {label}
         <span className="text-primary">
@@ -78,7 +78,7 @@ export function LeadLeakCalculator() {
   }
 
   return (
-    <section className="relative border-y border-white/10 bg-[linear-gradient(135deg,rgba(0,210,161,0.14),rgba(179,136,255,0.12)_45%,rgba(255,141,180,0.12))] py-24">
+    <section className="relative border-y border-border bg-[linear-gradient(135deg,rgba(0,210,161,0.12),rgba(99,102,241,0.08)_45%,rgba(244,114,182,0.08))] py-24">
       <div className="container-tight">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
@@ -98,7 +98,7 @@ export function LeadLeakCalculator() {
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.label} className="rounded-2xl border border-white/10 bg-background/55 p-4">
+                  <div key={item.label} className="rounded-2xl border border-border bg-white/72 p-4 shadow-sm">
                     <Icon className="h-4 w-4 text-primary" />
                     <p className="mt-3 text-xs uppercase tracking-[0.16em] text-muted-foreground">{item.label}</p>
                     <p className="mt-1 text-lg font-semibold tracking-tight text-foreground">{item.value}</p>
@@ -108,8 +108,8 @@ export function LeadLeakCalculator() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b111d]/92 shadow-[0_24px_100px_rgba(0,0,0,0.38)]">
-            <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-5 py-4">
+          <div className="overflow-hidden rounded-[2rem] border border-border bg-white/92 shadow-[0_24px_90px_rgba(15,23,42,0.12)] backdrop-blur-xl">
+            <div className="flex items-center justify-between border-b border-border bg-slate-50/85 px-5 py-4">
               <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
                   <Calculator className="h-5 w-5" />

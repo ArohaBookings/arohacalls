@@ -109,8 +109,8 @@ export function ProductClips() {
           </div>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-[#0c111d] shadow-[0_24px_100px_rgba(0,0,0,0.42)]">
-          <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-5 py-4">
+        <div className="mt-10 overflow-hidden rounded-[2rem] border border-border bg-white shadow-[0_24px_90px_rgba(15,23,42,0.1)]">
+          <div className="flex items-center justify-between border-b border-border bg-slate-50/85 px-5 py-4">
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
                 <Icon className="h-5 w-5" />
@@ -130,7 +130,7 @@ export function ProductClips() {
               <h3 className="text-2xl font-semibold tracking-tight text-foreground">{clip.headline}</h3>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
                 {clip.lines.map((line) => (
-                  <div key={line} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <div key={line} className="rounded-2xl border border-border bg-slate-50 p-4">
                     <Sparkles className="h-4 w-4 text-primary" />
                     <p className="mt-3 text-sm font-medium text-foreground">{line}</p>
                   </div>
@@ -142,7 +142,7 @@ export function ProductClips() {
                   return (
                     <div
                       key={row.label}
-                      className="flex items-center gap-2 rounded-xl bg-white/[0.04] px-3 py-2 text-xs text-muted-foreground"
+                      className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2 text-xs text-muted-foreground"
                     >
                       <RowIcon className="h-4 w-4 text-primary" />
                       {row.label}
@@ -152,11 +152,11 @@ export function ProductClips() {
               </div>
             </div>
 
-            <div className="border-t border-white/10 bg-black/20 p-6 sm:p-8 lg:border-l lg:border-t-0">
+            <div className="border-t border-border bg-slate-50/85 p-6 sm:p-8 lg:border-l lg:border-t-0">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{clip.sideTitle}</p>
               <div className="mt-5 space-y-3">
                 {clip.sideRows.map(([label, value]) => (
-                  <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <div key={label} className="rounded-2xl border border-border bg-white p-4 shadow-sm">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">{label}</p>
                     <p className="mt-1 text-lg font-semibold tracking-tight text-foreground">{value}</p>
                   </div>

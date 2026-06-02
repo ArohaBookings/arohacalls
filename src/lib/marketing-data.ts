@@ -33,7 +33,7 @@ export const featureGroups = [
     title: "AI receptionist",
     description:
       "Answers every call instantly, follows your rules, captures caller details, and handles real conversations instead of forcing scripts.",
-    bullets: ["Caller ID memory", "Natural local voice", "Spam filtering", "Urgent caller routing"],
+    bullets: ["Caller ID memory", "Natural brand voice", "Spam filtering", "Urgent caller routing"],
   },
   {
     icon: CalendarCheck,

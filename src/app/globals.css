@@ -4,27 +4,27 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 5%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 5%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 162 88% 45%;
-  --primary-foreground: 240 10% 4%;
-  --secondary: 261 83% 70%;
-  --secondary-foreground: 0 0% 98%;
-  --accent: 340 82% 67%;
-  --accent-foreground: 0 0% 98%;
-  --muted: 240 5% 11%;
-  --muted-foreground: 240 5% 65%;
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 167 88% 43%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 255 83% 62%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 338 84% 61%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 46%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 6% 14%;
-  --input: 240 6% 14%;
-  --ring: 162 88% 45%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 167 88% 43%;
   --radius: 0.875rem;
-  --shadow-glow: 0 0 80px hsl(162 88% 45% / 0.18);
+  --shadow-glow: 0 24px 80px hsl(183 96% 45% / 0.14);
 }
 
 @theme inline {
@@ -78,11 +78,14 @@
   html {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    color-scheme: dark;
+    color-scheme: light;
     min-width: 320px;
     overflow-x: clip;
   }
   body {
+    background:
+      radial-gradient(circle at 50% -10%, hsl(181 95% 72% / 0.2), transparent 34rem),
+      linear-gradient(180deg, #ffffff 0%, #f8fbff 42%, #ffffff 100%);
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: var(--font-geist-sans), system-ui, sans-serif;
@@ -210,10 +213,11 @@
   }
 
   .glass {
-    background: hsl(var(--card) / 0.6);
+    background: hsl(var(--card) / 0.82);
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid hsl(var(--border) / 0.7);
+    border: 1px solid hsl(var(--border) / 0.9);
+    box-shadow: 0 24px 80px hsl(222 47% 11% / 0.08);
   }
 
   .shimmer {

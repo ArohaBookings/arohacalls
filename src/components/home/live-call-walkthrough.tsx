@@ -235,8 +235,8 @@ export function LiveCallWalkthrough() {
   }
 
   return (
-    <section className="relative overflow-hidden border-y border-white/10 bg-[#071018] py-20 sm:py-24">
-      <div className="absolute inset-0 bg-grid opacity-20" aria-hidden="true" />
+    <section className="relative overflow-hidden border-y border-border bg-white py-20 sm:py-24">
+      <div className="absolute inset-0 bg-grid opacity-35" aria-hidden="true" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" aria-hidden="true" />
       <div className="container-tight relative">
         <div className="grid gap-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-start">
@@ -262,7 +262,7 @@ export function LiveCallWalkthrough() {
                       "inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition",
                       active
                         ? "border-primary/50 bg-primary/15 text-primary"
-                        : "border-white/10 bg-white/[0.04] text-muted-foreground hover:text-foreground",
+                        : "border-border bg-white text-muted-foreground shadow-sm hover:text-foreground",
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -288,8 +288,8 @@ export function LiveCallWalkthrough() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b111d] shadow-[0_30px_120px_rgba(0,0,0,0.48)]">
-            <div className="flex flex-col gap-4 border-b border-white/10 bg-white/[0.03] p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="overflow-hidden rounded-[2rem] border border-border bg-white shadow-[0_30px_100px_rgba(15,23,42,0.12)]">
+            <div className="flex flex-col gap-4 border-b border-border bg-slate-50/85 p-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-3">
                 <span className="grid h-11 w-11 place-items-center rounded-2xl border border-primary/30 bg-primary/10 text-primary">
                   <ActiveIcon className="h-5 w-5" />
@@ -303,7 +303,7 @@ export function LiveCallWalkthrough() {
                 <button
                   type="button"
                   onClick={() => restart()}
-                  className="inline-flex h-9 items-center gap-2 rounded-full border border-white/10 px-3 text-xs text-muted-foreground hover:text-foreground"
+                  className="inline-flex h-9 items-center gap-2 rounded-full border border-border bg-white px-3 text-xs text-muted-foreground hover:text-foreground"
                 >
                   <RefreshCcw className="h-3.5 w-3.5" />
                   Restart
@@ -331,7 +331,7 @@ export function LiveCallWalkthrough() {
                   </span>
                 </div>
 
-                <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/[0.06]">
+                <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100">
                   <div className="h-full rounded-full bg-gradient-to-r from-primary via-secondary to-accent transition-all duration-500" style={{ width: `${progress}%` }} />
                 </div>
 
@@ -347,7 +347,7 @@ export function LiveCallWalkthrough() {
                           isDecision
                             ? "border-secondary/25 bg-secondary/[0.08]"
                             : isCaller
-                              ? "ml-auto max-w-[92%] border-white/10 bg-white/[0.05]"
+                              ? "ml-auto max-w-[92%] border-border bg-slate-50"
                               : "mr-auto max-w-[92%] border-primary/25 bg-primary/[0.08]",
                         )}
                       >
@@ -361,8 +361,8 @@ export function LiveCallWalkthrough() {
                 </div>
               </div>
 
-              <div className="border-t border-white/10 bg-black/18 p-5 sm:p-6 lg:border-l lg:border-t-0">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+              <div className="border-t border-border bg-slate-50/85 p-5 sm:p-6 lg:border-l lg:border-t-0">
+                <div className="rounded-2xl border border-border bg-white p-4 shadow-sm">
                   <div className="flex items-start gap-3">
                     <Bot className="mt-0.5 h-5 w-5 text-primary" />
                     <div>
@@ -375,7 +375,7 @@ export function LiveCallWalkthrough() {
                 <button
                   type="button"
                   onClick={() => setShowCapabilities((value) => !value)}
-                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-muted-foreground transition hover:text-foreground"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-2 text-xs text-muted-foreground shadow-sm transition hover:text-foreground"
                 >
                   <Sparkles className="h-3.5 w-3.5 text-primary" />
                   {showCapabilities ? "Hide capabilities" : "Show capabilities"}
@@ -390,7 +390,7 @@ export function LiveCallWalkthrough() {
                           "flex items-start gap-3 rounded-2xl border p-3 transition",
                           index <= step
                             ? "border-primary/25 bg-primary/[0.08] text-foreground"
-                            : "border-white/10 bg-white/[0.03] text-muted-foreground",
+                            : "border-border bg-white text-muted-foreground",
                         )}
                       >
                         <CheckCircle2 className={cn("mt-0.5 h-4 w-4 shrink-0", index <= step ? "text-primary" : "text-muted-foreground")} />
@@ -407,7 +407,7 @@ export function LiveCallWalkthrough() {
 
                 <div className="mt-5 grid gap-2">
                   {flow.summary.map((item) => (
-                    <div key={item} className="flex items-center gap-2 rounded-xl bg-white/[0.04] px-3 py-2 text-xs text-muted-foreground">
+                    <div key={item} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs text-muted-foreground shadow-sm">
                       <CalendarCheck2 className="h-3.5 w-3.5 text-primary" />
                       {item}
                     </div>

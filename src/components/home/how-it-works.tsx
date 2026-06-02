@@ -38,7 +38,7 @@ export function HowItWorks() {
           {steps.map((s, i) => (
             <div
               key={s.title}
-              className="relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8"
+              className="relative overflow-hidden rounded-3xl border border-border bg-white/88 p-8 shadow-sm"
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/0 via-primary/70 to-primary/0" />
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">{s.label}</p>

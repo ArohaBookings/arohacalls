@@ -53,7 +53,7 @@ export function AdminShell({
         </div>
       </div>
       <div className="container-tight grid gap-8 py-8 xl:grid-cols-[240px_1fr]">
-        <aside className="h-fit rounded-2xl border border-white/10 bg-card/55 p-3 backdrop-blur-xl">
+        <aside className="h-fit rounded-2xl border border-border bg-white/88 p-3 shadow-sm backdrop-blur-xl">
           <div className="px-3 py-2">
             <p className="text-sm font-medium">Leo admin</p>
             <p className="truncate text-xs text-muted-foreground">{session.user.email}</p>

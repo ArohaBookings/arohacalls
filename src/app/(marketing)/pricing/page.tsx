@@ -62,9 +62,9 @@ export default function PricingPage() {
                 </p>
               </div>
               <div className="mt-6 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                <span className="rounded-full border border-border bg-background/40 px-3 py-1">Monthly or yearly</span>
-                <span className="rounded-full border border-border bg-background/40 px-3 py-1">NZD or USD</span>
-                <span className="rounded-full border border-border bg-background/40 px-3 py-1">Cancel anytime</span>
+                <span className="rounded-full border border-border bg-white px-3 py-1 shadow-sm">Monthly or yearly</span>
+                <span className="rounded-full border border-border bg-white px-3 py-1 shadow-sm">NZD or USD</span>
+                <span className="rounded-full border border-border bg-white px-3 py-1 shadow-sm">Cancel anytime</span>
               </div>
             </GlassPanel>
             <div className="grid gap-3 sm:grid-cols-3">
@@ -85,7 +85,7 @@ export default function PricingPage() {
                   body: "Checkout, invoices, renewals, plan changes and cancellation all run through Stripe customer billing.",
                 },
               ].map((item) => (
-                <div key={item.title} className="rounded-3xl border border-border bg-card/45 p-5">
+                <div key={item.title} className="rounded-3xl border border-border bg-white/88 p-5 shadow-sm">
                   <item.icon className="h-5 w-5 text-primary" />
                   <h3 className="mt-4 text-base font-semibold tracking-tight">{item.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.body}</p>

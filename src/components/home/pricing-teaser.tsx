@@ -20,9 +20,9 @@ export function PricingTeaser() {
             <div
               key={plan.id}
               className={cn(
-                "relative flex flex-col rounded-3xl border bg-card/50 p-7 transition-all hover:border-foreground/30",
+                "relative flex flex-col rounded-3xl border bg-white/88 p-7 shadow-sm transition-all hover:border-foreground/30",
                 plan.popular
-                  ? "border-primary/50 bg-card/80 shadow-[0_0_64px_-24px_hsl(var(--primary)/0.55)]"
+                  ? "border-primary/50 bg-white shadow-[0_24px_80px_-28px_hsl(var(--primary)/0.55)]"
                   : "border-border",
               )}
             >

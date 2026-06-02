@@ -12,7 +12,7 @@ export function PlanCard({ plan, currency = "NZD" }: { plan: Plan; currency?: "N
   return (
     <div
       className={cn(
-        "relative flex flex-col overflow-hidden rounded-3xl border bg-card/55 transition-all hover:border-foreground/30",
+        "relative flex flex-col overflow-hidden rounded-3xl border bg-white/90 shadow-sm transition-all hover:border-foreground/30",
         plan.popular
           ? "border-primary/50 shadow-[0_0_64px_-24px_hsl(var(--primary)/0.55)]"
           : "border-border",
@@ -28,7 +28,7 @@ export function PlanCard({ plan, currency = "NZD" }: { plan: Plan; currency?: "N
       <div
         className="relative flex items-end justify-center overflow-hidden border-b border-border/60 px-4 pb-3 pt-9 sm:px-6"
         style={{
-          background: `radial-gradient(ellipse at center, ${plan.theme.gradient[0]}24 0%, transparent 70%), hsl(var(--card))`,
+          background: `radial-gradient(ellipse at center, ${plan.theme.gradient[0]}22 0%, transparent 70%), #ffffff`,
           minHeight: "236px",
         }}
       >

@@ -322,20 +322,20 @@ export function LiveDemoExperience() {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-6 rounded-[3rem] bg-cyan-300/20 blur-3xl" />
+            <div className="absolute -inset-6 rounded-[3rem] bg-cyan-300/18 blur-3xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_34px_110px_rgba(15,23,42,0.16)]">
-              <div className="flex items-center justify-between gap-4 border-b border-slate-200 bg-slate-950 px-5 py-4 text-white">
+              <div className="flex items-center justify-between gap-4 border-b border-slate-200 bg-slate-50 px-5 py-4 text-slate-950">
                 <div className="flex items-center gap-3">
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-400 text-slate-950">
+                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-500 text-white">
                     <Headphones className="h-5 w-5" />
                   </span>
                   <div>
                     <p className="text-sm font-semibold">Grace from Aroha</p>
-                    <p className="text-xs text-white/60">One live demo voice. Your setup can use a different voice.</p>
+                    <p className="text-xs text-slate-500">One live demo voice. Your setup can use a different voice.</p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium">
-                  <Radio className={cn("h-3.5 w-3.5", isLive && "animate-pulse text-cyan-300")} />
+                <span className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-white px-3 py-1 text-xs font-medium text-slate-700">
+                  <Radio className={cn("h-3.5 w-3.5 text-slate-400", isLive && "animate-pulse text-cyan-600")} />
                   {isLive ? formatDuration(seconds * 1000) : "00:00"}
                 </span>
               </div>
@@ -387,7 +387,7 @@ export function LiveDemoExperience() {
                           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
                         >
                           <Play className="h-4 w-4" />
-                          Start browser call
+                          Start call
                         </button>
                       )}
                       <Link
@@ -402,32 +402,32 @@ export function LiveDemoExperience() {
                   </div>
                 </div>
 
-                <div className="border-t border-slate-200 bg-slate-950 p-5 text-white lg:border-l lg:border-t-0 sm:p-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">After-call intelligence</p>
+                <div className="border-t border-slate-200 bg-slate-50 p-5 text-slate-950 lg:border-l lg:border-t-0 sm:p-7">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">After-call intelligence</p>
                   <div className="mt-4 space-y-3">
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                      <p className="text-xs text-white/50">Detected intent</p>
+                    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                      <p className="text-xs text-slate-500">Detected intent</p>
                       <p className="mt-1 font-semibold">{summary?.detectedIntent ?? "Analysis appears here after the call"}</p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                      <p className="text-xs text-white/50">AI summary</p>
-                      <p className="mt-2 text-sm leading-6 text-white/78">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                      <p className="text-xs text-slate-500">AI summary</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">
                         {summary?.summary ?? summary?.transcriptSnippet ?? "Grace will summarise what the caller wanted, what was captured, and what should happen next."}
                       </p>
                     </div>
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-                      <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                        <p className="text-xs text-white/50">Booking</p>
+                      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                        <p className="text-xs text-slate-500">Booking</p>
                         <p className="mt-1 font-semibold">{summary?.bookingMade ? "Made or requested" : "Pending"}</p>
                       </div>
-                      <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                        <p className="text-xs text-white/50">Duration</p>
+                      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                        <p className="text-xs text-slate-500">Duration</p>
                         <p className="mt-1 font-semibold">{formatDuration(summary?.durationMs)}</p>
                       </div>
                     </div>
-                    <div className="rounded-2xl border border-cyan-300/25 bg-cyan-300/10 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">Next action</p>
-                      <p className="mt-2 text-sm leading-6 text-white/82">
+                    <div className="rounded-2xl border border-cyan-200 bg-cyan-50 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">Next action</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-700">
                         {summary?.nextAction ?? "Book, quote, follow up, or hand off to the owner with the context already written."}
                       </p>
                     </div>
@@ -492,14 +492,15 @@ export function LiveDemoExperience() {
         </div>
       </section>
 
-      <section className="bg-slate-950 py-[4.5rem] text-white sm:py-24">
+      <section className="relative border-y border-slate-200 bg-white py-[4.5rem] text-slate-950 sm:py-24">
+        <div className="absolute inset-0 bg-dots opacity-30" aria-hidden="true" />
         <div className="container-tight">
           <div className="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
             <div>
               <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-6xl">
                 What good is ranking #1 if nobody answers?
               </h2>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-white/68">
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
                 Ads, SEO, referrals, and repeat customers all end at the same moment: the phone rings. Aroha makes sure that moment turns into a handled conversation instead of a voicemail gamble.
               </p>
             </div>
@@ -512,10 +513,10 @@ export function LiveDemoExperience() {
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-5">
-                    <Icon className="h-6 w-6 text-cyan-300" />
+                  <div key={item.title} className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5 shadow-sm">
+                    <Icon className="h-6 w-6 text-cyan-600" />
                     <h3 className="mt-4 text-xl font-semibold">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-white/62">{item.body}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.body}</p>
                   </div>
                 );
               })}
@@ -574,11 +575,11 @@ export function LiveDemoExperience() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="rounded-[2rem] border border-slate-200 bg-slate-950 p-7 text-white shadow-sm sm:p-9">
-              <UserRound className="h-8 w-8 text-cyan-300" />
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 text-slate-950 shadow-sm sm:p-9">
+              <UserRound className="h-8 w-8 text-secondary" />
               <h2 className="mt-5 text-3xl font-semibold tracking-tight">Aroha AI</h2>
-              <p className="mt-3 text-lg font-medium text-white/82">Self-serve. You build and control it yourself.</p>
-              <p className="mt-4 leading-7 text-white/62">
+              <p className="mt-3 text-lg font-medium text-slate-700">Self-serve. You build and control it yourself.</p>
+              <p className="mt-4 leading-7 text-slate-600">
                 Best when you want the platform behind Aroha Calls and prefer to configure your own assistants, CRM, Email AI, automations, and workflows.
               </p>
               <a
@@ -586,7 +587,7 @@ export function LiveDemoExperience() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => track("live_demo_aroha_ai_clicked")}
-                className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold transition hover:border-cyan-300 hover:text-cyan-200"
+                className="mt-7 inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold transition hover:border-secondary/50 hover:text-secondary"
               >
                 Explore self-serve
                 <ArrowRight className="h-4 w-4" />
@@ -622,13 +623,13 @@ export function LiveDemoExperience() {
 
       <section className="bg-white pb-20">
         <div className="container-tight">
-          <div className="rounded-[2rem] bg-slate-950 p-8 text-white sm:p-12">
+          <div className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,rgba(0,210,161,0.10),rgba(99,102,241,0.08)_52%,rgba(244,114,182,0.08))] p-8 text-slate-950 shadow-[0_28px_95px_rgba(15,23,42,0.1)] sm:p-12">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <div className="flex flex-wrap gap-3 text-sm text-white/70">
-                  <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-cyan-300" /> 7-day guarantee</span>
-                  <span className="inline-flex items-center gap-2"><Clock3 className="h-4 w-4 text-cyan-300" /> Managed setup</span>
-                  <span className="inline-flex items-center gap-2"><PhoneCall className="h-4 w-4 text-cyan-300" /> 24/7 reception</span>
+                <div className="flex flex-wrap gap-3 text-sm text-slate-600">
+                  <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-cyan-600" /> 7-day guarantee</span>
+                  <span className="inline-flex items-center gap-2"><Clock3 className="h-4 w-4 text-cyan-600" /> Managed setup</span>
+                  <span className="inline-flex items-center gap-2"><PhoneCall className="h-4 w-4 text-cyan-600" /> 24/7 reception</span>
                 </div>
                 <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
                   Let Grace prove it, then let Aroha Group set it up for your business.
@@ -649,7 +650,7 @@ export function LiveDemoExperience() {
                 <Link
                   href="/demo"
                   onClick={() => track("live_demo_footer_demo_clicked")}
-                  className="inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-full border border-white/20 px-6 text-sm font-semibold transition hover:border-cyan-300 hover:text-cyan-200"
+                  className="inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 text-sm font-semibold transition hover:border-cyan-300 hover:text-cyan-700"
                 >
                   Get it set up for me
                   <ArrowRight className="h-4 w-4" />

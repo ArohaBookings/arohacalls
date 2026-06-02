@@ -27,12 +27,12 @@ const models = [
 
 export function BrandSplit() {
   return (
-    <section className="relative overflow-hidden border-y border-white/10 bg-[#071018] py-14 sm:py-16">
-      <div className="absolute inset-0 bg-grid opacity-20" aria-hidden="true" />
+    <section className="relative overflow-hidden border-y border-border bg-white py-14 sm:py-16">
+      <div className="absolute inset-0 bg-grid opacity-35" aria-hidden="true" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" aria-hidden="true" />
       <div className="container-tight relative">
         <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-stretch">
-          <div className="flex flex-col justify-between rounded-[1.75rem] border border-white/10 bg-white/[0.035] p-6 sm:p-8">
+          <div className="flex flex-col justify-between rounded-[1.75rem] border border-border bg-slate-50/90 p-6 shadow-sm sm:p-8">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">One Aroha Group engine</p>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -51,7 +51,7 @@ export function BrandSplit() {
               return (
                 <article
                   key={model.title}
-                  className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-card/65 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.28)] sm:p-8"
+                  className="relative overflow-hidden rounded-[1.75rem] border border-border bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:p-8"
                 >
                   <div
                     className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${

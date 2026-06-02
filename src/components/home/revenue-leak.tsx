@@ -59,7 +59,7 @@ export function RevenueLeak() {
               return (
                 <div
                   key={step.title}
-                  className="relative overflow-hidden rounded-2xl border border-white/10 bg-background/70 p-5"
+                  className="relative overflow-hidden rounded-2xl border border-border bg-white/82 p-5 shadow-sm"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <span className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-card text-primary">

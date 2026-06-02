@@ -28,7 +28,7 @@ export function PageHero({
         {back && (
           <Link
             href={back.href}
-            className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-card/55 px-4 py-2 text-sm text-muted-foreground backdrop-blur-xl transition hover:border-primary/40 hover:text-foreground"
+            className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-white/85 px-4 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur-xl transition hover:border-primary/40 hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
             {back.label}
@@ -83,7 +83,7 @@ export function GlassPanel({
   return (
     <div
       className={cn(
-        "rounded-[1.55rem] border border-white/10 bg-card/65 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-xl",
+        "rounded-[1.55rem] border border-border bg-white/88 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl",
         className,
       )}
       {...props}

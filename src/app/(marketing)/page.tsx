@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/hero";
 import { BrandSplit } from "@/components/home/brand-split";
+import { FrontOfficeOS } from "@/components/home/front-office-os";
 import { TradieSpotlight } from "@/components/home/tradie-spotlight";
 import { LiveCallWalkthrough } from "@/components/home/live-call-walkthrough";
 import { RevenueLeak } from "@/components/home/revenue-leak";
@@ -23,6 +24,7 @@ export default function HomePage() {
     <>
       <Hero />
       <BrandSplit />
+      <FrontOfficeOS />
       <TradieSpotlight />
       <LiveCallWalkthrough />
       <RevenueLeak />

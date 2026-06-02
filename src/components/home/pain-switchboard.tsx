@@ -125,8 +125,8 @@ export function PainSwitchboard() {
               })}
             </div>
 
-            <div className={cn("overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br p-px", item.color)}>
-              <div className="rounded-[calc(2rem-1px)] bg-[#0b111d]/94 p-6 sm:p-8">
+            <div className={cn("overflow-hidden rounded-[2rem] border border-border bg-gradient-to-br p-px shadow-[0_26px_90px_rgba(15,23,42,0.1)]", item.color)}>
+              <div className="rounded-[calc(2rem-1px)] bg-white/94 p-6 sm:p-8">
                 <div className="flex items-center gap-3">
                   <span className="grid h-12 w-12 place-items-center rounded-2xl border border-primary/30 bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
@@ -148,7 +148,7 @@ export function PainSwitchboard() {
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-3">
                   {item.proof.map((proof) => (
-                    <div key={proof} className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-sm text-foreground/85">
+                    <div key={proof} className="rounded-xl border border-border bg-slate-50 px-3 py-3 text-sm text-foreground/85">
                       {proof}
                     </div>
                   ))}

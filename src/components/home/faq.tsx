@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Is Aroha Calls only for New Zealand?",
-    a: "No. Aroha Calls is made in New Zealand, but it is available worldwide. Pricing supports NZD and USD where configured, and the setup can be tuned for local voices, numbers and workflows.",
+    a: "No. Aroha Calls is made in New Zealand, but it is available worldwide. Pricing supports NZD and USD where configured, and setup can be tuned for your brand voice, number options, calendar rules, and workflow.",
   },
   {
     q: "What is the difference between Aroha Calls and Aroha AI?",

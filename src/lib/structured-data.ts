@@ -14,7 +14,7 @@ export const serviceReviews = [
   {
     name: "Sophie K.",
     role: "Salon owner",
-    body: "Set-up was quick and the AI sounds like a real local receptionist. Clients love that someone always answers.",
+    body: "Set-up was quick and the AI sounds like a real receptionist. Clients love that someone always answers.",
   },
   {
     name: "Chloe L.",

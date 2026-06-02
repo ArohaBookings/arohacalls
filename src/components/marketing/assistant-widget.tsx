@@ -71,11 +71,11 @@ export function AssistantWidget() {
     <div className="fixed bottom-4 right-4 z-50 print:hidden sm:bottom-5 sm:right-5">
       <div
         className={cn(
-          "mb-3 w-[calc(100vw-2rem)] max-w-[420px] origin-bottom-right overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#090f17]/96 shadow-[0_28px_120px_rgba(0,0,0,0.55)] backdrop-blur-xl transition-all duration-200",
+          "mb-3 w-[calc(100vw-2rem)] max-w-[420px] origin-bottom-right overflow-hidden rounded-[1.35rem] border border-border bg-white/96 shadow-[0_28px_100px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-200",
           open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
         )}
       >
-        <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-border bg-slate-50/80 px-4 py-3">
           <div className="flex items-center gap-3">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/15 text-primary">
               <Sparkles className="h-4 w-4" />
@@ -88,7 +88,7 @@ export function AssistantWidget() {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="rounded-full p-2 text-muted-foreground transition hover:bg-white/10 hover:text-foreground"
+            className="rounded-full p-2 text-muted-foreground transition hover:bg-slate-100 hover:text-foreground"
             aria-label="Close assistant"
           >
             <X className="h-4 w-4" />
@@ -103,28 +103,28 @@ export function AssistantWidget() {
                 "rounded-2xl px-4 py-3 text-sm leading-6",
                 message.role === "user"
                   ? "ml-8 bg-primary text-primary-foreground"
-                  : "mr-8 border border-white/10 bg-white/[0.055] text-foreground/90",
+                  : "mr-8 border border-border bg-slate-50 text-foreground/90",
               )}
             >
               {message.content}
             </div>
           ))}
           {loading ? (
-            <div className="mr-8 flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.055] px-4 py-3 text-sm text-muted-foreground">
+            <div className="mr-8 flex items-center gap-2 rounded-2xl border border-border bg-slate-50 px-4 py-3 text-sm text-muted-foreground">
               <Loader2 className="h-4 w-4 animate-spin text-primary" />
               Thinking...
             </div>
           ) : null}
         </div>
 
-        <div className="border-t border-white/10 px-4 py-3">
+        <div className="border-t border-border px-4 py-3">
           <div className="mb-3 flex flex-wrap gap-2">
             {starterQuestions.map((question) => (
               <button
                 key={question}
                 type="button"
                 onClick={() => ask(question)}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
+                className="rounded-full border border-border bg-slate-50 px-3 py-1.5 text-xs text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
               >
                 {question}
               </button>
@@ -136,7 +136,7 @@ export function AssistantWidget() {
               onChange={(event) => setInput(event.target.value)}
               maxLength={500}
               placeholder="Ask about setup or pricing..."
-              className="min-h-11 flex-1 rounded-full border border-white/10 bg-background/80 px-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary/50"
+              className="min-h-11 flex-1 rounded-full border border-border bg-white px-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary/50"
             />
             <Button type="submit" size="icon" disabled={loading || !input.trim()} aria-label="Send question">
               <Send className="h-4 w-4" />

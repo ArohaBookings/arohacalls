@@ -20,10 +20,10 @@ function Cell({ value, highlight }: { value: string | true; highlight?: boolean 
 
 export function FeatureMatrix() {
   return (
-    <div className="overflow-x-auto rounded-3xl border border-border bg-card/40">
+    <div className="overflow-x-auto rounded-3xl border border-border bg-white/88 shadow-sm">
       <div className="min-w-[760px]">
       {/* Header row */}
-      <div className="sticky top-0 z-10 grid grid-cols-[minmax(220px,1.6fr)_repeat(4,minmax(110px,1fr))] gap-2 border-b border-border bg-card/85 px-4 py-4 backdrop-blur-md sm:gap-4 sm:px-6">
+      <div className="sticky top-0 z-10 grid grid-cols-[minmax(220px,1.6fr)_repeat(4,minmax(110px,1fr))] gap-2 border-b border-border bg-white/95 px-4 py-4 backdrop-blur-md sm:gap-4 sm:px-6">
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Compare every feature</div>
         {PLANS.map((plan) => (
           <div key={plan.id} className="text-center">
@@ -38,7 +38,7 @@ export function FeatureMatrix() {
       <div className="divide-y divide-border">
         {FEATURE_MATRIX.map((group) => (
           <div key={group.group}>
-            <div className="bg-card/60 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:px-6">{group.group}</div>
+            <div className="bg-slate-50 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:px-6">{group.group}</div>
             <div className="divide-y divide-border/50">
               {group.rows.map((row) => (
                 <div key={row.feature} className="grid grid-cols-[minmax(220px,1.6fr)_repeat(4,minmax(110px,1fr))] items-center gap-2 px-4 py-3 text-sm sm:gap-4 sm:px-6">
