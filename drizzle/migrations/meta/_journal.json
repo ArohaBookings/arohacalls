@@ -22,6 +22,13 @@
       "when": 1780416400000,
       "tag": "0002_aroha_ai_sync_onboarding",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1780479600000,
+      "tag": "0003_blog_categories",
+      "breakpoints": true
     }
   ]
 }

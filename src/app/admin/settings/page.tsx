@@ -4,7 +4,9 @@ import { db } from "@/lib/db";
 import { adminSettings, arohaAiWebhookEvents, statusServices, stripeWebhookEvents, users } from "@/lib/db/schema";
 import { hasUsableDatabaseUrl, queryOrEmpty } from "@/lib/safe-db";
 import { arohaWebhookUrls, isArohaAiWebhookConfigured, isWebhookEncryptionConfigured } from "@/lib/aroha-ai-webhooks";
+import { statusServices as defaultStatusServices } from "@/lib/marketing-data";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { StatusServicesForm } from "@/components/admin/status-services-form";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { GlassPanel } from "@/components/marketing/page-shell";
@@ -27,6 +29,15 @@ export default async function AdminSettingsPage() {
   ]);
   const admins = userRows.filter((user) => user.role === "admin");
   const webhookUrls = arohaWebhookUrls();
+  const editableStatusRows = defaultStatusServices.map((service) => {
+    const managed = statusRows.find((row) => row.id === service.id);
+    return {
+      id: service.id,
+      name: service.name,
+      status: managed?.status ?? service.status,
+      description: managed?.description ?? service.description,
+    };
+  });
   const envChecks = [
     ["Database", hasUsableDatabaseUrl()],
     ["Stripe secret key", !!process.env.STRIPE_SECRET_KEY],
@@ -77,6 +88,12 @@ export default async function AdminSettingsPage() {
         </GlassPanel>
         <GlassPanel>
           <h2 className="text-xl font-semibold tracking-tight">Status services</h2>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            Update the public status page for Aroha AI, Google API, Aroha numbers, Aroha Bookings, Aurora, and the AI receptionist.
+          </p>
+          <div className="mt-5">
+            <StatusServicesForm services={editableStatusRows} />
+          </div>
           <Table>
             <TableHeader>
               <TableRow>

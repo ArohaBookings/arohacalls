@@ -18,11 +18,13 @@ export function AnalyticsTracker() {
   useEffect(() => {
     if (!pathname) return;
     const sessionId = getSessionId();
+    const query = window.location.search.replace(/^\?/, "");
+    const path = query ? `${pathname}?${query}` : pathname;
     void fetch("/api/analytics/track", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        path: pathname,
+        path,
         referrer: document.referrer || undefined,
         sessionId,
       }),

@@ -11,7 +11,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-[0_8px_24px_-8px_hsl(var(--primary)/0.6)] hover:shadow-[0_12px_36px_-6px_hsl(var(--primary)/0.7)] hover:-translate-y-0.5 active:translate-y-0",
+          "relative overflow-hidden bg-primary text-primary-foreground shadow-[0_8px_24px_-8px_hsl(var(--primary)/0.6)] before:pointer-events-none before:absolute before:inset-y-0 before:-left-1/2 before:w-1/2 before:skew-x-[-18deg] before:bg-white/25 before:opacity-0 before:transition-all before:duration-700 hover:shadow-[0_12px_36px_-6px_hsl(var(--primary)/0.7)] hover:-translate-y-0.5 hover:before:left-[120%] hover:before:opacity-100 active:translate-y-0",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/85 hover:-translate-y-0.5",
         outline:

@@ -63,7 +63,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             url: `${siteConfig.url}/blog/${cmsPost.slug}`,
           }}
         />
-        <PageHero title={<>{cmsPost.title}</>} description={cmsPost.excerpt ?? "Aroha Calls guide."} cta={{ href: "/demo", label: "Book a demo" }} />
+        <PageHero
+          eyebrow={cmsPost.category === "news" ? "News" : cmsPost.category === "product-update" ? "Product update" : "Guide"}
+          title={<>{cmsPost.title}</>}
+          description={cmsPost.excerpt ?? "Aroha Calls guide."}
+          cta={{ href: "/demo", label: "Book a demo" }}
+        />
         <SectionBand>
           <div className="container-tight max-w-3xl">
             <GlassPanel className="space-y-5 p-8">

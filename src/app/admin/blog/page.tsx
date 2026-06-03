@@ -49,6 +49,7 @@ export default async function AdminBlogPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Title</TableHead>
+                  <TableHead>Section</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Updated</TableHead>
                   <TableHead className="text-right">View</TableHead>
@@ -59,6 +60,7 @@ export default async function AdminBlogPage() {
                   posts.map((post) => (
                     <TableRow key={post.id}>
                       <TableCell>{post.title}</TableCell>
+                      <TableCell><Badge variant="outline">{post.category}</Badge></TableCell>
                       <TableCell><Badge variant={post.status === "published" ? "success" : "outline"}>{post.status}</Badge></TableCell>
                       <TableCell>{post.updatedAt.toLocaleDateString()}</TableCell>
                       <TableCell className="text-right">
@@ -71,7 +73,7 @@ export default async function AdminBlogPage() {
                     </TableRow>
                   ))
                 ) : (
-                  <TableRow><TableCell colSpan={4} className="text-muted-foreground">No CMS posts yet.</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={5} className="text-muted-foreground">No CMS posts yet.</TableCell></TableRow>
                 )}
               </TableBody>
             </Table>

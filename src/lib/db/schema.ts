@@ -263,6 +263,7 @@ export const blogPosts = pgTable(
     title: text("title").notNull(),
     excerpt: text("excerpt"),
     content: text("content").notNull().default(""),
+    category: text("category").notNull().default("guide"),
     coverImage: text("cover_image"),
     author: text("author").notNull().default("Aroha"),
     seoTitle: text("seo_title"),

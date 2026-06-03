@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { desc } from "drizzle-orm";
 import { requireAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
-import { conversionEvents, demoBookings, orders, pageViews, users } from "@/lib/db/schema";
+import { conversionEvents, demoBookings, orders, pageViews, retellDemoCalls, users } from "@/lib/db/schema";
 import { isSince } from "@/lib/admin-data";
 import {
   eventCount,
@@ -37,23 +37,50 @@ function firstParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
 
+function metadataString(metadata: Record<string, unknown> | null | undefined, key: string) {
+  const value = metadata?.[key];
+  return typeof value === "string" ? value : null;
+}
+
+function isGoogleAdsView(view: { path: string; referrer: string | null; sessionId: string | null; userAgent: string | null; id: string }) {
+  const path = view.path.toLowerCase();
+  const referrer = (view.referrer ?? "").toLowerCase();
+  return (
+    path.includes("gclid=")
+    || path.includes("gbraid=")
+    || path.includes("wbraid=")
+    || path.includes("utm_medium=cpc")
+    || path.includes("utm_medium=ppc")
+    || path.includes("utm_medium=paid")
+    || (path.includes("utm_source=google") && path.includes("utm_campaign="))
+    || referrer.includes("googleadservices")
+    || referrer.includes("doubleclick.net")
+  );
+}
+
+function sessionKey(row: { sessionId: string | null; userAgent?: string | null; id: string; createdAt?: Date }) {
+  return row.sessionId ?? `${row.userAgent ?? "unknown"}:${row.createdAt?.toISOString().slice(0, 10) ?? row.id}`;
+}
+
 export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
   const session = await requireAdmin();
   const params = await searchParams;
   const timeframe = normalizeTimeframe(firstParam(params.timeframe));
   const since = sinceForTimeframe(timeframe);
-  const [viewRows, conversionRows, demoRows, userRows, orderRows] = await Promise.all([
+  const [viewRows, conversionRows, demoRows, userRows, orderRows, retellRows] = await Promise.all([
     queryOrEmpty(db.select().from(pageViews).orderBy(desc(pageViews.createdAt)).limit(5000), "admin-analytics-page-views"),
     queryOrEmpty(db.select().from(conversionEvents).orderBy(desc(conversionEvents.createdAt)).limit(1000), "admin-analytics-conversions"),
     queryOrEmpty(db.select().from(demoBookings).orderBy(desc(demoBookings.createdAt)).limit(1000), "admin-analytics-demos"),
     queryOrEmpty(db.select().from(users).orderBy(desc(users.createdAt)).limit(1000), "admin-analytics-users"),
     queryOrEmpty(db.select().from(orders).orderBy(desc(orders.createdAt)).limit(1000), "admin-analytics-orders"),
+    queryOrEmpty(db.select().from(retellDemoCalls).orderBy(desc(retellDemoCalls.createdAt)).limit(1000), "admin-analytics-retell-calls"),
   ]);
   const views = viewRows.filter((view) => isSince(view.createdAt, since));
   const conversions = conversionRows.filter((event) => isSince(event.createdAt, since));
   const demos = demoRows.filter((demo) => isSince(demo.createdAt, since));
   const signups = userRows.filter((user) => isSince(user.createdAt, since));
   const orderFrame = orderRows.filter((order) => isSince(order.createdAt, since));
+  const retellFrame = retellRows.filter((call) => isSince(call.createdAt, since));
   const pageCounts = topPages(views, 15);
   const sourceCounts = topTrafficSources(views, 12);
   const conversionCounts = Object.entries(
@@ -82,6 +109,55 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
     { name: "Orders", value: orderFrame.length, fill: "#f472b6" },
     { name: "ROI completions", value: roiCompletions, fill: "#f59e0b" },
   ];
+  const assistantAsked = conversions.filter((event) => event.name === "assistant_question_asked");
+  const assistantAnswered = conversions.filter((event) => event.name === "assistant_answered");
+  const assistantResolved = conversions.filter((event) => event.name === "assistant_resolved");
+  const assistantStuckEvents = conversions.filter((event) => event.name === "assistant_stuck");
+  const assistantFallbacks = assistantAnswered.filter((event) => event.metadata?.fallback === true).length;
+  const assistantStuck = assistantStuckEvents.length + assistantFallbacks;
+  const assistantConversionClicks = conversions.filter((event) => event.name === "assistant_conversion_clicked");
+  const assistantSessions = new Set(assistantAsked.map((event) => event.sessionId).filter(Boolean));
+  const highIntentAfterAssistant = conversions.filter(
+    (event) =>
+      event.sessionId
+      && assistantSessions.has(event.sessionId)
+      && ["demo_booking_submitted", "checkout_started", "live_demo_call_started", "live_demo_managed_demo_clicked", "assistant_conversion_clicked"].includes(event.name),
+  );
+  const assistantOutcomeRows = [
+    { name: "Asked", value: assistantAsked.length, fill: "#22d3ee" },
+    { name: "Answered", value: assistantAnswered.length, fill: "#00d2a1" },
+    { name: "Helped", value: assistantResolved.length, fill: "#10b981" },
+    { name: "Stuck", value: assistantStuck, fill: "#f59e0b" },
+    { name: "Converted", value: highIntentAfterAssistant.length, fill: "#8b5cf6" },
+  ];
+  const assistantResolutionBase = assistantResolved.length + assistantStuckEvents.length;
+  const assistantResolveRate = percent(assistantResolved.length, assistantResolutionBase);
+  const assistantTopicRows = Object.entries(
+    assistantAsked.reduce<Record<string, number>>((acc, event) => {
+      const intent = metadataString(event.metadata, "intent") ?? "general";
+      acc[intent] = (acc[intent] ?? 0) + 1;
+      return acc;
+    }, {}),
+  )
+    .sort((a, b) => b[1] - a[1])
+    .map(([name, value]) => ({ name, value }));
+  const googleAdsViews = views.filter(isGoogleAdsView);
+  const googleAdsSessions = new Set(googleAdsViews.map(sessionKey));
+  const googleAdsConversions = conversions.filter((event) => event.sessionId && googleAdsSessions.has(event.sessionId));
+  const googleAdsRows = [
+    { name: "Ad sessions", value: googleAdsSessions.size, fill: "#22d3ee" },
+    { name: "Demo submits", value: googleAdsConversions.filter((event) => event.name === "demo_booking_submitted").length, fill: "#00d2a1" },
+    { name: "Checkout starts", value: googleAdsConversions.filter((event) => event.name === "checkout_started").length, fill: "#8b5cf6" },
+    { name: "Live calls", value: googleAdsConversions.filter((event) => event.name === "live_demo_call_started").length, fill: "#f472b6" },
+    { name: "Grace clicks", value: googleAdsConversions.filter((event) => event.name === "assistant_conversion_clicked").length, fill: "#f59e0b" },
+  ];
+  const retellOutcomeRows = [
+    { name: "Started", value: retellFrame.length, fill: "#22d3ee" },
+    { name: "Completed", value: retellFrame.filter((call) => ["ended", "call_ended", "analyzed"].includes(call.status) || call.endedAt).length, fill: "#00d2a1" },
+    { name: "Quoted", value: retellFrame.filter((call) => call.quoteRequested).length, fill: "#8b5cf6" },
+    { name: "Booked", value: retellFrame.filter((call) => call.bookingMade).length, fill: "#f472b6" },
+    { name: "Errors", value: eventCount(conversions, "live_demo_call_error"), fill: "#ef4444" },
+  ];
 
   return (
     <AdminShell
@@ -101,6 +177,42 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
         <MiniStat label="ROI completions" value={String(roiCompletions)} />
         <MiniStat label="Blog traffic" value={String(blogTraffic)} />
         <MiniStat label="Returning customer rate" value={`${customerStats.returningCustomerRate}%`} />
+        <MiniStat label="Grace resolve rate" value={`${assistantResolveRate}%`} />
+        <MiniStat label="Google Ads sessions" value={String(googleAdsSessions.size)} />
+      </div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-3">
+        <MetricBarChart
+          title="Grace chatbot outcomes"
+          subtitle="Asked, answered, confirmed helped, stuck/fallback, and assisted conversion events."
+          data={assistantOutcomeRows}
+        />
+        <HorizontalBarChart
+          title="Grace topics"
+          subtitle="What people ask Grace about before choosing a plan or demo."
+          data={assistantTopicRows.length ? assistantTopicRows : [{ name: "No Grace questions yet", value: 0 }]}
+        />
+        <MetricBarChart
+          title="Google Ads conversion"
+          subtitle="Traffic with gclid/gbraid/wbraid, Google referrers, or paid-search UTM signals."
+          data={googleAdsRows}
+        />
+      </div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-2">
+        <MetricBarChart
+          title="Live Grace call outcomes"
+          subtitle="Retell web-call starts, completions, quote requests, bookings, and errors."
+          data={retellOutcomeRows}
+        />
+        <MetricBarChart
+          title="Grace-assisted actions"
+          subtitle="High-intent events from sessions that used the chatbot."
+          data={[
+            { name: "Assistant sessions", value: assistantSessions.size, fill: "#22d3ee" },
+            { name: "CTA clicks", value: assistantConversionClicks.length, fill: "#8b5cf6" },
+            { name: "Assisted conversions", value: highIntentAfterAssistant.length, fill: "#00d2a1" },
+            { name: "Fallbacks", value: assistantFallbacks, fill: "#f59e0b" },
+          ]}
+        />
       </div>
       <div className="mt-6 grid gap-6 xl:grid-cols-2">
         <FunnelPerformanceChart data={funnel} />

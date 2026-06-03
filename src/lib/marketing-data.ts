@@ -100,11 +100,13 @@ export const demoFields = [
 ] as const;
 
 export const statusServices = [
-  { id: "voice-ai", name: "Voice AI", status: "operational", description: "Inbound calls, live demo lines, transcripts, and summaries." },
+  { id: "ai-receptionist", name: "AI Receptionist", status: "operational", description: "Grace/live receptionist calls, call handling, transcripts, and summaries." },
+  { id: "aroha-ai", name: "Aroha AI", status: "operational", description: "Managed customer workspaces, CRM, Email AI, Messages AI, and team tools." },
+  { id: "aroha-numbers", name: "Aroha Numbers", status: "operational", description: "Aroha phone numbers, forwarding, routing, and live demo phone lines." },
+  { id: "aroha-bookings", name: "Aroha Bookings", status: "operational", description: "Booking flows, availability rules, confirmations, and handoff into calendars." },
+  { id: "google-api", name: "Google API", status: "operational", description: "Google Calendar connection, availability reads, and managed booking handoff." },
+  { id: "aurora", name: "Aurora", status: "operational", description: "The Aroha AI business assistant for customer memory, insights, and team Q&A." },
   { id: "email-ai", name: "Email AI", status: "operational", description: "Suggested replies, follow-up drafts, and shared inbox workflows." },
-  { id: "messages-ai", name: "Messages AI", status: "operational", description: "SMS reminders, missed-call recovery, and customer updates." },
-  { id: "calendar", name: "Calendar Sync", status: "operational", description: "Google Calendar and Aroha Bookings availability sync." },
-  { id: "crm", name: "CRM", status: "operational", description: "Customer memory, profiles, timelines, and activity history." },
   { id: "billing", name: "Billing", status: "operational", description: "Stripe checkout, subscriptions, invoices, and customer portal." },
 ] as const;
 

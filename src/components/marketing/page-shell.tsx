@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function PageHero({
+  eyebrow,
   title,
   description,
   cta,
@@ -12,6 +13,7 @@ export function PageHero({
   back,
   className,
 }: {
+  eyebrow?: string;
   title: ReactNode;
   description: string;
   cta?: { href: string; label: string };
@@ -34,6 +36,9 @@ export function PageHero({
             {back.label}
           </Link>
         )}
+        {eyebrow ? (
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
+        ) : null}
         <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-[1.04] tracking-tight sm:text-6xl">
           {title}
         </h1>

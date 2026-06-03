@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export function AdminBlogForm() {
   const [status, setStatus] = useState("draft");
+  const [category, setCategory] = useState("guide");
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState<string | null>(null);
 
@@ -27,6 +28,7 @@ export function AdminBlogForm() {
           slug: String(formData.get("slug") ?? ""),
           excerpt: String(formData.get("excerpt") ?? ""),
           content: String(formData.get("content") ?? ""),
+          category,
           seoTitle: String(formData.get("seoTitle") ?? ""),
           seoDescription: String(formData.get("seoDescription") ?? ""),
           status,
@@ -57,7 +59,20 @@ export function AdminBlogForm() {
         <Label htmlFor="content">Markdown content</Label>
         <Textarea id="content" name="content" className="min-h-56 font-mono text-sm" required />
       </div>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-4">
+        <div className="space-y-2">
+          <Label>Section</Label>
+          <Select value={category} onValueChange={setCategory}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="guide">Guide</SelectItem>
+              <SelectItem value="news">News</SelectItem>
+              <SelectItem value="product-update">Product update</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="space-y-2">
           <Label htmlFor="seoTitle">SEO title</Label>
           <Input id="seoTitle" name="seoTitle" />

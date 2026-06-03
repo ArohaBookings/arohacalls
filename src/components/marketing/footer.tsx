@@ -120,11 +120,11 @@ export function Footer() {
           </div>
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-foreground/60">Legal</p>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2.5 text-sm">
               {navFooter.legal.map((item) => (
                 <li key={item.href}>
                   <Link
-                    className="flex min-h-10 items-center rounded-2xl border border-border bg-white px-3 font-medium text-foreground shadow-sm transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                    className="relative z-30 -m-1 inline-flex min-h-8 items-center rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground hover:underline"
                     href={item.href}
                   >
                     {item.label}
@@ -146,17 +146,6 @@ export function Footer() {
               Aroha Group
             </Link>
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
-            {navFooter.legal.map((item) => (
-              <Link
-                key={`bottom-${item.href}`}
-                href={item.href}
-                className="rounded-full border border-border bg-white px-3 py-1.5 font-medium text-foreground shadow-sm transition hover:border-primary/40 hover:text-primary"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
         </div>
       </div>
     </footer>
