@@ -105,11 +105,11 @@ export function AssistantWidget() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 print:hidden sm:bottom-5 sm:right-5">
+    <div className="pointer-events-none fixed bottom-4 right-4 z-50 print:hidden sm:bottom-5 sm:right-5">
+      {open ? (
       <div
         className={cn(
-          "mb-3 w-[calc(100vw-2rem)] max-w-[420px] origin-bottom-right overflow-hidden rounded-[1.35rem] border border-border bg-white/96 shadow-[0_28px_100px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-200",
-          open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
+          "pointer-events-auto mb-3 w-[calc(100vw-2rem)] max-w-[420px] origin-bottom-right overflow-hidden rounded-[1.35rem] border border-border bg-white/96 shadow-[0_28px_100px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-200",
         )}
       >
         <div className="flex items-center justify-between border-b border-border bg-slate-50/80 px-4 py-3">
@@ -229,6 +229,7 @@ export function AssistantWidget() {
           </div>
         </div>
       </div>
+      ) : null}
 
       <button
         type="button"
@@ -239,7 +240,7 @@ export function AssistantWidget() {
             return next;
           });
         }}
-        className="ml-auto flex min-h-14 items-center gap-3 rounded-full border border-primary/40 bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_18px_60px_rgba(0,210,161,0.32)] transition hover:-translate-y-0.5"
+        className="pointer-events-auto ml-auto flex min-h-14 items-center gap-3 rounded-full border border-primary/40 bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_18px_60px_rgba(0,210,161,0.32)] transition hover:-translate-y-0.5"
         aria-expanded={open}
         aria-label="Open Aroha assistant"
       >
