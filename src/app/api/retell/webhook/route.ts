@@ -105,7 +105,7 @@ export async function POST(req: Request) {
     selectedAccent: typeof call.metadata?.selectedAccent === "string" ? call.metadata.selectedAccent : "grace",
     selectedVoiceId: typeof call.metadata?.selectedVoiceId === "string" ? call.metadata.selectedVoiceId : null,
     sessionId: typeof call.metadata?.sessionId === "string" ? call.metadata.sessionId : null,
-      metadata: call.metadata ?? {},
+    metadata: call.metadata ?? {},
     updatedAt: new Date(),
   };
 

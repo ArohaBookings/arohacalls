@@ -99,6 +99,9 @@ export function SignupForm() {
   const currency = (searchParams.get("currency") ?? "nzd") as "nzd" | "usd";
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const googleCallbackUrl = plan
+    ? `/dashboard/checkout?${new URLSearchParams({ plan, interval, currency }).toString()}`
+    : "/dashboard/onboarding";
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -152,7 +155,7 @@ export function SignupForm() {
 
   return (
     <div className="space-y-4">
-      <GoogleButton callbackUrl={plan ? `/pricing#${plan}` : "/dashboard/onboarding"} />
+      <GoogleButton callbackUrl={googleCallbackUrl} />
       {process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === "true" ? (
         <div className="relative py-1 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
           <span className="bg-card px-3">or</span>

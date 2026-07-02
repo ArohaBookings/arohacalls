@@ -1,5 +1,6 @@
 import Retell, { verify as verifyRetellWebhook } from "retell-sdk";
 import type { VoiceResponse } from "retell-sdk/resources/voice";
+import { siteConfig } from "@/lib/site-config";
 
 let retellInstance: Retell | null = null;
 
@@ -18,6 +19,14 @@ export function getRetellApiKey() {
 
 export function getRetellGraceAgentId() {
   return process.env.RETELL_AGENT_ID_GRACE ?? "";
+}
+
+export function getRetellOutboundNumber() {
+  return (
+    process.env.RETELL_FROM_NUMBER?.trim()
+    || process.env.RETELL_OUTBOUND_FROM_NUMBER?.trim()
+    || siteConfig.phones.sales.e164
+  );
 }
 
 export function getRetell() {
@@ -87,16 +96,27 @@ export function toSafeVoicePreview(voice: VoiceResponse): SafeVoicePreview {
   };
 }
 
+export function normalizeE164PhoneNumber(input: string) {
+  const compact = input.replace(/[^\d+]/g, "");
+  if (!compact) return null;
+  if (/^\+[1-9]\d{7,14}$/.test(compact)) return compact;
+
+  const digits = compact.replace(/\D/g, "");
+  if (/^00[1-9]\d{7,14}$/.test(digits)) return `+${digits.slice(2)}`;
+  if (/^[1-9]\d{7,14}$/.test(digits)) return `+${digits}`;
+  return null;
+}
+
 export function selectVoicePreviews(voices: SafeVoicePreview[]) {
   const wanted = [
-    { id: "nz", label: "New Zealand", match: /(new zealand|nz|kiwi)/i },
-    { id: "au", label: "Australian", match: /(australian|aussie)/i },
-    { id: "us", label: "American", match: /(american|us)/i },
-    { id: "uk", label: "British", match: /(british|english|uk)/i },
+    { id: "nz", label: "New Zealand / Kiwi", match: /(new zealand|nz|kiwi)/i },
+    { id: "au", label: "Australian", match: /(australian|aussie|au\b)/i },
+    { id: "us", label: "American", match: /(american|united states|us\b)/i },
+    { id: "uk", label: "British", match: /(british|english|united kingdom|uk\b)/i },
   ];
 
   return wanted.map((item) => {
-    const voice = voices.find((candidate) => item.match.test(candidate.accent)) ?? voices.find((candidate) => candidate.previewUrl);
+    const voice = voices.find((candidate) => item.match.test(candidate.accent) || item.match.test(candidate.name));
     return {
       accentId: item.id,
       label: item.label,

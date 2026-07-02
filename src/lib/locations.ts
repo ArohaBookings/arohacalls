@@ -217,7 +217,7 @@ export const LOCATIONS: Location[] = [
     currency: "USD",
     seoTitle: "AI Receptionist Los Angeles — Goodcall Alternative for LA Businesses",
     seoDescription:
-      "Aroha is the AI receptionist configured for LA service businesses. Salons, trades, clinics, real estate — never miss a call. From $59/month. Goodcall & Rosie alternative.",
+      "Aroha is the AI receptionist configured for LA service businesses. Salons, trades, clinics, real estate — never miss a call. From US$45/month. Goodcall & Rosie alternative.",
     seoKeywords: [
       "AI receptionist Los Angeles",
       "LA virtual receptionist",
@@ -229,7 +229,7 @@ export const LOCATIONS: Location[] = [
       eyebrow: "LA-ready",
       title: "LA businesses, never miss a call again.",
       subtitle:
-        "Aroha is the AI receptionist for LA's service economy — booking, follow-ups, CRM, all on autopilot. Cheaper than Goodcall, smarter than Rosie.",
+        "Aroha is the AI receptionist for LA's service economy — booking, follow-ups, CRM, and managed setup in one system.",
     },
     pains: [
       { title: "323/213/310 inbound floods", body: "Aroha handles unlimited concurrent calls." },

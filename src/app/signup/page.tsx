@@ -14,7 +14,7 @@ export default function SignupPage() {
   return (
     <AuthShell
       title="Start your managed AI receptionist"
-      description="Create your account first, then complete plan checkout through Stripe."
+      description="Create your account first, continue to Stripe checkout, then finish onboarding so Aroha AI can create your managed workspace."
     >
       <Suspense fallback={null}>
         <SignupForm />

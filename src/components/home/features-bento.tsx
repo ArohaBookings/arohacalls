@@ -23,37 +23,37 @@ const features = [
   {
     icon: CalendarDays,
     title: "Calendar that books itself",
-    description: "Managed Google Calendar and Aroha Bookings rules, reminders, buffers, no double bookings.",
+    description: "Managed Google Calendar setup with staff availability, service lengths, reminders, buffers, and no double bookings.",
     span: "lg:col-span-2",
   },
   {
     icon: Brain,
     title: "Aurora business chatbot",
-    description: "Your team's brain — pulls customer history, drafts SOPs, answers any question instantly.",
+    description: "Ask what happened today, who needs follow-up, which leads are hot, and where revenue is leaking.",
     span: "lg:col-span-2",
   },
   {
     icon: MessageSquareText,
     title: "Caller ID + memory",
-    description: "Remembers every customer. Greets returning callers by name with full conversation history.",
+    description: "Remembers returning callers, past bookings, preferences, notes, quote history, and next steps.",
     span: "",
   },
   {
     icon: Mail,
     title: "Email + SMS follow-ups",
-    description: "Never let a hot lead go cold — automated follow-ups in your voice.",
+    description: "Gmail or inbox drafts, missed-call texts, reminders, quote nudges, and review requests in your voice.",
     span: "",
   },
   {
     icon: Workflow,
     title: "Unified CRM timeline",
-    description: "Calls, bookings, emails, SMS — every customer interaction in one beautiful timeline.",
+    description: "Calls, bookings, emails, SMS, quotes, reviews, and notes sit on one simple customer timeline.",
     span: "lg:col-span-2",
   },
   {
     icon: Zap,
     title: "Automated workflows",
-    description: "Smart routing, escalations, VIP rules, after-hours handling — all on autopilot.",
+    description: "Smart routing, escalation, VIP rules, after-hours handling, task creation, and follow-up.",
     span: "",
   },
   {
@@ -77,7 +77,7 @@ export function FeaturesBento() {
         <SectionHeading
           eyebrow="The Aroha stack"
           title={<>Every part of the front-of-house, on autopilot.</>}
-          description="One system for calls, bookings, follow-ups, and your team's day-to-day questions. Powered by Aroha AI."
+          description="One plain-English system for calls, Google Calendar bookings, Gmail and inbox drafts, SMS follow-up, CRM memory, quotes, reviews, analytics, and your team's day-to-day Aurora questions. Powered by Aroha AI and managed by Aroha Group."
         />
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[14rem]">
           {features.map((f) => (

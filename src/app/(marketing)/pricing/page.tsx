@@ -56,9 +56,9 @@ export default function PricingPage() {
             <GlassPanel className="flex flex-col justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Simple setup</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight">You choose a plan. We make the phones work.</h2>
+                <h2 className="mt-3 text-3xl font-bold tracking-tight">You choose a plan. We build the Aroha AI front desk.</h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  You do not need to understand voice providers, routing, or CRM wiring. Aroha Group sets up the managed front desk and gives you a clear path to go live.
+                  You do not need to understand voice providers, routing, CRM wiring, Google Calendar setup, or Email AI. Create an account, pay through Stripe, answer onboarding questions, and Aroha Group uses Aroha AI to create the managed workspace and send your login when it is ready.
                 </p>
               </div>
               <div className="mt-6 flex flex-wrap gap-2 text-xs text-muted-foreground">
@@ -81,8 +81,8 @@ export default function PricingPage() {
                 },
                 {
                   icon: CreditCard,
-                  title: "3. Stripe handles billing",
-                  body: "Checkout, invoices, renewals, plan changes and cancellation all run through Stripe customer billing.",
+                  title: "3. Onboarding creates Aroha AI",
+                  body: "After Stripe checkout, answer the setup questions. Aroha AI receives the brief, creates your managed organisation, and sends the login invite when ready.",
                 },
               ].map((item) => (
                 <div key={item.title} className="rounded-3xl border border-border bg-white/88 p-5 shadow-sm">

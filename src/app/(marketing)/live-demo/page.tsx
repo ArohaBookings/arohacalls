@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Talk to Our AI Receptionist Live — Aroha Calls",
   description:
-    "Talk to Grace from Aroha live in your browser. Test a premium AI receptionist for bookings, quotes, customer memory, CRM, Email AI, and 24/7 call answering.",
+    "Talk to Grace from Aroha live in your browser or request a callback from +64 3 667 2033. Test AI receptionist booking, quotes, CRM memory, Email AI, and 24/7 call answering.",
   alternates: { canonical: `${siteConfig.url}/live-demo` },
   keywords: [
     "AI receptionist",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Talk to Our AI Receptionist Live — Aroha Calls",
     description:
-      "Call Grace from Aroha in your browser and see how a managed AI receptionist answers, books, follows up, and remembers customers.",
+      "Talk to Grace from Aroha in your browser, request a phone callback, and see how a managed AI receptionist answers, books, follows up, and remembers customers.",
     url: `${siteConfig.url}/live-demo`,
     type: "website",
     images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: "Aroha Calls live AI receptionist demo" }],
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Talk to Our AI Receptionist Live — Aroha Calls",
-    description: "Test Grace from Aroha live in your browser and see the managed AI receptionist workflow.",
+    description: "Test Grace from Aroha live in your browser or request a callback from the Aroha demo number.",
     images: [siteConfig.ogImage],
   },
 };
@@ -75,7 +75,7 @@ const jsonLd = [
         name: "Can I talk to the Aroha AI receptionist live?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The live demo page connects your browser to Grace from Aroha through a secure Retell web call. You can also call the demo phone line.",
+          text: "Yes. The live demo page connects your browser to Grace from Aroha through a secure web call. You can also request an outbound phone call or call the demo phone line.",
         },
       },
       {

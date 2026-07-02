@@ -8,6 +8,9 @@ import {
   Calendar,
   Check,
   CreditCard,
+  FileText,
+  Inbox,
+  LogIn,
   Mail,
   Megaphone,
   MessageSquare,
@@ -70,8 +73,49 @@ const comparison = [
   { feature: "Workflows / automations", managed: "We build them", diy: "Drag & drop builder" },
   { feature: "Priority support", managed: "✓ Premium", diy: "Email + chat" },
   { feature: "Dedicated success manager", managed: "✓ Premium", diy: "—" },
-  { feature: "Starting price", managed: "NZ$99 / US$59", diy: "From US$29 (self-serve)" },
+  { feature: "Starting price", managed: "NZ$99 / US$45", diy: "From US$29 (self-serve)" },
 ];
+
+const ownerFeatures = [
+  {
+    icon: LogIn,
+    title: "Sign in with Google when it helps",
+    body: "Owners can use a familiar Google account where Google login is enabled. That keeps Calendar, Gmail, and Aroha AI access easier for non-technical teams.",
+  },
+  {
+    icon: Calendar,
+    title: "Connect Google Calendar",
+    body: "Aroha AI checks real availability, follows booking rules, respects buffers, and avoids double-booking staff or rooms.",
+  },
+  {
+    icon: Inbox,
+    title: "Connect Gmail or Google Workspace",
+    body: "Aroha AI can triage emails, draft replies, summarise long threads, and keep human approval for anything sensitive.",
+  },
+  {
+    icon: Phone,
+    title: "Answer calls and route the right ones",
+    body: "Grace answers, asks the next useful question, captures details, escalates urgent calls, and writes the summary for your team.",
+  },
+  {
+    icon: Users,
+    title: "Remember customers",
+    body: "Returning callers, bookings, quotes, emails, notes, tags, and preferences sit in one customer timeline instead of scattered notes.",
+  },
+  {
+    icon: FileText,
+    title: "Turn conversations into work",
+    body: "Quote follow-ups, booking confirmations, review requests, owner tasks, and reminders can be triggered from calls and messages.",
+  },
+] as const;
+
+const managedSetupSteps = [
+  "Choose an Aroha Calls plan in NZD or USD.",
+  "Create your account and finish Stripe checkout.",
+  "Complete onboarding in plain English: hours, services, calendar, inbox, rules, and handoffs.",
+  "Aroha Calls sends the brief to Aroha AI so your managed organisation can be created.",
+  "When setup is ready, Aroha AI sends the secure login invite or password setup link.",
+] as const;
 
 export default function ArohaAIPage() {
   const productLd = {
@@ -125,6 +169,52 @@ export default function ArohaAIPage() {
         <MiniStat label="Setup time" value="< 30 min" />
         <MiniStat label="Avg. ROI in 90 days" value="8-15x" />
       </div>
+
+      <section className="mt-20">
+        <Badge variant="glow">Plain English</Badge>
+        <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">What Aroha AI actually does for the owner.</h2>
+        <p className="mt-3 max-w-2xl text-muted-foreground">
+          If you can use a calendar, email, and a phone, you can understand the system. Aroha AI is the place where calls, bookings, emails, messages, customers, and follow-up stop being separate jobs.
+        </p>
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {ownerFeatures.map((feature) => {
+            const Icon = feature.icon;
+            return (
+              <GlassPanel key={feature.title} className="h-full">
+                <span className="grid h-10 w-10 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold tracking-tight">{feature.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
+              </GlassPanel>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="mt-20">
+        <GlassPanel className="border-primary/30">
+          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+            <div>
+              <Badge variant="glow">Aroha Calls handoff</Badge>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight">From plan to Aroha AI login, without making the owner configure everything.</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                Aroha Calls is built for busy owners who want the result, not another technical setup project. The signup flow collects the plan, payment, onboarding answers, and integration preferences, then sends the setup brief to Aroha AI.
+              </p>
+            </div>
+            <div className="grid gap-3">
+              {managedSetupSteps.map((step, index) => (
+                <div key={step} className="flex items-start gap-3 rounded-2xl border border-border bg-background/45 p-4">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/15 text-sm font-semibold text-primary">
+                    {index + 1}
+                  </span>
+                  <p className="text-sm leading-6 text-foreground/86">{step}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </GlassPanel>
+      </section>
 
       {/* The full tool surface */}
       <section className="mt-20">

@@ -1,5 +1,5 @@
 import { PLANS, type BillingInterval, type Plan } from "@/lib/plans";
-import { siteConfig } from "@/lib/site-config";
+import { navMain, siteConfig } from "@/lib/site-config";
 
 const supportedCountries = ["NZ", "US", "AU", "GB", "CA"];
 
@@ -30,6 +30,108 @@ export const aggregateRating = {
   bestRating: "5",
   worstRating: "1",
 };
+
+export function siteGraphJsonLd() {
+  const organizationId = `${siteConfig.url}/#organization`;
+  const websiteId = `${siteConfig.url}/#website`;
+  const serviceId = `${siteConfig.url}/#managed-ai-receptionist`;
+  const softwareId = `${siteConfig.url}/#software`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": organizationId,
+        name: siteConfig.groupName,
+        url: siteConfig.url,
+        logo: productImageUrl,
+        image: productImageUrl,
+        email: siteConfig.email,
+        telephone: siteConfig.phones.sales.e164,
+        sameAs: [siteConfig.social.instagram, siteConfig.social.sisterApp],
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            telephone: siteConfig.phones.sales.e164,
+            contactType: "sales",
+            areaServed: supportedCountries,
+            availableLanguage: ["English"],
+          },
+        ],
+        knowsAbout: [
+          "AI receptionist",
+          "virtual receptionist",
+          "call answering",
+          "Google Calendar booking",
+          "Gmail AI assistant",
+          "customer relationship management",
+          "SMS follow-up",
+          "missed call recovery",
+          "Aroha AI",
+        ],
+        hasMerchantReturnPolicy: merchantReturnPolicy(),
+      },
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        name: siteConfig.name,
+        url: siteConfig.url,
+        publisher: { "@id": organizationId },
+        inLanguage: "en",
+        about: { "@id": serviceId },
+      },
+      {
+        "@type": "Service",
+        "@id": serviceId,
+        name: "Aroha Calls managed AI receptionist",
+        url: siteConfig.url,
+        provider: { "@id": organizationId },
+        areaServed: "Worldwide",
+        serviceType: "Managed AI receptionist, call answering, booking, CRM, Email AI, SMS follow-up, and front-office automation",
+        description: siteConfig.description,
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Aroha Calls plans",
+          itemListElement: PLANS.map((plan) => ({
+            "@type": "Offer",
+            name: `Aroha Calls ${plan.name}`,
+            url: `${siteConfig.url}/pricing/${plan.slug}`,
+            price: String(plan.priceNZD),
+            priceCurrency: "NZD",
+            availability: "https://schema.org/InStock",
+          })),
+        },
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": softwareId,
+        name: siteConfig.name,
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        url: siteConfig.url,
+        image: productImageUrl,
+        description: "Managed Aroha AI workspace for calls, Google Calendar booking, Gmail and email AI, CRM memory, SMS follow-up, quotes, reviews, analytics, and Aurora assistant workflows.",
+        offers: {
+          "@type": "AggregateOffer",
+          lowPrice: "99",
+          highPrice: "599",
+          priceCurrency: "NZD",
+          offerCount: PLANS.length,
+          availability: "https://schema.org/InStock",
+        },
+        aggregateRating,
+        review: reviewMarkup,
+      },
+      ...navMain.map((item, index) => ({
+        "@type": "SiteNavigationElement",
+        position: index + 1,
+        name: item.label,
+        url: `${siteConfig.url}${item.href}`,
+      })),
+    ],
+  };
+}
 
 export const reviewMarkup = serviceReviews.map((review) => ({
   "@type": "Review",

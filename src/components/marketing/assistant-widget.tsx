@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Loader2, MessageCircle, Send, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -44,6 +45,7 @@ function track(event: string, metadata?: Record<string, unknown>) {
 }
 
 export function AssistantWidget() {
+  const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const [input, setInput] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -105,7 +107,12 @@ export function AssistantWidget() {
   }
 
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-50 print:hidden sm:bottom-5 sm:right-5">
+    <div
+      className={cn(
+        "pointer-events-none fixed bottom-4 right-4 z-50 print:hidden sm:bottom-5 sm:right-5",
+        pathname === "/live-demo" && "hidden sm:block",
+      )}
+    >
       {open ? (
       <div
         className={cn(

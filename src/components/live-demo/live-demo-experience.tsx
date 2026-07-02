@@ -11,6 +11,7 @@ import {
   CircleStop,
   Clock3,
   Headphones,
+  Loader2,
   Mail,
   Mic,
   PhoneCall,
@@ -61,6 +62,8 @@ type CallSummary = {
   durationMs?: number | null;
 };
 
+type PhoneCallState = "idle" | "starting" | "calling" | "error";
+
 const statusCopy: Record<CallStatus, { label: string; detail: string }> = {
   idle: {
     label: "Ready for your test call",
@@ -72,7 +75,7 @@ const statusCopy: Record<CallStatus, { label: string; detail: string }> = {
   },
   connecting: {
     label: "Connecting...",
-    detail: "Creating the secure Retell web call and opening the audio room.",
+    detail: "Creating the secure web call and opening the audio room.",
   },
   ready: {
     label: "Speaking with Grace...",
@@ -88,7 +91,7 @@ const statusCopy: Record<CallStatus, { label: string; detail: string }> = {
   },
   ended: {
     label: "Call ended",
-    detail: "The summary will appear below as soon as Retell finishes analysis.",
+    detail: "The summary will appear below as soon as call analysis finishes.",
   },
   error: {
     label: "Could not start the call",
@@ -111,6 +114,8 @@ const proof = [
   { value: "30%", label: "More bookings / month" },
   { value: "24/7", label: "Coverage" },
 ];
+
+const demoPhoneDisplay = "+64 3 667 2033";
 
 function getSessionId() {
   const key = "aroha_session_id";
@@ -146,6 +151,9 @@ export function LiveDemoExperience() {
   const [summary, setSummary] = useState<CallSummary | null>(null);
   const [voices, setVoices] = useState<VoicePreview[]>([]);
   const [selectedAccent, setSelectedAccent] = useState("nz");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneCallState, setPhoneCallState] = useState<PhoneCallState>("idle");
+  const [phoneCallMessage, setPhoneCallMessage] = useState<string | null>(null);
   const [seconds, setSeconds] = useState(0);
   const clientRef = useRef<RetellWebClient | null>(null);
   const callAttemptRef = useRef(0);
@@ -177,14 +185,14 @@ export function LiveDemoExperience() {
 
   async function pollSummary(nextCallId: string) {
     const sessionId = getSessionId();
-    for (let attempt = 0; attempt < 10; attempt += 1) {
+    for (let attempt = 0; attempt < 36; attempt += 1) {
       const res = await fetch(`/api/retell/calls/${nextCallId}?sessionId=${encodeURIComponent(sessionId)}`).catch(() => null);
       if (res?.ok) {
         const json = (await res.json()) as CallSummary;
         setSummary(json);
         if (json.summary || json.transcriptSnippet || json.status === "analyzed") return;
       }
-      await new Promise((resolve) => window.setTimeout(resolve, 1800));
+      await new Promise((resolve) => window.setTimeout(resolve, 2500));
     }
   }
 
@@ -207,7 +215,7 @@ export function LiveDemoExperience() {
       });
       const json = (await res.json().catch(() => ({}))) as { accessToken?: string; callId?: string; error?: string };
       if (!res.ok || !json.accessToken || !json.callId) {
-        throw new Error(json.error ?? "Retell did not return a call token");
+        throw new Error(json.error ?? "Aroha did not return a call token");
       }
       const accessToken = json.accessToken;
       const nextCallId = json.callId;
@@ -238,6 +246,49 @@ export function LiveDemoExperience() {
       setError(err instanceof Error ? err.message : "The live call could not start.");
       setStatus("error");
       track("live_demo_call_start_failed", { selectedAccent });
+    }
+  }
+
+  async function startPhoneCall(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (phoneCallState === "starting") return;
+    setPhoneCallState("starting");
+    setPhoneCallMessage(null);
+    setSummary(null);
+    track("live_demo_phone_callback_requested", { selectedAccent, selectedVoiceId: activeVoice?.id });
+
+    try {
+      const sessionId = getSessionId();
+      const res = await fetch("/api/retell/phone-call", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId,
+          phoneNumber,
+          selectedAccent,
+          selectedVoiceId: activeVoice?.id,
+        }),
+      });
+      const json = (await res.json().catch(() => ({}))) as {
+        callId?: string;
+        fromNumber?: string;
+        error?: string;
+      };
+      if (!res.ok || !json.callId) {
+        throw new Error(json.error ?? "The phone call could not start.");
+      }
+
+      setCallId(json.callId);
+      setPhoneCallState("calling");
+      setPhoneCallMessage(`Calling now from ${demoPhoneDisplay}. Keep your phone nearby.`);
+      track("live_demo_phone_callback_started", { callId: json.callId });
+      void pollSummary(json.callId).finally(() => {
+        setPhoneCallState((current) => current === "calling" ? "idle" : current);
+      });
+    } catch (err) {
+      setPhoneCallState("error");
+      setPhoneCallMessage(err instanceof Error ? err.message : "The phone call could not start.");
+      track("live_demo_phone_callback_failed", { selectedAccent });
     }
   }
 
@@ -311,6 +362,54 @@ export function LiveDemoExperience() {
                 Call +64 3 667 2033
               </a>
             </div>
+            <form
+              onSubmit={startPhoneCall}
+              className="mt-5 max-w-2xl rounded-[1.5rem] border border-cyan-200 bg-white/86 p-4 shadow-sm"
+            >
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-end">
+                <div className="min-w-0 flex-1">
+                  <label htmlFor="callback-phone" className="text-sm font-semibold text-slate-950">
+                    Get Grace to call you now
+                  </label>
+                  <p id="callback-phone-help" className="mt-1 text-xs leading-5 text-slate-500">
+                    Enter your full number with country code. The call comes from {demoPhoneDisplay}.
+                  </p>
+                  <input
+                    id="callback-phone"
+                    type="tel"
+                    value={phoneNumber}
+                    onChange={(event) => {
+                      setPhoneNumber(event.target.value);
+                      if (phoneCallState !== "starting") setPhoneCallState("idle");
+                      setPhoneCallMessage(null);
+                    }}
+                    aria-describedby="callback-phone-help"
+                    placeholder="+1 415 555 1212"
+                    className="mt-3 min-h-12 w-full rounded-full border border-slate-300 bg-white px-4 text-base text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-200"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={phoneCallState === "starting" || phoneCallState === "calling" || phoneNumber.trim().length < 6}
+                  className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {phoneCallState === "starting" ? <Loader2 className="h-4 w-4 animate-spin" /> : <PhoneCall className="h-4 w-4" />}
+                  {phoneCallState === "starting" || phoneCallState === "calling" ? "Calling now" : "Call me now"}
+                </button>
+              </div>
+              {phoneCallMessage ? (
+                <p
+                  className={cn(
+                    "mt-3 rounded-2xl border px-4 py-3 text-sm",
+                    phoneCallState === "error"
+                      ? "border-rose-200 bg-rose-50 text-rose-700"
+                      : "border-cyan-200 bg-cyan-50 text-cyan-800",
+                  )}
+                >
+                  {phoneCallMessage}
+                </p>
+              ) : null}
+            </form>
             <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
               {proof.map((item) => (
                 <div key={item.label} className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm">
@@ -404,13 +503,16 @@ export function LiveDemoExperience() {
 
                 <div className="border-t border-slate-200 bg-slate-50 p-5 text-slate-950 lg:border-l lg:border-t-0 sm:p-7">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">After-call intelligence</p>
+                  <p className="mt-2 text-xs leading-5 text-slate-500">
+                    Browser calls and phone callbacks both land here. Transcript and stats appear after the call analysis is ready.
+                  </p>
                   <div className="mt-4 space-y-3">
                     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
                       <p className="text-xs text-slate-500">Detected intent</p>
                       <p className="mt-1 font-semibold">{summary?.detectedIntent ?? "Analysis appears here after the call"}</p>
                     </div>
                     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                      <p className="text-xs text-slate-500">AI summary</p>
+                      <p className="text-xs text-slate-500">AI summary and transcript preview</p>
                       <p className="mt-2 text-sm leading-6 text-slate-600">
                         {summary?.summary ?? summary?.transcriptSnippet ?? "Grace will summarise what the caller wanted, what was captured, and what should happen next."}
                       </p>
@@ -445,12 +547,12 @@ export function LiveDemoExperience() {
             <div>
               <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">Preview the voice range.</h2>
               <p className="mt-4 max-w-xl text-lg leading-8 text-slate-600">
-                These are licensed Retell voice previews. The live browser call uses Grace today; production customers can be tuned around voice, tone, pace, rules, and niche.
+                These are licensed voice previews for planning tone and accent. The live demo uses Grace today; production customers can tune voice, pace, greeting, rules, and niche language.
               </p>
             </div>
             <div className="grid gap-3 md:grid-cols-4">
               {(voices.length ? voices : [
-                { accentId: "nz", label: "New Zealand", voice: null },
+                { accentId: "nz", label: "New Zealand / Kiwi", voice: null },
                 { accentId: "au", label: "Australian", voice: null },
                 { accentId: "us", label: "American", voice: null },
                 { accentId: "uk", label: "British", voice: null },
@@ -474,7 +576,7 @@ export function LiveDemoExperience() {
                     <Volume2 className="h-4 w-4 text-cyan-600" />
                   </div>
                   <p className="mt-2 text-xs leading-5 text-slate-500">
-                    {item.voice ? `${item.voice.name} - ${item.voice.accent}` : "Preview loads from Retell when configured."}
+                    {item.voice ? `${item.voice.accent} preview` : "No verified preview for this accent yet."}
                   </p>
                   {item.voice?.previewUrl ? (
                     <audio

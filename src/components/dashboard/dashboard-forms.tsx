@@ -84,7 +84,8 @@ export function OnboardingForm({ defaults }: { defaults?: ProfileDefaults }) {
             <p className="text-sm font-semibold text-primary">Managed setup intake</p>
             <h2 className="mt-1 text-2xl font-semibold tracking-tight">Build the front office around your real business.</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-              Save as you go. If you are not sure, write that in the field and Aroha Group will confirm it during setup.
+              Save as you go. After you submit, these answers go to Aroha AI so your managed organisation,
+              receptionist rules, calendar, inbox, CRM, and login invite can be created correctly.
             </p>
           </div>
           <div className="min-w-36">
@@ -199,7 +200,7 @@ export function OnboardingForm({ defaults }: { defaults?: ProfileDefaults }) {
             </div>
           </div>
           {done === "draft" ? <p className="mt-4 text-sm text-primary">Draft saved. You can come back and finish anytime.</p> : null}
-          {done === "submitted" ? <p className="mt-4 text-sm text-primary">Submitted. Aroha Group has the full setup brief and will move it into managed setup.</p> : null}
+          {done === "submitted" ? <p className="mt-4 text-sm text-primary">Submitted. Aroha AI now has the setup brief; Aroha Group will review it and send your login when the workspace is ready.</p> : null}
           {error ? <p className="mt-4 text-sm text-destructive">Could not save onboarding. Try again or email support.</p> : null}
         </form>
       </div>
@@ -294,8 +295,10 @@ const onboardingSections: OnboardingSection[] = [
     title: "Booking and calendar",
     description: "Google Calendar setup, staff, services, buffers, and appointment logic.",
     fields: [
-      { key: "calendarConnected", label: "Google Calendar is ready to connect", type: "checkbox", help: "Aroha Group only supports Google Calendar for managed setup right now." },
+      { key: "calendarConnected", label: "Google Calendar is ready to connect", type: "checkbox", help: "Tick this if the calendar you want Aroha to use already exists." },
+      { key: "googleCalendarConnectDesired", label: "Connect Google Calendar for bookings", type: "checkbox", help: "Aroha AI can check availability and place bookings into Google Calendar once you approve the connection." },
       { key: "calendarOwner", label: "Who owns the Google Calendar?", type: "text", placeholder: "Business owner, manager, shared calendar..." },
+      { key: "googleCalendarAccount", label: "Google Calendar email", type: "text", placeholder: "bookings@yourbusiness.com or owner@gmail.com" },
       { key: "bookingRules", label: "Booking rules", type: "textarea", placeholder: "Durations, buffers, travel time, staff skills, booking windows..." },
       { key: "rescheduleCancelRules", label: "Reschedule / cancellation rules", type: "textarea", placeholder: "How much notice, deposits, no-show rules, emergency exceptions..." },
       { key: "confirmationRules", label: "Confirmation and reminder rules", type: "textarea", placeholder: "Email, SMS, day-before reminders, required details..." },
@@ -306,6 +309,8 @@ const onboardingSections: OnboardingSection[] = [
     title: "Email AI",
     description: "How Aroha should help with inbox triage, replies, follow-up, and escalation.",
     fields: [
+      { key: "gmailConnectDesired", label: "Connect Gmail or Google Workspace inboxes", type: "checkbox", help: "Tick this if you want Aroha AI to draft replies, summarise threads, and keep email with the customer timeline." },
+      { key: "googleSignInPreferred", label: "Use Google sign-in where available", type: "checkbox", help: "Useful if the same Google account manages Calendar, Gmail, and Aroha AI access." },
       { key: "emailInboxes", label: "Inboxes to connect", type: "textarea", placeholder: "info@, bookings@, support@..." },
       { key: "emailCategories", label: "Email categories", type: "textarea", placeholder: "Bookings, quotes, complaints, suppliers, urgent, spam..." },
       { key: "emailApprovalRules", label: "Approval rules", type: "textarea", placeholder: "Auto-draft only, send simple replies, hold complaints for review..." },
@@ -362,6 +367,7 @@ const onboardingSections: OnboardingSection[] = [
     description: "Final notes before the managed setup team moves this into Aroha AI.",
     fields: [
       { key: "launchDate", label: "Ideal launch date", type: "text", placeholder: "ASAP, next Monday, after team training..." },
+      { key: "arohaAiLoginRecipient", label: "Who should receive the Aroha AI login invite?", type: "text", placeholder: "Owner, manager, operations inbox..." },
       { key: "successDefinition", label: "What does success look like in 30 days?", type: "textarea", placeholder: "Calls answered, bookings captured, admin time saved, revenue recovered..." },
       { key: "notes", label: "Anything else Aroha Group should know?", type: "textarea", placeholder: "Edge cases, staff preferences, internal policies, examples of good/bad calls..." },
     ],

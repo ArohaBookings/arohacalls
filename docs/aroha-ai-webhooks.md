@@ -6,7 +6,7 @@ Production URLs:
 - Aroha AI -> Aroha Calls: `https://www.arohacalls.com/api/aroha-ai/webhook`
 - Aroha Calls retry worker: `https://www.arohacalls.com/api/aroha-ai/retry`
 
-Retell production orchestration is owned by Aroha AI. Aroha Calls keeps its existing Retell live-demo webhook for browser demo summaries only.
+Retell production orchestration is owned by Aroha AI. Aroha Calls keeps Retell routes for the public live demo, browser-call summaries, and phone callback demos from the Aroha sales number.
 
 ## Security
 
@@ -59,13 +59,35 @@ Plain signed body:
   "created": "2026-06-02T00:00:00.000Z",
   "source": "arohacalls",
   "data": {
+    "sourceProduct": "Aroha Calls",
+    "provisioningIntent": "create_managed_aroha_ai_organisation",
+    "handoffVersion": "2026-07-02",
     "userId": "user-id",
     "customerEmail": "customer@example.com",
     "businessName": "Example Trades",
     "planId": "professional",
+    "selectedPlan": {
+      "id": "professional",
+      "name": "Professional",
+      "unlockedTools": [
+        { "id": "voice", "name": "Voice AI", "path": "/voice" },
+        { "id": "calendar", "name": "Calendar & Bookings", "path": "/calendar" }
+      ]
+    },
     "subscriptionStatus": "active",
     "stripeSubscriptionId": "sub_...",
-    "onboardingStatus": "received"
+    "onboardingStatus": "received",
+    "requestedIntegrations": {
+      "googleCalendar": true,
+      "googleCalendarAccount": "bookings@example.com",
+      "gmail": true,
+      "gmailInboxes": "info@example.com",
+      "googleSignInPreferred": true
+    },
+    "managedSetupWorkflow": {
+      "customerPath": "signup -> Stripe checkout -> dashboard onboarding -> Aroha AI org provisioning -> login invite",
+      "loginDelivery": "When the managed Aroha AI organisation is ready, send the customer a secure invite or password setup email and return arohaAiOrgId/loginUrl via the inbound webhook."
+    }
   }
 }
 ```

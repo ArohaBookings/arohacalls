@@ -2,9 +2,9 @@ export const siteConfig = {
   name: "Aroha Calls",
   groupName: "Aroha Group",
   shortName: "Aroha",
-  tagline: "AI receptionist + Aurora business assistant",
+  tagline: "Managed AI receptionist powered by Aroha AI",
   description:
-    "The world's most loved AI receptionist. Aroha answers every call 24/7 with perfect memory. Aurora chats with your team and runs your business. Built for salons, clinics, tradies, real estate, gyms and automotive.",
+    "Aroha Calls is the managed AI receptionist powered by Aroha AI. It answers calls 24/7, books through Google Calendar, drafts Gmail and email replies, remembers customers in CRM, sends SMS follow-up, and gives teams Aurora insights.",
   url: "https://www.arohacalls.com",
   ogImage: "/aroha-calls-wordmark.jpeg",
   email: "support@arohacalls.com",

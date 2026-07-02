@@ -15,11 +15,11 @@ import { Button } from "@/components/ui/button";
 
 const nodes = [
   { label: "Call answered", detail: "Grace qualifies the caller", icon: PhoneIncoming, tone: "primary" },
-  { label: "Booking rules", detail: "Google Calendar handoff", icon: CalendarCheck, tone: "secondary" },
+  { label: "Google Calendar", detail: "Availability checked safely", icon: CalendarCheck, tone: "secondary" },
   { label: "CRM memory", detail: "Returning callers remembered", icon: Users, tone: "primary" },
-  { label: "Email AI", detail: "Quote replies drafted", icon: MailCheck, tone: "accent" },
-  { label: "Aurora", detail: "Ask the business brain", icon: Bot, tone: "secondary" },
-  { label: "Billing", detail: "Stripe checkout + portal", icon: CreditCard, tone: "primary" },
+  { label: "Gmail + Email AI", detail: "Replies drafted for review", icon: MailCheck, tone: "accent" },
+  { label: "Aurora", detail: "Ask what needs attention", icon: Bot, tone: "secondary" },
+  { label: "Billing", detail: "Plan, invoice, and portal ready", icon: CreditCard, tone: "primary" },
 ] as const;
 
 const trust = ["Managed setup", "24/7 live demo", "7-day guarantee", "NZD + USD plans"];
@@ -43,8 +43,9 @@ export function FrontOfficeOS() {
               Every enquiry becomes a handled next step.
             </h2>
             <p className="mt-5 max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
-              Aroha Calls is managed for you, but it is not just a call bot. It is voice, bookings,
-              customer memory, email follow-up, CRM notes, Aurora assistance, and billing flow working together.
+              Aroha Calls is managed for you, but it is not just a call bot. It connects voice, Google
+              Calendar booking, Gmail and Email AI, customer memory, SMS follow-up, quote notes, Aurora
+              assistance, and Stripe billing into one Aroha AI workspace.
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {trust.map((item) => (

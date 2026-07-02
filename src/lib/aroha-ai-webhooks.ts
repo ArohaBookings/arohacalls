@@ -2,6 +2,8 @@ import crypto from "node:crypto";
 import { and, eq, inArray, isNull, lte, or } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { arohaAiWebhookEvents, customerProfiles, subscriptions, users } from "@/lib/db/schema";
+import { toolsForPlan } from "@/lib/aroha-ai-tools";
+import { getPlan, type Plan } from "@/lib/plans";
 import { siteConfig } from "@/lib/site-config";
 
 type WebhookPayload = Record<string, unknown>;
@@ -362,7 +364,20 @@ export async function buildManagedCustomerPayload(userId: string) {
     db.select().from(customerProfiles).where(eq(customerProfiles.userId, userId)).limit(1),
     db.select().from(subscriptions).where(eq(subscriptions.userId, userId)).limit(1),
   ]);
+  const plan = subscription?.planId ? getPlan(subscription.planId as Plan["id"]) : undefined;
+  const onboardingData = (profile?.onboardingData ?? {}) as Record<string, unknown>;
+  const unlockedTools = toolsForPlan(plan?.id).map((tool) => ({
+    id: tool.id,
+    name: tool.name,
+    path: tool.arohaPath,
+    badge: tool.badge,
+  }));
+
   return {
+    sourceProduct: "Aroha Calls",
+    sourceUrl: siteConfig.url,
+    handoffVersion: "2026-07-02",
+    provisioningIntent: "create_managed_aroha_ai_organisation",
     userId,
     customerEmail: user?.email,
     customerName: user?.name,
@@ -372,13 +387,43 @@ export async function buildManagedCustomerPayload(userId: string) {
     phoneNumber: profile?.phoneNumber,
     website: profile?.website,
     onboardingStatus: profile?.onboardingStatus,
-    onboardingData: profile?.onboardingData,
+    setupStatus: profile?.setupStatus,
+    onboardingData,
+    requestedIntegrations: {
+      googleCalendar: Boolean(profile?.calendarConnected || onboardingData.calendarConnected || onboardingData.googleCalendarConnectDesired),
+      googleCalendarAccount: onboardingData.googleCalendarAccount,
+      gmail: Boolean(onboardingData.gmailConnectDesired || onboardingData.emailInboxes),
+      gmailInboxes: onboardingData.emailInboxes,
+      googleSignInPreferred: Boolean(onboardingData.googleSignInPreferred),
+      smsOrWhatsApp: Boolean(onboardingData.messageChannels || onboardingData.missedCallText),
+    },
     planId: subscription?.planId,
+    selectedPlan: plan
+      ? {
+          id: plan.id,
+          name: plan.name,
+          slug: plan.slug,
+          tagline: plan.tagline,
+          priceNZD: plan.priceNZD,
+          priceUSD: plan.priceUSD,
+          bestFor: plan.bestFor,
+          highlights: plan.highlights,
+          capabilities: plan.capabilities,
+          unlockedTools,
+        }
+      : null,
     subscriptionStatus: subscription?.status,
     stripeSubscriptionId: subscription?.stripeSubscriptionId,
     stripePriceId: subscription?.stripePriceId,
     currency: subscription?.currency,
     interval: subscription?.interval,
     currentPeriodEnd: subscription?.currentPeriodEnd?.toISOString(),
+    managedSetupWorkflow: {
+      customerPath: "signup -> Stripe checkout -> dashboard onboarding -> Aroha AI org provisioning -> login invite",
+      loginDelivery:
+        "When the managed Aroha AI organisation is ready, send the customer a secure invite or password setup email and return arohaAiOrgId/loginUrl via the inbound webhook.",
+      demoNumber: siteConfig.phones.sales.e164,
+      supportEmail: siteConfig.email,
+    },
   };
 }
